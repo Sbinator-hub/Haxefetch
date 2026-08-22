@@ -34,6 +34,9 @@ Github releases with tarball
 For Arch Linux users
 - I made [official Arch repo](https://github.com/Sbinator-hub/haxefetch-arch). Read more by clicking on "official Arch repo" text
 
+For Fedora Linux users
+- I made [official Fedora copr repo](https://github.com/Sbinator-hub/haxefetch-fedora). Read more by clicking on "official Fedora copr repo" text
+
 For Gentoo Linux users
 - I made [official overlay](https://github.com/Sbinator-hub/haxefetch-overlay) with included ebuilds. Read more by clicking on "official overlay" text
 
