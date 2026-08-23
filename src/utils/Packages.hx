@@ -37,16 +37,7 @@ class Packages {
             // RPM based system (rpm)
             if (FileSystem.exists(root + "/var/lib/rpm")) {
                 try {
-                    var rpm = 0;
-                    var sqlite = root + "/var/lib/rpm/rpmdb.sqlite";
-
-                    if (FileSystem.exists(sqlite)) {
-                        var entries = FileSystem.readDirectory(root + "/var/lib/rpm");
-                        rpm = entries.length;
-                    } else {
-                        var entry = FileSystem.readDirectory(root + "/var/lib/rpm").filter(e -> StringTools.startsWith(e, "Name") || StringTools.startsWith(e, "Packages"));
-                        rpm = entry.length;
-                    }
+                    var rpm = Haxefetch.executeCount("rpm", ["-qa", "--qf", ".\n" ]);
 
                     if (rpm > 0) {
                         var count = '${rpm}';
@@ -202,7 +193,7 @@ class Packages {
                             counts.push(entry);
                         }
                     }
-                }
+                } catch (e:Dynamic) {}
             }
 
             // Paldo Linux (upkg)
@@ -215,7 +206,7 @@ class Packages {
                             counts.push(entry);
                         }
                     }
-                }
+                } catch (e:Dynamic) {}
             }
 
             // PiSi Linux (pisi)
@@ -228,7 +219,7 @@ class Packages {
                             counts.push(entry);
                         }
                     } 
-                }
+                } catch (e:Dynamic) {}
             }
 
             // Fronttier Linux (forge)
@@ -241,7 +232,7 @@ class Packages {
                             counts.push(entry);
                         }
                     } 
-                }
+                } catch (e:Dynamic) {}
             }
 
             // AerynOS / Serpent OS (moss)
@@ -276,7 +267,7 @@ class Packages {
                         var entry = Configuration.packageManager ? '$count (snaps)' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
-                }
+                } catch (e:Dynamic) {}
             }
         }
 
