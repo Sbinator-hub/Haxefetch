@@ -236,23 +236,16 @@ class Packages {
             }
 
             // AerynOS / Serpent OS (moss)
-            if (FileSystem.exists(root + "/.moss/db/installed")) {
+            var database = root + "/.moss/db/state";
+            if (FileSystem.exists(database)) {
                 try {
-                    var count = FileSystem.readDirectory(root + "/.moss/db/installed").length;
+                    var query = "SELECT COUNT(*) FROM state_selections WHERE state_id = (SELECT MAX(id) FROM state);";
+                    var raw = Haxefetch.runCmd("sqlite3", [database, query]);
+                    var count = Std.parseInt(StringTools.trim(raw));
+
                     if (count > 0) {
                         var entry = Configuration.packageManager ? '$count (moss)' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
-                    }
-                } catch (e:Dynamic) {}
-            } else if (FileSystem.exists(root + "/.moss/root")) {
-                try {
-                    var mossRoot = root + "/.moss/root";
-                    if (FileSystem.exists(mossRoot) && FileSystem.isDirectory(mossRoot)) {
-                        var count = FileSystem.readDirectory(mossRoot).length;
-                        if (count > 0) {
-                            var entry = Configuration.packageManager ? '$count (moss)' : '${count}';
-                            if (!counts.contains(entry)) counts.push(entry);
-                        }
                     }
                 } catch (e:Dynamic) {}
             }

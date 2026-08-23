@@ -73,6 +73,7 @@ class Logo {
             case _ if (low.indexOf("endeavouros") != -1): return "endeavour";
             case _ if (low.indexOf("fedora") != -1): return "fedora";
             case _ if (low.indexOf("fronttier") != -1): return "fronttier";
+            case _ if (low.indexOf("garuda") != -1): return "garuda";
             case _ if (low.indexOf("gentoo") != -1): return "gentoo";
             case _ if (low.indexOf("kali") != -1): return "kali";
             case _ if (low.indexOf("KDE Neon") != -1 || low.indexOf("neon") != -1): return "neon";
@@ -113,6 +114,7 @@ class Logo {
         if (s.indexOf("endeavour") != -1) return { primary: Colors.fg(99), secondary: Colors.fg(211), third: Colors.fg(141) };
         if (s.indexOf("fedora") != -1) return { primary: Colors.fg(33), secondary: Colors.WHITE, third: Colors.fg(39) };
         if (s.indexOf("fronttier") != -1) return { primary: Colors.fg(51), secondary: Colors.WHITE, third: Colors.WHITE };
+        if (s.indexOf("garuda") != -1) return { primary: Colors.RED, secondary: Colors.RED, third: Colors.RED };
         if (s.indexOf("gentoo") != -1) return { primary: Colors.fg(141), secondary: Colors.fg(61), third: Colors.WHITE };
         if (s.indexOf("kubuntu") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("lubuntu") != -1) return { primary: Colors.fg(26), secondary: Colors.WHITE, third: Colors.WHITE };
@@ -124,6 +126,7 @@ class Logo {
         if (s.indexOf("nixos") != -1) return { primary: Colors.fg(26), secondary: Colors.COLOR_63, third: Colors.fg(25) };
         if (s.indexOf("parabola") != -1) return { primary: Colors.MAGENTA, secondary: Colors.MAGENTA, third: Colors.MAGENTA };
         if (s.indexOf("parch") != -1) return { primary: Colors.COLOR_55, secondary: Colors.COLOR_55, third: Colors.COLOR_55 };
+        if (s.indexOf("pika") != -1) return { primary: Colors.YELLOW, secondary: Colors.YELLOW, third: Colors.YELLOW };
         if (s.indexOf("pisi") != -1) return { primary: Colors.YELLOW, secondary: Colors.YELLOW, third: Colors.YELLOW };
         if (s.indexOf("pop") != -1) return { primary: Colors.BRIGHT_CYAN, secondary: Colors.WHITE, third: Colors.CYAN };
         if (s.indexOf("slackware") != -1) return { primary: Colors.fg(26), secondary: Colors.WHITE, third: Colors.fg(26) };

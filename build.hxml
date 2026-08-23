@@ -27,6 +27,7 @@
 --resource src/resources/logos/endeavouros.txt@endeavour
 --resource src/resources/logos/fedora.txt@fedora
 --resource src/resources/logos/fronttier.txt@fronttier
+--resource src/resources/logos/garuda.txt@garuda
 --resource src/resources/logos/gentoo.txt@gentoo
 --resource src/resources/logos/kali.txt@kail
 --resource src/resources/logos/kdeneon.txt@neon
@@ -43,7 +44,7 @@
 --resource src/resources/logos/opensuse.txt@suse
 --resource src/resources/logos/parabola.txt@parabola
 --resource src/resources/logos/parch.txt@parch
---resource src/resources/logos/pikaos.txt@pikaos
+--resource src/resources/logos/pikaos.txt@pika
 --resource src/resources/logos/pisi.txt@pisi
 --resource src/resources/logos/pop.txt@pop
 --resource src/resources/logos/ubuntu.txt@ubuntu
@@ -58,6 +59,7 @@
 --resource src/resources/mini_logos/debian.txt@debian_small
 --resource src/resources/mini_logos/endeavouros.txt@endeavour_small
 --resource src/resources/mini_logos/fedora.txt@fedora_small
+--resource src/resources/mini_logos/garuda.txt@garuda_small
 --resource src/resources/mini_logos/gentoo.txt@gentoo_small
 --resource src/resources/mini_logos/kali.txt@kail_small
 --resource src/resources/mini_logos/manjaro.txt@manjaro_small
