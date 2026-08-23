@@ -152,6 +152,42 @@ class SystemUtils {
         return Sys.systemName();
     }
 
+    public static function fetchShell():String {
+        try {
+            var stat = File.getContent("/proc/self/stat");
+            var paren = stat.lastIndexOf(")");
+
+            if (paren != -1) {
+                var rest = stat.substr(paren + 2);
+                var parts = rest.split(" ");
+                var ppid = parts[1];
+
+                var command = '/proc/$ppid/cmdline';
+                if (FileSystem.exists(command)) {
+                    var raw = File.getContent(command);
+                    var shell = raw.split(String.fromCharCode(0))[0];
+
+                    if (shell.length > 0) {
+                        var path = shell.split("/");
+                        var binary = path[path.length - 1];
+                        if (StringTools.startsWith(binary, "-")) {
+                            binary = binary.substr(1);
+                        }
+                        return binary;
+                    }
+                }
+            }
+        } catch (e:Dynamic) {}
+
+        var environment = Sys.getEnv("SHELL");
+        if (environment !=  null) {
+            var part = environment.split("/");
+            return part[part.length - 1];
+        }
+
+        return "Unknown";
+    }
+
     public static function fetchUptime():String {
         try {
             if (FileSystem.exists("/proc/uptime")) {

@@ -64,6 +64,9 @@ class Configuration {
     public static var packageString:String = "Packages";
     public static var packageManager:Bool = true;
 
+    public static var showShell:Bool = true;
+    public static var shellString:String = "Shell";
+
     public static var showUptime:Bool = true;
     public static var uptimeString:String = "Uptime";
 
@@ -193,6 +196,9 @@ class Configuration {
             case "package": packageString = parseString(value);
             case "package_manager": packageManager = parseBool(value);
 
+            case "show_shell": showShell = parseBool(value);
+            case "shell": shellString = parseString(value);
+
             case "show_uptime": showUptime = parseBool(value);
             case "uptime": uptimeString = parseString(value);
 
@@ -230,7 +236,7 @@ class Configuration {
 
             var defaults =
                 "# Haxefetch configuration\n\n" +
-                "modules=hostname, host, os, kernel, de, wm, ram, swap, cpu, gpu, disk, packages, uptime, birthday, birth, colors\n" +
+                "modules=hostname, host, os, kernel, de, wm, ram, swap, cpu, gpu, disk, packages, shell, uptime, birthday, birth, colors\n" +
                 "separator=':'\n\n" +
 
                 "logo=''\n" +
@@ -281,6 +287,9 @@ class Configuration {
                 "show_package=true\n" +
                 "package='Packages'\n" +
                 "package_manager=true\n\n" +
+
+                "show_shell=true\n" +
+                "shell='Shell'\n\n" +
 
                 "show_uptime=true\n" +
                 "uptime='Uptime'\n\n" +
