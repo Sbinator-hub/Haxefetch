@@ -1,0 +1,16 @@
+$1                     ..
+$1  .....         ..OSSAAAAAAA..
+$1 .KKKKSS.     .SSAAAAAAAAAAA.
+$1.KKKKKSO.    .SAAAAAAAAAA...
+$1KKKKKKS.   .OAAAAAAAA.
+$1KKKKKKS.  .OAAAAAA.
+$1KKKKKKS. .SSAA..
+$1.KKKKKS..OAAAAAAAAAAAA........
+$1 DKKKKO.=AA=========A===AASSSO..
+$1  AKKKS.==========AASSSSAAAAAASS.
+$1  .=KKO..========ASS.....SSSSASSSS.
+$1    .KK.       .ASS..O.. =SSSSAOSS:
+$1     .OK.      .ASSSSSSSO...=A.SSA.
+$1       .K      ..SSSASSSS.. ..SSA.
+$1                 .SSS.AAKAKSSKA.
+$1                    .SSS....S..

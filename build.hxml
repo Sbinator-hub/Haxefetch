@@ -20,16 +20,19 @@
 --resource src/resources/logos/aerynos.txt@aeryn
 --resource src/resources/logos/alpine.txt@alpine
 --resource src/resources/logos/arch.txt@arch
+--resource src/resources/logos/arco.txt@arco
 --resource src/resources/logos/artix.txt@artix
 --resource src/resources/logos/bazzite.txt@bazzite
 --resource src/resources/logos/cachyos.txt@cachy
 --resource src/resources/logos/debian.txt@debian
+--resource src/resources/logos/devuan.txt@devuan
 --resource src/resources/logos/endeavouros.txt@endeavour
 --resource src/resources/logos/fedora.txt@fedora
 --resource src/resources/logos/fronttier.txt@fronttier
 --resource src/resources/logos/garuda.txt@garuda
 --resource src/resources/logos/gentoo.txt@gentoo
 --resource src/resources/logos/kali.txt@kail
+--resource src/resources/logos/kaos.txt@kaos
 --resource src/resources/logos/kdeneon.txt@neon
 --resource src/resources/logos/kiss.txt@kiss
 --resource src/resources/logos/kubuntu.txt@kubuntu
@@ -47,6 +50,7 @@
 --resource src/resources/logos/pikaos.txt@pika
 --resource src/resources/logos/pisi.txt@pisi
 --resource src/resources/logos/pop.txt@pop
+--resource src/resources/logos/prismlinux.txt@prism
 --resource src/resources/logos/ubuntu.txt@ubuntu
 --resource src/resources/logos/void.txt@void
 --resource src/resources/logos/xubuntu.txt@xubuntu
@@ -54,9 +58,11 @@
 
 --resource src/resources/mini_logos/alpine.txt@apline_small
 --resource src/resources/mini_logos/arch.txt@arch_small
+--resource src/resources/mini_logos/arco.txt@arco_small
 --resource src/resources/mini_logos/artix.txt@artix_small
 --resource src/resources/mini_logos/cachyos.txt@cachy_small
 --resource src/resources/mini_logos/debian.txt@debian_small
+--resource src/resources/mini_logos/devuan.txt@devuan_small
 --resource src/resources/mini_logos/endeavouros.txt@endeavour_small
 --resource src/resources/mini_logos/fedora.txt@fedora_small
 --resource src/resources/mini_logos/garuda.txt@garuda_small
@@ -68,6 +74,7 @@
 --resource src/resources/mini_logos/nixos.txt@nix_small
 --resource src/resources/mini_logos/parabola.txt@parabola_small
 --resource src/resources/mini_logos/pop.txt@pop_small
+--resource src/resources/mini_logos/prismlinux.txt@prism_small
 --resource src/resources/mini_logos/slackware.txt@slack_small
 --resource src/resources/mini_logos/ubuntu.txt@ubuntu_small
 --resource src/resources/mini_logos/void.txt@void_small

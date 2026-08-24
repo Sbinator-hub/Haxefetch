@@ -6,7 +6,6 @@ class Haxefetch {
     static function main():Void {
         Commands.parse(Sys.args());
         Configuration.loadConfig();
-        var memory = Memory.memoryStats();
 
         var user = getEnvironment("USER", getEnvironment("USERNAME", "user"));
         var hostname = SystemUtils.fetchHostname();
@@ -18,7 +17,8 @@ class Haxefetch {
         var kernel = SystemUtils.fetchKernel();
         var desktop = XdgSession.fetchDestkop();
         var session = XdgSession.fetchSession();
-        var protocol = XdgSession.fetchProtocol();        
+        var protocol = XdgSession.fetchProtocol();
+        var memory = Memory.memoryStats();        
         var ram = memory.ram;
         var swap = memory.swap;
         var cpu = CPUUtility.fetchCPU();
@@ -35,10 +35,21 @@ class Haxefetch {
         var target = (Configuration.logo != null && Configuration.logo != "") ? Configuration.logo : distro;
         var object = Logo.fetchColor(target);
         var mainColor = (object != null && object.primary != null) ? object.primary : Colors.RESET;
-        var customColor = Colors.getColors(Configuration.logoColor);
-        var logoColor = (customColor != "" && customColor != null) ? customColor : mainColor;
 
-        var logo = Logo.fetchLogo(distro, Configuration.logoSize, Configuration.logo, logoColor);
+        var rawString:String = Configuration.logoColor;
+        var rawColor:Array<String> = (rawString != null) ? rawString.split(",") : [];
+
+        var customColor = (rawColor.length > 0 && StringTools.trim(rawColor[0]) != "") ? StringTools.trim(rawColor[0]) : "";
+        var customColor1 = (rawColor.length > 1 && StringTools.trim(rawColor[1]) != "") ? StringTools.trim(rawColor[1]) : "";
+        var customColor2 = (rawColor.length > 2 && StringTools.trim(rawColor[2]) != "") ? StringTools.trim(rawColor[2]) : "";
+
+        var parseColor = (customColor != "") ? Colors.getColors(customColor) : "";
+        var parseColor1 = (customColor1 != "") ? Colors.getColors(customColor1): "";
+        var parseColor2 = (customColor1 != "") ? Colors.getColors(customColor2): "";
+
+        var logoColor = (parseColor != "" && parseColor != null) ? parseColor : mainColor;
+
+        var logo = Logo.fetchLogo(distro, Configuration.logoSize, Configuration.logo, logoColor, parseColor1, parseColor2);
 
         var modules:Map<String, String> = [
             "hostname" => Configuration.showHostname ? Colors.colorize(user, Colors.RED) + "@" + Colors.colorize(hostname, Colors.RED) : null,
