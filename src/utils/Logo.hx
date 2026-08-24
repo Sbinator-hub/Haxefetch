@@ -104,7 +104,7 @@ class Logo {
     public static function fetchColor(low:String):{primary:String, secondary:String, third:String} {
         var s = low != null ? low.toLowerCase() : "";
 
-        if (s.indexOf("aerynos") != -1) return { primary: Colors.GREEN, secondary: Colors.YELLOW, third: Colors.BLUE };
+        if (s.indexOf("aerynos") != -1) return { primary: Colors.fg(23), secondary: Colors.fg(136), third: Colors.fg(23) };
         if (s.indexOf("alpine") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.BLUE };
         if (s.indexOf("arch") != -1) return { primary: Colors.BLUE, secondary: Colors.BLUE, third: Colors.WHITE };
         if (s.indexOf("artix") != -1) return { primary: Colors.CYAN, secondary: Colors.CYAN, third: Colors.CYAN };

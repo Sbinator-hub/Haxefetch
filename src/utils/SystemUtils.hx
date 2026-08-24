@@ -216,22 +216,16 @@ class SystemUtils {
     public static function fetchBirthday():String {
         try {
             var status = FileSystem.stat("/");
-            var birthdaySeconds = status.ctime.getTime() / 1000.0;
-            var birthdayNow = Date.now().getTime() / 1000.0;
-            var birthdayDays = Math.floor((birthdayNow - birthdaySeconds) / 86400.0);
+            var birth:Float = 0;
 
-            if (birthdayDays >= 0) return '${birthdayDays}d';
-        } catch (e:Dynamic) {}
+            if (status.ctime != null) birth = status.ctime.getTime() / 1000.0;
 
-        try {
-            var birthdayStat = Haxefetch.runCmd("stat", ["-c", "%W", "/"]);
-            var birth = Std.parseFloat(birthdayStat);
-            if (!Math.isNaN(birth) && birth > 0) {
-                var now = Date.now().getTime() / 1000.0;
-                var days = Math.floor((now - birth ) / 86400.0);
-                return '${days}d';
-            }        
+            var seconds = Date.now().getTime() / 1000.0;
+            var days = Math.floor((seconds - birth) / 86400.0);
+
+            if (days >= 0 && birth > 0) return '${days}d';
         } catch (e:Dynamic) {}
+        
         return "N/A";
     }
 
