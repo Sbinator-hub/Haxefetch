@@ -1,5 +1,7 @@
 package utils;
 
+import sys.io.Process;
+import haxe.macro.Expr;
 import sys.io.FileSeek;
 import sys.FileSystem;
 import sys.io.File;
@@ -244,5 +246,23 @@ class SystemUtils {
             }
         } catch (e:Dynamic) {}
         return "N/A";
+    }
+
+    public static macro function fetchGithubCommit():Expr {
+        var commit = "Release";
+        try {
+            var process = new Process("git", ["rev-parse", "--short", "HEAD"]);
+            if (process.exitCode() == 0) {
+                var output = process.stdout.readAll().toString();
+                commit = StringTools.trim(output);
+            }
+            process.close();
+        } catch (e:Dynamic) {
+            commit = "Release";
+        }
+
+        if (commit == "") commit = "Release";
+
+        return macro $v{commit};
     }
 }

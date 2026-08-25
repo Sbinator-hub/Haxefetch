@@ -4,8 +4,10 @@ import haxe.macro.Compiler;
 
 class Commands {
     public static final HAXEFETCH_VERSION:String = "1.0.0";
+    public static var commit:String = "";
 
     public static function parse(argument:Array<String>):Void {
+        if (commit == "") commit = SystemUtils.fetchGithubCommit();
         for (args in argument) {
             switch (args) {
                 case "-h" | "--help":
@@ -13,7 +15,7 @@ class Commands {
                     Sys.exit(0);
                 
                 case "-v" | "--version":
-                    Sys.println('Haxefetch ${HAXEFETCH_VERSION} (Built on Haxe ${Compiler.getDefine("haxe")}) [Commit ${Compiler.getDefine("git_hash")}]');
+                    Sys.println('Haxefetch ${HAXEFETCH_VERSION} (Built on Haxe ${Compiler.getDefine("haxe")}) [Commit ${commit}]');
                     Sys.exit(0);
 
                 case "-c" | "--config":
