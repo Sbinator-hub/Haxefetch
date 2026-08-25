@@ -142,6 +142,7 @@ class Logo {
         if (s.indexOf("slackware") != -1) return { primary: Colors.fg(26), secondary: Colors.WHITE, third: Colors.fg(26) };
         if (s.indexOf("suse") != -1) return { primary: Colors.fg(28), secondary: Colors.fg(28), third: Colors.WHITE };
         if (s.indexOf("steamos") != -1) return { primary: Colors.fg(27), secondary: Colors.WHITE, third: Colors.WHITE };
+        if (s.indexOf("solus") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("void") != -1) return { primary: Colors.COLOR_22, secondary: Colors.WHITE, third: Colors.COLOR_22 };
 
         return { primary: Colors.WHITE, secondary: Colors.WHITE, third: Colors.WHITE };

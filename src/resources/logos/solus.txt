@@ -1,20 +1,20 @@
 $2            -```````````
-          `-+/------------.`
-       .---:mNo---------------.
-     .-----yMMMy:---------------.
-   `------oMMMMMm/----------------`
-  .------/MMMMMMMN+----------------.
- .------/NMMMMMMMMm-+/--------------.
-`------/NMMMMMMMMMN-:mh/-------------`
-.-----/NMMMMMMMMMMM:-+MMd//oso/:-----.
------/NMMMMMMMMMMMM+--mMMMh::smMmyo:--
-----+NMMMMMMMMMMMMMo--yMMMMNo-:yMMMMd/.
-.--oMMMMMMMMMMMMMMMy--yMMMMMMh:-yMMMy-`
-`-sMMMMMMMMMMMMMMMMh--dMMMMMMMd:/Ny+y.
-`-/+osyhhdmmNNMMMMMm-/MMMMMMMmh+/ohm+
+          `-$2+/------------.`
+       .---:$2mNo---------------.
+     .-----$2yMMMy:---------------.
+   `------$2oMMMMMm/----------------`
+  .------$2/MMMMMMMN+----------------.
+ .------$2/NMMMMMMMMm-+/--------------.
+`------$2/NMMMMMMMMMN-:mh/-------------`
+.-----$2/NMMMMMMMMMMM:-+MMd//oso/:-----.
+-----$2/NMMMMMMMMMMMM+--mMMMh::smMmyo:--
+----$2+NMMMMMMMMMMMMMo--yMMMMNo-:yMMMMd/.
+.--$2oMMMMMMMMMMMMMMMy--yMMMMMMh:-yMMMy-`
+`-$2sMMMMMMMMMMMMMMMMh--dMMMMMMMd:/Ny+y.
+`$2-/+osyhhdmmNNMMMMMm-/MMMMMMMmh+/ohm+
   .------------:://+-/++++++$1oshddys:
-   -hhhhyyyyyyyyyyyhhhhddddhysssso-
-    `:ossssssyysssssssssssssssso:`
-      `:+ssssssssssssssssssss+-
-         `-/+ssssssssssso+/-`
-              `.-----..`
+   $1-hhhhyyyyyyyyyyyhhhhddddhysssso-
+    $1`:ossssssyysssssssssssssssso:`
+      $1`:+ssssssssssssssssssss+-
+         $1`-/+ssssssssssso+/-`
+              $1`.-----..`
