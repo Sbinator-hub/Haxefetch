@@ -44,6 +44,6 @@ class Commands {
 
     private static function fetchInstructions():Void {
         Sys.println('In order to customise this:\n');
-        Sys.println('Generate configuration with "haxefetch --config | -c" (it is located into /home/USER/.config/haxefetch directory).\nYou can see there is some options to customise this fetch program, so enjoy :)');
+        Sys.println('Generate configuration with "haxefetch --config | -c" (it is located into /home/${Sys.getEnv("USER")}/.config/haxefetch directory).\nYou can see there is some options to customise this fetch program, so enjoy :)');
     }
 }
