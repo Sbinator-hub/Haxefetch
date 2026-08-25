@@ -16,7 +16,7 @@ class Packages {
         if (user == null) user == "";
 
         for (root in bedrockRoot) {
-            // Debian/GNU Linux based system (dpkg)
+            // Debian/GNU Linux based system (dpkg) - Debian Organization
             if (FileSystem.exists(root + "/var/lib/dpkg/status")) {
                 try {
                     var content = File.getContent(root + "/var/lib/dpkg/status");
@@ -34,7 +34,7 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
-            // RPM based system (rpm)
+            // RPM based system (rpm) - Red Hat team
             if (FileSystem.exists(root + "/var/lib/rpm")) {
                 try {
                     var rpm = Haxefetch.executeCount("rpm", ["-qa", "--qf", ".\n" ]);
@@ -47,7 +47,7 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
-            // Arch Linux based system (pacman)
+            // Arch Linux based system (pacman) - Arch Linux devs
             if (FileSystem.exists(root + "/var/lib/pacman/local")) {
                 try {
                     var entries = FileSystem.readDirectory(root + "/var/lib/pacman/local");
@@ -60,7 +60,7 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
-            // Void Linux based system (xbps)
+            // Void Linux based system (xbps) - Void Linux devs
             if (FileSystem.exists(root + "/var/db/xbps")) {
                 try {
                     var files = FileSystem.readDirectory(root + "/var/db/xbps");
@@ -89,7 +89,7 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
-            // Alpine Linux based system (apk)
+            // Alpine Linux based system (apk) - Alpine Linux Development Team
             if (FileSystem.exists(root + "/lib/apk/db/installed")) {
                 try {
                     var content = File.getContent(root + "/lib/apk/db/installed");
@@ -106,7 +106,7 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
-            // NixOS based system (nix)
+            // NixOS based system (nix) - Nix Team
             if (FileSystem.exists(root + "/nix/store") || FileSystem.exists(home + "/.nix-profile")) {
                 try {
                     if (FileSystem.exists(root + "/nix/store")) {
@@ -119,20 +119,18 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
-            // Slackware Linux based system (slackpkg)
+            // Slackware Linux based system (slackpkg) - Patrick Volkerding
             if (FileSystem.exists(root + "/var/log/packages")) {
                 try {
                     var total = FileSystem.readDirectory(root + "/var/log/packages").length;
                     if (total > 0) {
                         var entry = Configuration.packageManager ? '$total (pkgtools)' : '${total}';
-                        if (!counts.contains(entry)) {
-                            counts.push(entry);
-                        }
+                        if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
             }
 
-            // GNU Guix based system (guix)
+            // GNU Guix based system (guix) - Efraim Flashner, Mathieu Othacehe, Maxim Cournoyer and Tobias Geerinckx-Rice
             var manifest = home + "/.guix-profile/manifest";
             if (!FileSystem.exists(manifest) && user != "") manifest = root + "/var/guix/profiles/per-user/" + user + "/current-profile/manifest";
 
@@ -152,7 +150,7 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
-            // Gentoo Linux based system (emerge/portage)
+            // Gentoo Linux based system (emerge/portage) - Gentoo Linux devs
             if (FileSystem.exists(root + "/var/db/pkg")) {
                 try {
                     var total = 0;
@@ -170,72 +168,18 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
-            // Solus based system (eopkg)
+            // Solus based system (eopkg) - David Harder, Joey Riches, Reilly Brogan, Tracey Clark, Troy Harvey
             if (FileSystem.exists(root + "/var/lib/eopkg/package")) {
                 try {
                     var count = FileSystem.readDirectory(root + "/var/lib/eopkg/package").length;
                     if (count > 0) {
                         var entry = Configuration.packageManager ? '$count (eopkg)' : '${count}';
-                        if (!counts.contains(entry)) {
-                            counts.push(entry);
-                        }
+                        if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
             }
 
-            // KISS Linux (kiss)
-            if (FileSystem.exists(root + "/var/db/kiss/installed")) {
-                try {
-                    var count = FileSystem.readDirectory(root + "/var/db/kiss/installed").length;
-                    if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (kiss)' : '${count}';
-                        if (!counts.contains(entry)) {
-                            counts.push(entry);
-                        }
-                    }
-                } catch (e:Dynamic) {}
-            }
-
-            // Paldo Linux (upkg)
-            if (FileSystem.exists(root + "/var/lib/upkg/db")) {
-                try {
-                    var count = FileSystem.readDirectory(root + "/var/lib/upkg/db").length;
-                    if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (upkg)' : '${count}';
-                        if (!counts.contains(entry)) {
-                            counts.push(entry);
-                        }
-                    }
-                } catch (e:Dynamic) {}
-            }
-
-            // PiSi Linux (pisi)
-            if (FileSystem.exists(root + "/var/lib/pisi/package")) {
-                try {
-                    var count = FileSystem.readDirectory(root + "/var/lib/pisi/package").length;
-                    if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (pisi)' : '${count}';
-                        if (!counts.contains(entry)) {
-                            counts.push(entry);
-                        }
-                    } 
-                } catch (e:Dynamic) {}
-            }
-
-            // Fronttier Linux (forge)
-            if (FileSystem.exists(root + "/var/lib/forge/local")) {
-                try {
-                    var count = FileSystem.readDirectory(root + "/var/lib/forge/local").length;
-                    if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (forge)' : '${count}';
-                        if (!counts.contains(entry)) {
-                            counts.push(entry);
-                        }
-                    } 
-                } catch (e:Dynamic) {}
-            }
-
-            // AerynOS / Serpent OS (moss)
+            // AerynOS / Serpent OS (moss) - AerynOS/Serpent OS devs
             var database = root + "/.moss/db/state";
             if (FileSystem.exists(database)) {
                 try {
@@ -250,7 +194,73 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
-            // Snaps
+            // KISS Linux (kiss) - Dylan Araps
+            if (FileSystem.exists(root + "/var/db/kiss/installed")) {
+                try {
+                    var count = FileSystem.readDirectory(root + "/var/db/kiss/installed").length;
+                    if (count > 0) {
+                        var entry = Configuration.packageManager ? '$count (kiss)' : '${count}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    }
+                } catch (e:Dynamic) {}
+            }
+
+            // Paldo Linux (upkg) - Jürg and Raffaele
+            if (FileSystem.exists(root + "/var/lib/upkg/db")) {
+                try {
+                    var count = FileSystem.readDirectory(root + "/var/lib/upkg/db").length;
+                    if (count > 0) {
+                        var entry = Configuration.packageManager ? '$count (upkg)' : '${count}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    }
+                } catch (e:Dynamic) {}
+            }
+
+            // PiSi Linux (pisi) - Temel Bilgiler
+            if (FileSystem.exists(root + "/var/lib/pisi/package")) {
+                try {
+                    var count = FileSystem.readDirectory(root + "/var/lib/pisi/package").length;
+                    if (count > 0) {
+                        var entry = Configuration.packageManager ? '$count (pisi)' : '${count}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    } 
+                } catch (e:Dynamic) {}
+            }
+
+            // Fronttier Linux (forge) - neck_hurts_alot
+            if (FileSystem.exists(root + "/var/lib/forge/local")) {
+                try {
+                    var count = FileSystem.readDirectory(root + "/var/lib/forge/local").length;
+                    if (count > 0) {
+                        var entry = Configuration.packageManager ? '$count (forge)' : '${count}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    } 
+                } catch (e:Dynamic) {}
+            }
+
+            // Compass OS/Linux (dancer) - confucius40
+            if (FileSystem.exists(root + "/var/lib/dancer/db")) {
+                try {
+                    var count = FileSystem.readDirectory(root + "/var/lib/dancer/db").length;
+                    if (count > 0) {
+                        var entry = Configuration.packageManager ? '$count (dancer)' : '${count}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    }
+                } catch (e:Dynamic) {}
+            }
+
+            // Unknown distribution/OS (Veiler) - ilovetrees242 
+            if (FileSystem.exists(root + "/var/db/Veiler")) {
+                try {
+                    var count = FileSystem.readDirectory(root + "/var/db/Veiler").length;
+                    if (count > 0) {
+                        var entry = Configuration.packageManager ? '$count (velier)' : '${count}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    }
+                } catch (e:Dynamic) {}
+            }
+
+            // Snaps - Canocial devs
             var path = root + "/var/lib/snapd/snaps";
             if (FileSystem.exists(path)) {
                 try {
@@ -264,7 +274,7 @@ class Packages {
             }
         }
 
-        // Flatpak
+        // Flatpak - Flathub devs
         var path:Array<String> = ["/var/lib/flatpak/app"];
         if (home != null && home != "") path.push(home + "/.local/share/flatpak/app");
         var flatpaks = 0;
