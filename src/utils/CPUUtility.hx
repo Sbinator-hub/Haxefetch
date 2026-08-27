@@ -19,6 +19,7 @@ class CPUUtility{
     }
     public static function fetchCPU():String {
         var modelName:String = "";
+        var architecture:String = "";
         var maxFreqGHz:Float = 0.0;
         var threadCount:Int = 0;
         var coreIds = new Map<String, Bool>();
@@ -123,5 +124,25 @@ class CPUUtility{
         model = space.replace(model, " ");
 
         return StringTools.trim(model);
+    }
+
+    public static function fetchArchitecture():String {
+        try {
+            var exe = File.read("/proc/self/exe", true);
+            var byte = exe.read(20);
+
+            var machine = byte.get(18);
+
+            return switch (machine) {
+                case 0x3E: "x86_64";
+                case 0xB7: "aarch64";
+                case 0x03: "x86";
+                case 0x28: "armv7l";
+                case 0xF3: "riscv64";
+                default: "N/A";
+            };
+        } catch (e:Dynamic) {}
+
+        return "N/A";
     }
 }

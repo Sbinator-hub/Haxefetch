@@ -6,12 +6,10 @@
 
 # Optimize flags
 -D analyzer-optimize
+-D no-debug
 
 # Compile to specific binary
 -cpp bin/cpp
-
-# Use compiler for compilation
--D HXCPP_M64
 
 # Move compiled binary and rename it to correct name
 --cmd command mv bin/cpp/Haxefetch bin/cpp/haxefetch

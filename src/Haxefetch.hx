@@ -11,6 +11,8 @@ class Haxefetch {
         var hostname = SystemUtils.fetchHostname();
         var host = SystemUtils.fetchHost();
         var distro = SystemUtils.fetchDistro();
+        var architecture = CPUUtility.fetchArchitecture();
+        var archSuffix = (architecture != "") ? ' ${architecture}' : '';
         var init = SystemUtils.fetchInit();
         var initSuffix = (init != "") ? ' [${Colors.colorize(init, Colors.GREEN)}]' : '';
         var logoFetch = (Configuration.logo != "") ? Configuration.logo : distro;
@@ -54,7 +56,7 @@ class Haxefetch {
         var modules:Map<String, String> = [
             "hostname" => Configuration.showHostname ? Colors.colorize(user, Colors.RED) + "@" + Colors.colorize(hostname, Colors.RED) : null,
             "host"     => (Configuration.showHost && host != null) ? (Configuration.showHost ? Colors.colorize(Configuration.hostString, logoColor) + Configuration.separator + separator + host : null) : null,
-            "os"       => Configuration.showDistro ? Colors.colorize(Configuration.distroString, logoColor) + Configuration.separator + separator + distro + (Configuration.init ? initSuffix : "") : null,
+            "os"       => Configuration.showDistro ? Colors.colorize(Configuration.distroString, logoColor) + Configuration.separator + separator + distro + (Configuration.architecture ? archSuffix : "") + (Configuration.init ? initSuffix : "") : null,
             "kernel"   => Configuration.showKernel ? Colors.colorize(Configuration.kernelString, logoColor) + Configuration.separator +separator + kernel : null,
             "de"       => (desktop != null && desktop != "N/A" && desktop != "" && Configuration.showDesktop) ? Colors.colorize(Configuration.desktopString, logoColor) + Configuration.separator + separator + desktop : null,
             "wm"       => (Configuration.showSession && session != null && session != "") ? Colors.colorize(Configuration.sessionString, logoColor) + Configuration.separator + separator + session + (Configuration.protocol ? ' (${protocol})' : '') : null,

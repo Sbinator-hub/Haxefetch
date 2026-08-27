@@ -28,6 +28,7 @@ class Configuration {
 
     public static var showDistro:Bool = true;
     public static var distroString:String = "OS";
+    public static var architecture:Bool = true;
     public static var init:Bool = true;
 
     public static var showKernel:Bool = true;
@@ -160,6 +161,7 @@ class Configuration {
 
             case "show_distro": showDistro = parseBool(value);
             case "distro": distroString = parseString(value);
+            case "cpu_architecture": architecture = parseBool(value);
             case "init": init = parseBool(value);
 
             case "show_kernel": showKernel = parseBool(value);
@@ -252,6 +254,7 @@ class Configuration {
 
                 "show_distro=true\n" +
                 "distro='OS'\n" +
+                "cpu_architecture=true\n" +
                 "init=true\n\n" +
 
                 "show_kernel=true\n" +
