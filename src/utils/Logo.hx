@@ -77,14 +77,15 @@ class Logo {
             case _ if (low.indexOf("endeavouros") != -1): return "endeavour";
             case _ if (low.indexOf("fedora") != -1): return "fedora";
             case _ if (low.indexOf("fronttier") != -1): return "fronttier";
+            case _ if (low.indexOf("glaucus") != -1): return "glaucus";
             case _ if (low.indexOf("garuda") != -1): return "garuda";
             case _ if (low.indexOf("gentoo") != -1): return "gentoo";
             case _ if (low.indexOf("kali") != -1): return "kali";
             case _ if (low.indexOf("kaos") != -1): return "kaos";
-            case _ if (low.indexOf("KDE Neon") != -1 || low.indexOf("neon") != -1): return "neon";
-            case _ if (low.indexOf("KISS") != -1): return "kiss";
+            case _ if (low.indexOf("neon") != -1): return "neon";
+            case _ if (low.indexOf("kiss") != -1): return "kiss";
             case _ if (low.indexOf("kubuntu") != -1 || low.indexOf("kde-ubuntu") != -1): return "kubuntu";
-            case _ if (low.indexOf("LinuxFromScratch") != -1 || low.indexOf("lfs") != -1): return "lfs";
+            case _ if (low.indexOf("lfs") != -1): return "lfs";
             case _ if (low.indexOf("manjaro") != -1): return "manjaro";
             case _ if (low.indexOf("mx") != -1): return "mx";
             case _ if (low.indexOf("linuxmint") != -1 || low.indexOf("linux-mint") != -1): return "mint";
@@ -124,6 +125,7 @@ class Logo {
         if (s.indexOf("fronttier") != -1) return { primary: Colors.fg(51), secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("garuda") != -1) return { primary: Colors.RED, secondary: Colors.RED, third: Colors.RED };
         if (s.indexOf("gentoo") != -1) return { primary: Colors.fg(141), secondary: Colors.fg(61), third: Colors.WHITE };
+        if (s.indexOf("glaucus") != -1) return { primary: Colors.WHITE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("kaos") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("kubuntu") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("lubuntu") != -1) return { primary: Colors.fg(26), secondary: Colors.WHITE, third: Colors.WHITE };
@@ -131,7 +133,7 @@ class Logo {
         if (s.indexOf("ubuntu") != -1) return { primary: Colors.fg(202), secondary: Colors.fg(202), third: Colors.WHITE };
         if (s.indexOf("neon") != -1) return { primary: Colors.CYAN, secondary: Colors.CYAN, third: Colors.CYAN };
         if (s.indexOf("manjaro") != -1) return { primary: Colors.GREEN, secondary: Colors.GREEN, third: Colors.GREEN };
-        if (s.indexOf("linuxmint") != -1 || s.indexOf("mint") != -1) return { primary: Colors.GREEN, secondary: Colors.GREEN, third: Colors.GREEN };
+        if (s.indexOf("linuxmint") != -1 || s.indexOf("mint") != -1) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.GREEN };
         if (s.indexOf("nixos") != -1) return { primary: Colors.fg(26), secondary: Colors.COLOR_63, third: Colors.fg(25) };
         if (s.indexOf("parabola") != -1) return { primary: Colors.MAGENTA, secondary: Colors.MAGENTA, third: Colors.MAGENTA };
         if (s.indexOf("parch") != -1) return { primary: Colors.COLOR_55, secondary: Colors.COLOR_55, third: Colors.COLOR_55 };

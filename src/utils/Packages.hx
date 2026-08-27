@@ -260,6 +260,17 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
+            // Glaucus Linux (rad) - Firas Khana
+            if (FileSystem.exists(root + "/var/lib/rad/local")) {
+                try {
+                    var count = FileSystem.readDirectory(root + "/var/lib/rad/local").length;
+                    if (count > 0) {
+                        var entry = Configuration.packageManager ? '${count} (rad)' : '${count}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    }
+                } catch (e:Dynamic) {}
+            }
+
             // Snaps - Canocial devs
             var path = root + "/var/lib/snapd/snaps";
             if (FileSystem.exists(path)) {
