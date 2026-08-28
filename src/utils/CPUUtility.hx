@@ -48,7 +48,7 @@ class CPUUtility{
                 } else if (key == "processor" && Math.isNaN(Std.parseFloat(val))) {
                     modelName = val;
                 } else if (key == "cpu architecture") {
-                    modelName = 'ARMv${val} Processor';
+                    modelName = 'ARM v${val} Processor';
                 }
                 
                 if (key == "core id") {
