@@ -41,9 +41,17 @@ class CPUUtility{
 
                 if (key == "processor") {
                     threadCount++;
-                } else if (modelName == "" && (key == "model name" || key == "hardware" || key == "processor" || key == "cpu")) {
+                } 
+                
+                if (modelName == "" && (key == "model name" || key == "hardware"|| key == "cpu")) {
                     modelName = val;
-                } else if (key == "core id") {
+                } else if (key == "processor" && Math.isNaN(Std.parseFloat(val))) {
+                    modelName = val;
+                } else if (key == "cpu architecture") {
+                    modelName = 'ARMv${val} Processor';
+                }
+                
+                if (key == "core id") {
                     coreIds.set(val, true);
                 } else if (maxFreqGHz == 0.0 && key == "cpu mhz") {
                     var mhz = Std.parseFloat(val);
