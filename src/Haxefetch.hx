@@ -7,6 +7,10 @@ class Haxefetch {
         Commands.parse(Sys.args());
         Configuration.loadConfig();
 
+        initFetch();
+    }
+
+    static function initFetch():Void {
         var user = getEnvironment("USER", getEnvironment("USERNAME", "user"));
         var hostname = SystemUtils.fetchHostname();
         var host = SystemUtils.fetchHost();

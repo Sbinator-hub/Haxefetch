@@ -227,28 +227,6 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
-            // Fronttier Linux (forge) - neck_hurts_alot
-            if (FileSystem.exists(root + "/var/lib/forge/local")) {
-                try {
-                    var count = FileSystem.readDirectory(root + "/var/lib/forge/local").length;
-                    if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (forge)' : '${count}';
-                        if (!counts.contains(entry)) counts.push(entry);
-                    } 
-                } catch (e:Dynamic) {}
-            }
-
-            // Compass OS/Linux (dancer) - confucius40
-            if (FileSystem.exists(root + "/var/lib/dancer/db")) {
-                try {
-                    var count = FileSystem.readDirectory(root + "/var/lib/dancer/db").length;
-                    if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (dancer)' : '${count}';
-                        if (!counts.contains(entry)) counts.push(entry);
-                    }
-                } catch (e:Dynamic) {}
-            }
-
             // Unknown distribution/OS (Veiler) - ilovetrees242 
             if (FileSystem.exists(root + "/var/db/Veiler")) {
                 try {

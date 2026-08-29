@@ -26,7 +26,6 @@
 --resource src/resources/logos/devuan.txt@devuan
 --resource src/resources/logos/endeavouros.txt@endeavour
 --resource src/resources/logos/fedora.txt@fedora
---resource src/resources/logos/fronttier.txt@fronttier
 --resource src/resources/logos/garuda.txt@garuda
 --resource src/resources/logos/gentoo.txt@gentoo
 --resource src/resources/logos/kali.txt@kail
@@ -49,6 +48,7 @@
 --resource src/resources/logos/pisi.txt@pisi
 --resource src/resources/logos/pop.txt@pop
 --resource src/resources/logos/prismlinux.txt@prism
+--resource src/resources/logos/tonarchy.txt@tonarchy
 --resource src/resources/logos/ubuntu.txt@ubuntu
 --resource src/resources/logos/void.txt@void
 --resource src/resources/logos/xubuntu.txt@xubuntu

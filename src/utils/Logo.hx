@@ -67,6 +67,7 @@ class Logo {
             case _ if (low.indexOf("aerynos") != -1): return "aeryn";
             case _ if (low.indexOf("alpine") != -1): return "alpine";
             case _ if (low.indexOf("arco") != -1): return "arco";
+            case _ if (low.indexOf("tonarchy") != -1): return "tonarchy"; // Tony Banters my beloved guy
             case _ if (low.indexOf("parch") != -1): return "parch";
             case _ if (low.indexOf("arch") != -1): return "arch";
             case _ if (low.indexOf("artix") != -1): return "artix";
@@ -76,7 +77,6 @@ class Logo {
             case _ if (low.indexOf("debian") != -1): return "debian";
             case _ if (low.indexOf("endeavouros") != -1): return "endeavour";
             case _ if (low.indexOf("fedora") != -1): return "fedora";
-            case _ if (low.indexOf("fronttier") != -1): return "fronttier";
             case _ if (low.indexOf("glaucus") != -1): return "glaucus";
             case _ if (low.indexOf("garuda") != -1): return "garuda";
             case _ if (low.indexOf("gentoo") != -1): return "gentoo";
@@ -122,7 +122,6 @@ class Logo {
         if (s.indexOf("devuan") != -1) return { primary: Colors.MAGENTA, secondary: Colors.MAGENTA, third: Colors.MAGENTA };
         if (s.indexOf("endeavour") != -1) return { primary: Colors.fg(99), secondary: Colors.fg(211), third: Colors.fg(141) };
         if (s.indexOf("fedora") != -1) return { primary: Colors.fg(33), secondary: Colors.WHITE, third: Colors.fg(39) };
-        if (s.indexOf("fronttier") != -1) return { primary: Colors.fg(51), secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("garuda") != -1) return { primary: Colors.RED, secondary: Colors.RED, third: Colors.RED };
         if (s.indexOf("gentoo") != -1) return { primary: Colors.fg(141), secondary: Colors.fg(61), third: Colors.WHITE };
         if (s.indexOf("glaucus") != -1) return { primary: Colors.WHITE, secondary: Colors.WHITE, third: Colors.WHITE };
@@ -145,6 +144,7 @@ class Logo {
         if (s.indexOf("suse") != -1) return { primary: Colors.fg(28), secondary: Colors.fg(28), third: Colors.WHITE };
         if (s.indexOf("steamos") != -1) return { primary: Colors.fg(27), secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("solus") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
+        if (s.indexOf("tonarchy") != -1) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE }; // Tony Banters my beloved guy
         if (s.indexOf("void") != -1) return { primary: Colors.COLOR_22, secondary: Colors.WHITE, third: Colors.COLOR_22 };
 
         return { primary: Colors.WHITE, secondary: Colors.WHITE, third: Colors.WHITE };
