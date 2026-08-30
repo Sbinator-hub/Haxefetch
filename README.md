@@ -1,6 +1,15 @@
 <p align="center">
-  <img src="src/resources/Haxefetch.png" width="90%" alt="Haxefetch">
+  <img src="src/resources/Haxefetch.png" width="85%" alt="Haxefetch">
 </p>
+
+<div align="center">
+<br>
+
+![last commit](https://img.shields.io/github/last-commit/Sbinator-hub/Haxefetch?display_timestamp=committer&style=for-the-badge&logo=git)
+![repo stars](https://img.shields.io/github/stars/Sbinator-hub/Haxefetch?style=for-the-badge&logo=andela)
+![repo size](https://img.shields.io/github/repo-size/Sbinator-hub/Haxefetch?style=for-the-badge&logo=files)
+
+</div>
 
 Haxefetch is fetch program inspired by fastfetch, neofetch, pfetch, nerdfetch, hyfetch, and so on written in Haxe. [Don't know what's Haxe? Read more](https://haxe.org/) and [learn Haxe if you don't know!](https://haxe.org/documentation/introduction/)
 
