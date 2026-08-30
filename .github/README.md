@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/resources/Haxefetch.png" width="85%" alt="Haxefetch">
+  <img src="../src/resources/Haxefetch.png" width="85%" alt="Haxefetch">
 </p>
 
 <div align="center">
@@ -14,20 +14,20 @@
 Haxefetch is fetch program inspired by fastfetch, neofetch, pfetch, nerdfetch, hyfetch, and so on written in Haxe. [Don't know what's Haxe? Read more](https://haxe.org/) and [learn Haxe if you don't know!](https://haxe.org/documentation/introduction/)
 
 <p align="center">
-  <img src="src/resources/screenshots/haxefetch.png" width="90%" alt="Haxefetch">
+  <img src="../src/resources/screenshots/haxefetch.png" width="90%" alt="Haxefetch">
 </p>
 <p align="center">
-  <img src="src/resources/screenshots/haxefetch_small.png" width="90%" alt="Haxefetch-small">
+  <img src="../src/resources/screenshots/haxefetch_small.png" width="90%" alt="Haxefetch-small">
 </p>
 <p align="center">(Haxefetch preview)</p>
 
 <p align="center">
-  <img src="src/resources/screenshots/commands.png" width="90%" alt="Haxefetch commads">
+  <img src="../src/resources/screenshots/commands.png" width="90%" alt="Haxefetch commads">
 </p>
 <p align="center">(Haxefetch commands)</p>
 
 <p align="center">
-  <img src="src/resources/screenshots/configuration.png" width="50%" alt="Haxefetch configuration">
+  <img src="../src/resources/screenshots/configuration.png" width="50%" alt="Haxefetch configuration">
 </p>
 <p align="center">(Configuring Haxefetch with .conf support)</p>
 
