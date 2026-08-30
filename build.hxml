@@ -25,6 +25,7 @@
 --resource src/resources/logos/debian.txt@debian
 --resource src/resources/logos/devuan.txt@devuan
 --resource src/resources/logos/endeavouros.txt@endeavour
+--resource src/resources/logos/exherbo.txt@exherbo
 --resource src/resources/logos/fedora.txt@fedora
 --resource src/resources/logos/garuda.txt@garuda
 --resource src/resources/logos/gentoo.txt@gentoo

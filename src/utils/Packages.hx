@@ -155,17 +155,35 @@ class Packages {
                 try {
                     var total = 0;
                     var catPath = FileSystem.readDirectory(root + "/var/db/pkg");
+
                     for (cats in catPath) {
                         var cat = root + "/var/db/pkg/" + cats;
-                        if (FileSystem.isDirectory(cat)) {
-                            total += FileSystem.readDirectory(cat).length;
-                        }
+                        if (FileSystem.isDirectory(cat)) total += FileSystem.readDirectory(cat).length;
                     }
+
                     if (total > 0) {
                         var entry = Configuration.packageManager ? '$total (emerge)' : '${total}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
+            }
+
+            // Exherbo Linux based system (cave/paludis) - forked from Gentoo, but it is indipendent distro according to distrowatch.com
+            if (FileSystem.exists(root + "/var/db/paludis/repositories/installed")) {
+                try {
+                    var total = 0;
+                    var entries = FileSystem.readDirectory(root + "/var/db/paludis/repositories/installed");
+
+                    for (entry in entries) {
+                        var path = root + "/var/db/paludis/repositories/installed" + entry;
+                        if (FileSystem.exists(path)) total += FileSystem.readDirectory(path).length;
+                    }
+
+                    if (total > 0) {
+                        var entry = Configuration.packageManager ? '$total (cave)' : '${total}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    }
+                }
             }
 
             // Solus based system (eopkg) - David Harder, Joey Riches, Reilly Brogan, Tracey Clark, Troy Harvey

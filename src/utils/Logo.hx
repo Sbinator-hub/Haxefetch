@@ -76,6 +76,7 @@ class Logo {
             case _ if (low.indexOf("devuan") != -1): return "devuan";
             case _ if (low.indexOf("debian") != -1): return "debian";
             case _ if (low.indexOf("endeavouros") != -1): return "endeavour";
+            case _ if (low.indexOf("exherbo") != -1): return "exherbo";
             case _ if (low.indexOf("fedora") != -1): return "fedora";
             case _ if (low.indexOf("glaucus") != -1): return "glaucus";
             case _ if (low.indexOf("garuda") != -1): return "garuda";
@@ -121,6 +122,7 @@ class Logo {
         if (s.indexOf("debian") != -1) return { primary: Colors.fg(196), secondary: Colors.fg(124), third: Colors.WHITE };
         if (s.indexOf("devuan") != -1) return { primary: Colors.MAGENTA, secondary: Colors.MAGENTA, third: Colors.MAGENTA };
         if (s.indexOf("endeavour") != -1) return { primary: Colors.fg(99), secondary: Colors.fg(211), third: Colors.fg(141) };
+        if (s.indexOf("exherbo") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.RED };
         if (s.indexOf("fedora") != -1) return { primary: Colors.fg(33), secondary: Colors.WHITE, third: Colors.fg(39) };
         if (s.indexOf("garuda") != -1) return { primary: Colors.RED, secondary: Colors.RED, third: Colors.RED };
         if (s.indexOf("gentoo") != -1) return { primary: Colors.fg(141), secondary: Colors.fg(61), third: Colors.WHITE };
