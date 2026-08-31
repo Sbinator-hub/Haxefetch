@@ -111,9 +111,9 @@ class Configuration {
 
         var configDirectory = Path.join([home, ".config", "haxefetch"]);
 
-        Sys.println("There are 2 types of configuration support. Which you're choosing?");
-        Sys.println(".conf (Default)");
-        Sys.println(".hx (ALPHA!)");
+        Sys.println('There are ${Colors.colorize("2", Colors.GREEN)} types of configuration support. Which you\'re choosing?');
+        Sys.println('${Colors.colorize(".conf", Colors.GREEN)} (default)');
+        Sys.println('${Colors.colorize(".hx", Colors.fg(208))} (new)');
 
         var choice = StringTools.trim(Sys.stdin().readLine());
         var isHaxe = (choice == "2" || choice.toLowerCase() == "hx");
@@ -146,7 +146,7 @@ class Configuration {
                     Sys.println('${Colors.colorize("Error in configuration of Haxefetch!", Colors.RED)} ${Colors.colorize('[Line ${lineNumber}]:', Colors.YELLOW)} ${Colors.colorize('Invalid config syntax. Missing "=" for', Colors.RED)} -> ${Colors.colorize('"${trims}"', Colors.YELLOW)} <-');
                     Sys.exit(1);
                 }
-                
+
                 var part = trims.split("=");
                 var keyValue = StringTools.trim(part[0]);
                 var value = StringTools.trim(part.slice(1).join("="));
@@ -169,6 +169,7 @@ class Configuration {
         }
     }
 
+    #if hscript
     private static function loadHaxeConfig(path:String) {
         try {
             var parser = new Parser();
@@ -187,11 +188,59 @@ class Configuration {
             interp.variables.set("machine_vendor", vendor);
             interp.variables.set("machine_product", productName);
             interp.variables.set("host", hostString);
-            
+
             interp.variables.set("show_distro", showDistro);
             interp.variables.set("distro", distroString);
             interp.variables.set("cpu_architecture", architecture);
             interp.variables.set("init", init);
+
+            interp.variables.set("show_kernel", showKernel);
+            interp.variables.set("kernel", kernelString);
+
+            interp.variables.set("show_desktop_environment", showDesktop);
+            interp.variables.set("desktop", desktopString);
+
+            interp.variables.set("show_window_manager", showSession);
+            interp.variables.set("session", sessionString);
+            interp.variables.set("display_protocol", protocol);
+
+            interp.variables.set("show_ram", showRAM);
+            interp.variables.set("ram", ramString);
+            interp.variables.set("ram_percentage", ramPercent);
+
+            interp.variables.set("show_swap", showSWAP);
+            interp.variables.set("swap", swapString);
+            interp.variables.set("swap_percentage", swapPercent);
+
+            interp.variables.set("show_cpu", showCPU);
+            interp.variables.set("cpu", cpuString);
+            interp.variables.set("cpu_frequency", cpuFreq);
+            interp.variables.set("cores_threads", cpuCAT);
+
+            interp.variables.set("show_gpu", showGPU);
+            interp.variables.set("gpu", gpuString);
+            interp.variables.set("gpu_type", gpuType);
+
+            interp.variables.set("show_disk_usage", showDisk);
+            interp.variables.set("disk", diskString);
+
+            interp.variables.set("show_package", showPackages);
+            interp.variables.set("package", packageString);
+            interp.variables.set("package_manager", packageManager);
+
+            interp.variables.set("show_shell", showShell);
+            interp.variables.set("shell", shellString);
+
+            interp.variables.set("show_uptime", showUptime);
+            interp.variables.set("uptime", uptimeString);
+
+            interp.variables.set("show_birthday", showBirthday);
+            interp.variables.set("birthday", birthdayString);
+
+            interp.variables.set("show_birth", showBirth);
+            interp.variables.set("birth", birthString);
+
+            interp.variables.set("show_color_block", showBlock);
 
             var program = parser.parseString(File.getContent(path));
             interp.execute(program);
@@ -214,19 +263,68 @@ class Configuration {
             if (interp.variables.exists("distro")) distroString = interp.variables.get("distro");
             if (interp.variables.exists("cpu_architecture")) architecture = interp.variables.get("cpu_architecture");
             if (interp.variables.exists("init")) init = interp.variables.get("init");
+
+            if (interp.variables.exists("show_kernel")) showKernel = interp.variables.get("show_kernel");
+            if (interp.variables.exists("kernel")) kernelString = interp.variables.get("kernel");
+
+            if (interp.variables.exists("show_desktop_environment")) showDesktop = interp.variables.get("show_desktop_environment");
+            if (interp.variables.exists("desktop")) desktopString = interp.variables.get("desktop");
+
+            if (interp.variables.exists("show_window_manager")) showSession = interp.variables.get("show_window_manager");
+            if (interp.variables.exists("session")) sessionString = interp.variables.get("session");
+            if (interp.variables.exists("display_protocol")) protocol = interp.variables.get("display_protocol");
+
+            if (interp.variables.exists("show_ram")) showRAM = interp.variables.get("show_ram");
+            if (interp.variables.exists("ram")) ramString = interp.variables.get("ram");
+            if (interp.variables.exists("ram_percentage")) ramPercent = interp.variables.get("ram_percentage");
+
+            if (interp.variables.exists("show_swap")) showSWAP = interp.variables.get("show_swap");
+            if (interp.variables.exists("swap")) swapString = interp.variables.get("swap");
+            if (interp.variables.exists("swap_percentage")) swapPercent = interp.variables.get("swap_percentage");
+
+            if (interp.variables.exists("show_cpu")) showCPU = interp.variables.get("show_cpu");
+            if (interp.variables.exists("cpu")) cpuString = interp.variables.get("cpu");
+            if (interp.variables.exists("cpu_frequency")) cpuFreq = interp.variables.get("cpu_frequency");
+            if (interp.variables.exists("cores_threads")) cpuCAT = interp.variables.get("cores_threads");
+
+            if (interp.variables.exists("show_gpu")) showGPU = interp.variables.get("show_gpu");
+            if (interp.variables.exists("gpu")) gpuString = interp.variables.get("gpu");
+            if (interp.variables.exists("gpu_type")) gpuType = interp.variables.get("gpu_type");
+
+            if (interp.variables.exists("show_disk_usage")) showDisk = interp.variables.get("show_disk_usage");
+            if (interp.variables.exists("disk")) diskString = interp.variables.get("disk");
+
+            if (interp.variables.exists("show_package")) showPackages = interp.variables.get("show_package");
+            if (interp.variables.exists("package")) packageString = interp.variables.get("package");
+            if (interp.variables.exists("package_manager")) packageManager = interp.variables.get("package_manager");
+
+            if (interp.variables.exists("show_shell")) showShell = interp.variables.get("show_shell");
+            if (interp.variables.exists("shell")) shellString = interp.variables.get("shell");
+
+            if (interp.variables.exists("show_uptime")) showUptime = interp.variables.get("show_uptime");
+            if (interp.variables.exists("uptime")) uptimeString = interp.variables.get("uptime");
+
+            if (interp.variables.exists("show_birthday")) showBirthday = interp.variables.get("show_birthday");
+            if (interp.variables.exists("birthday")) birthdayString = interp.variables.get("birthday");
+
+            if (interp.variables.exists("show_birth")) showBirth = interp.variables.get("show_birth");
+            if (interp.variables.exists("birth")) birthString = interp.variables.get("birth");
+
+            if (interp.variables.exists("show_color_block")) showBlock = interp.variables.get("show_color_block");
         } catch (e:Dynamic) {
             Sys.println('${Colors.colorize("Error loading .hx config script:", Colors.RED)} ${e}');
             Sys.exit(0);
         }
     }
+    #end
 
     private static function parseConfigOptions(key:String, value:String, lineNumber:Int):Void {
         switch (key) {
             case "modules":
                 var raw = value.split(",");
-                modules = [for (item in raw) StringTools.trim(item)];  
+                modules = [for (item in raw) StringTools.trim(item)];
             case "separator": separator = parseString(value);
-    
+
             case "logo": logo = parseString(value);
             // case "custom_logo": customLogo = parseString(value);
             case "logo_type": logoSize = parseString(value);
@@ -270,7 +368,7 @@ class Configuration {
             case "show_gpu": showGPU = parseBool(value);
             case "gpu": gpuString = parseString(value);
             case "gpu_type": gpuType = parseBool(value);
- 
+
             case "show_disk_usage": showDisk = parseBool(value);
             case "disk": diskString = parseString(value);
 
@@ -319,10 +417,10 @@ class Configuration {
             var defaults:String;
 
             if (isHScript) {
-                defaults = 
+                defaults =
                 "modules = [\"hostname\", \"host\", \"os\", \"kernel\", \"de\", \"wm\", \"ram\", \"swap\", \"cpu\", \"gpu\", \"disk\", \"packages\", \"shell\", \"uptime\", \"birthday\", \"birth\", \"colors\"];\n" +
                 "separator = \":\";\n\n" +
-                
+
                 "logo = \'\';\n" +
                 "logo_type = \'normal\';\n" +
                 "logo_color = \'\';\n\n" +
@@ -336,9 +434,53 @@ class Configuration {
                 "show_distro = true;\n" +
                 "distro = \'OS\';\n" +
                 "cpu_architecture = true;\n" +
-                "init = true;\n\n";
+                "init = true;\n\n" +
+
+                "show_kernel = true;\n" +
+                "kernel = \'Kernel\';\n\n" +
+
+                "show_desktop_environment = true;\n" +
+                "desktop = \'DE\';\n\n" +
+
+                "show_window_manager = true;\n" +
+                "session = \'WM\';\n" +
+                "display_protocol = true;\n\n" +
+
+                "show_ram = true;\n" +
+                "ram = \'RAM\';\n" +
+                "ram_percentage = true;\n\n" +
+
+                "show_swap = true;\n" +
+                "swap = \'SWAP\';\n" +
+                "swap_percentage = true;\n\n" +
+
+                "show_cpu = true;\n" +
+                "cpu = \'CPU\';\n" +
+                "cpu_frequency = true;\n" +
+                "cores_threads = true;\n\n" +
+
+                "show_gpu = true;\n" +
+                "gpu = \'GPU\';\n" +
+                "gpu_type = true;\n\n" +
+
+                "show_disk_usage = true;\n" +
+                "disk = \'Disk\';\n\n" +
+
+                "show_shell = true;\n" +
+                "shell = \'Shell\';\n\n" +
+
+                "show_uptime = true;\n" +
+                "uptime = \'Uptime\';\n\n" +
+
+                "show_birthday = true;\n" +
+                "birthday = \'OS Birthday\';\n\n" +
+
+                "show_birth = true;\n" +
+                "birth = \'OS Birth\';\n\n" +
+
+                "show_color_block = true;";
             } else {
-                defaults = 
+                defaults =
                 "# Haxefetch configuration\n\n" +
                 "modules=hostname, host, os, kernel, de, wm, ram, swap, cpu, gpu, disk, packages, shell, uptime, birthday, birth, colors\n" +
                 "separator=':'\n\n" +
@@ -405,7 +547,7 @@ class Configuration {
                 "show_birth=true\n" +
                 "birth='OS Birth'\n\n" +
 
-                "show_color_block=true\n";
+                "show_color_block=true";
             }
 
             File.saveContent(path, defaults);
@@ -415,7 +557,7 @@ class Configuration {
                 Sys.exit(1);
             }
         } catch (e:Dynamic) {
-            Sys.println('${Colors.colorize('Genereting config failed:', Colors.RED)}) ${Colors.colorize('${e}', Colors.WHITE)}');
+            Sys.println('${Colors.colorize('Genereting config failed:', Colors.RED)}) ${Colors.colorize('${e}', Colors.YELLOW)}');
             if (creation) Sys.exit(1);
         }
     }
