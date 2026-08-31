@@ -1,4 +1,3 @@
--lib hxcpp
 -lib hscript
 
 # Handle main source directory
@@ -6,6 +5,9 @@
 
 # Find main class that will target
 -main Haxefetch
+
+# Enable DCE to make compilation time less and not long
+--dce full
 
 # Optimize flags
 -D analyzer-optimize
