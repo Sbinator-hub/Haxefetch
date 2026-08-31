@@ -3,7 +3,7 @@ package utils;
 import haxe.macro.Compiler;
 
 class Commands {
-    public static final HAXEFETCH_VERSION:String = "1.0.0";
+    public static final HAXEFETCH_VERSION:String = "1.1.0";
     public static var commit:String = "";
 
     public static function parse(argument:Array<String>):Void {

@@ -4,6 +4,11 @@ import sys.io.File;
 import sys.FileSystem;
 import haxe.io.Path;
 
+#if hscript
+import hscript.Parser;
+import hscript.Interp;
+#end
+
 class Configuration {
     public static var modules:Array<String> = [
         "hostname", "host", "os", "kernel", "de", "wm",
@@ -84,15 +89,51 @@ class Configuration {
         if (main == null || main == "") return;
 
         var configDirectory = Path.join([main, ".config", "haxefetch"]);
-        var configFile = Path.join([configDirectory, "config.conf"]);
+        var hxFile = Path.join([configDirectory, "config.hx"]);
+        var confFile = Path.join([configDirectory, "config.conf"]);
 
-        if (!FileSystem.exists(configFile)) {
-            createConfiguration(configDirectory, configFile, false);
-            return;
+        if (FileSystem.exists(hxFile)) {
+            loadHaxeConfig(hxFile);
+        } else if (FileSystem.exists(confFile)) {
+            loadConfConfig(confFile);
+        } else {
+            createConfiguration(configDirectory, confFile, false, false);
         }
 
+    }
+
+    public static function generateConfiguration():Void {
+        var home = Sys.getEnv("HOME");
+        if (home == null || home == "") {
+            Sys.println('Haxefetch error: Could not determine user directory? Does home directory exist?');
+            Sys.exit(1);
+        }
+
+        var configDirectory = Path.join([home, ".config", "haxefetch"]);
+
+        Sys.println("There are 2 types of configuration support. Which you're choosing?");
+        Sys.println(".conf (Default)");
+        Sys.println(".hx (ALPHA!)");
+
+        var choice = StringTools.trim(Sys.stdin().readLine());
+        var isHaxe = (choice == "2" || choice.toLowerCase() == "hx");
+
+        var fileName = isHaxe ? "config.hx" : "config.conf";
+        var oldFileName = isHaxe ? "config.conf" : "config.hx";
+
+        var configFile = Path.join([configDirectory, fileName]);
+        var oldConfigFile = Path.join([configDirectory, oldFileName]);
+
+        if (FileSystem.exists(oldConfigFile)) {
+            FileSystem.deleteFile(oldConfigFile);
+        }
+
+        createConfiguration(configDirectory, configFile, true, isHaxe);
+    }
+
+    private static function loadConfConfig(path:String):Void {
         try {
-            var configContent = File.getContent(configFile);
+            var configContent = File.getContent(path);
             var line = configContent.split("\n");
 
             for (i in 0...line.length) {
@@ -128,16 +169,55 @@ class Configuration {
         }
     }
 
-    public static function generateConfiguration():Void {
-        var home = Sys.getEnv("HOME");
-        if (home == null || home == "") {
-            Sys.println('Haxefetch error: Could not determine user directory? Does home directory exist?');
-            Sys.exit(1);
-        }
+    private static function loadHaxeConfig(path:String) {
+        try {
+            var parser = new Parser();
+            var interp = new Interp();
 
-        var configDirectory = Path.join([home, ".config", "haxefetch"]);
-        var configFile = Path.join([configDirectory, "config.conf"]);
-        createConfiguration(configDirectory, configFile, true);
+            interp.variables.set("modules", modules);
+            interp.variables.set("separator", separator);
+
+            interp.variables.set("logo", logo);
+            interp.variables.set("logo_type", logoSize);
+            interp.variables.set("logo_color", modules);
+
+            interp.variables.set("show_hostname", showHostname);
+
+            interp.variables.set("show_host", showHost);
+            interp.variables.set("machine_vendor", vendor);
+            interp.variables.set("machine_product", productName);
+            interp.variables.set("host", hostString);
+            
+            interp.variables.set("show_distro", showDistro);
+            interp.variables.set("distro", distroString);
+            interp.variables.set("cpu_architecture", architecture);
+            interp.variables.set("init", init);
+
+            var program = parser.parseString(File.getContent(path));
+            interp.execute(program);
+
+            if (interp.variables.exists("modules")) modules = interp.variables.get("modules");
+            if (interp.variables.exists("separator")) separator = interp.variables.get("separator");
+
+            if (interp.variables.exists("logo")) logo = interp.variables.get("logo");
+            if (interp.variables.exists("logo_type")) logoSize = interp.variables.get("logo_type");
+            if (interp.variables.exists("logo_color")) logoColor = interp.variables.get("logo_color");
+
+            if (interp.variables.exists("show_hostname")) showHostname = interp.variables.get("show_hostname");
+
+            if (interp.variables.exists("show_host")) showHost = interp.variables.get("show_host");
+            if (interp.variables.exists("machine_vendor")) vendor = interp.variables.get("machine_vendor");
+            if (interp.variables.exists("machine_product")) productName = interp.variables.get("machine_product");
+            if (interp.variables.exists("host")) hostString = interp.variables.get("host");
+
+            if (interp.variables.exists("show_distro")) showDistro = interp.variables.get("show_distro");
+            if (interp.variables.exists("distro")) distroString = interp.variables.get("distro");
+            if (interp.variables.exists("cpu_architecture")) architecture = interp.variables.get("cpu_architecture");
+            if (interp.variables.exists("init")) init = interp.variables.get("init");
+        } catch (e:Dynamic) {
+            Sys.println('${Colors.colorize("Error loading .hx config script:", Colors.RED)} ${e}');
+            Sys.exit(0);
+        }
     }
 
     private static function parseConfigOptions(key:String, value:String, lineNumber:Int):Void {
@@ -232,11 +312,33 @@ class Configuration {
         return value;
     }
 
-    private static function createConfiguration(directory:String, path:String, creation:Bool):Void {
+    private static function createConfiguration(directory:String, path:String, creation:Bool, isHScript:Bool = false):Void {
         try {
             if (!FileSystem.exists(directory)) FileSystem.createDirectory(directory);
 
-            var defaults =
+            var defaults:String;
+
+            if (isHScript) {
+                defaults = 
+                "modules = [\"hostname\", \"host\", \"os\", \"kernel\", \"de\", \"wm\", \"ram\", \"swap\", \"cpu\", \"gpu\", \"disk\", \"packages\", \"shell\", \"uptime\", \"birthday\", \"birth\", \"colors\"];\n" +
+                "separator = \":\";\n\n" +
+                
+                "logo = \'\';\n" +
+                "logo_type = \'normal\';\n" +
+                "logo_color = \'\';\n\n" +
+
+                "show_hostname = true;\n" +
+                "show_host = true;\n" +
+                "machine_vendor = true;\n" +
+                "machine_product = true;\n" +
+                "host = \'Host\';\n\n" +
+
+                "show_distro = true;\n" +
+                "distro = \'OS\';\n" +
+                "cpu_architecture = true;\n" +
+                "init = true;\n\n";
+            } else {
+                defaults = 
                 "# Haxefetch configuration\n\n" +
                 "modules=hostname, host, os, kernel, de, wm, ram, swap, cpu, gpu, disk, packages, shell, uptime, birthday, birth, colors\n" +
                 "separator=':'\n\n" +
@@ -304,11 +406,12 @@ class Configuration {
                 "birth='OS Birth'\n\n" +
 
                 "show_color_block=true\n";
+            }
 
             File.saveContent(path, defaults);
 
             if (creation) {
-                Sys.println('${Colors.colorize('Configuration is now generated in', Colors.YELLOW)} ${Colors.colorize(':', Colors.WHITE)} ${Colors.colorize('"${directory}"', Colors.GREEN)}');
+                Sys.println('${Colors.colorize('Configuration is now generated in', Colors.YELLOW)}${Colors.colorize(':', Colors.WHITE)} ${Colors.colorize('"${directory}"', Colors.GREEN)} ${Colors.colorize('as ->', Colors.WHITE)} ${Colors.colorize('"${path}"', Colors.YELLOW)}');
                 Sys.exit(1);
             }
         } catch (e:Dynamic) {
