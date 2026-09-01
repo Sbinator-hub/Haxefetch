@@ -5,16 +5,16 @@ import sys.FileSystem;
 import haxe.io.Path;
 
 #if hscript
-import hscript.Parser;
 import hscript.Interp;
+import hscript.Parser;
+import hscript.Printer;
 #end
 
 class Configuration {
     public static var modules:Array<String> = [
         "hostname", "host", "os", "kernel", "de", "wm",
         "ram", "swap", "cpu", "gpu", "disk", "packages",
-        "haxe", "opengl", "vulkan", "uptime",
-        "birthday", "birth", "colors"
+        "uptime", "birthday", "birth", "colors"
     ];
 
     public static var separator:String = ":";
@@ -171,9 +171,11 @@ class Configuration {
 
     #if hscript
     private static function loadHaxeConfig(path:String) {
-        try {
-            var parser = new Parser();
-            var interp = new Interp();
+        var parser = new Parser();
+        var interp = new Interp();
+
+        try {            
+            parser.line = 1;
 
             interp.variables.set("modules", modules);
             interp.variables.set("separator", separator);
@@ -311,8 +313,22 @@ class Configuration {
             if (interp.variables.exists("birth")) birthString = interp.variables.get("birth");
 
             if (interp.variables.exists("show_color_block")) showBlock = interp.variables.get("show_color_block");
+        } catch (e:hscript.Expr.Error) {
+            var lineNumb = switch (e) {
+                case EInvalidChar(_), EUnexpected(_), EUnterminatedString, EUnterminatedComment:
+                    null;
+    
+                default: null;
+            };
+
+            var lineNumb = parser.line;
+            var lineInfo = (lineNumb > 0) ? '[Line ${lineNumb}]:' : '';
+            var error = Printer.errorToString(e);
+
+            Sys.println('${Colors.colorize("Error in configuration of Haxefetch!", Colors.RED)} ${Colors.colorize(lineInfo, Colors.YELLOW)} ${Colors.colorize(error, Colors.RED)}');
+            Sys.exit(0);
         } catch (e:Dynamic) {
-            Sys.println('${Colors.colorize("Error loading .hx config script:", Colors.RED)} ${e}');
+            Sys.println('${Colors.colorize("Error loading .hx config script: ", Colors.RED)} ${e}');
             Sys.exit(0);
         }
     }

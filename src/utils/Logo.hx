@@ -148,6 +148,7 @@ class Logo {
         if (s.indexOf("solus") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("tonarchy") != -1) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE }; // Tony Banters my beloved guy
         if (s.indexOf("void") != -1) return { primary: Colors.COLOR_22, secondary: Colors.WHITE, third: Colors.COLOR_22 };
+        if (s.indexOf("zorin") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
 
         return { primary: Colors.WHITE, secondary: Colors.WHITE, third: Colors.WHITE };
     }
