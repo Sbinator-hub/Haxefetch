@@ -75,6 +75,9 @@ class Configuration {
 
     public static var showUptime:Bool = true;
     public static var uptimeString:String = "Uptime";
+    public static var daysString:String = "d";
+    public static var hoursString:String = "h";
+    public static var minutesString:String = "m";
 
     public static var showBirthday:Bool = true;
     public static var birthdayString:String = "OS Birthday";
@@ -235,6 +238,9 @@ class Configuration {
 
             interp.variables.set("show_uptime", showUptime);
             interp.variables.set("uptime", uptimeString);
+            interp.variables.set("days", daysString);
+            interp.variables.set("hours", hoursString);
+            interp.variables.set("minutes", minutesString);
 
             interp.variables.set("show_birthday", showBirthday);
             interp.variables.set("birthday", birthdayString);
@@ -305,6 +311,9 @@ class Configuration {
 
             if (interp.variables.exists("show_uptime")) showUptime = interp.variables.get("show_uptime");
             if (interp.variables.exists("uptime")) uptimeString = interp.variables.get("uptime");
+            if (interp.variables.exists("days")) daysString = interp.variables.get("days");
+            if (interp.variables.exists("hours")) hoursString = interp.variables.get("hours");
+            if (interp.variables.exists("minutes")) minutesString = interp.variables.get("minutes");
 
             if (interp.variables.exists("show_birthday")) showBirthday = interp.variables.get("show_birthday");
             if (interp.variables.exists("birthday")) birthdayString = interp.variables.get("birthday");
@@ -397,6 +406,9 @@ class Configuration {
 
             case "show_uptime": showUptime = parseBool(value);
             case "uptime": uptimeString = parseString(value);
+            case "days": daysString = parseString(value);
+            case "hours": hoursString = parseString(value);
+            case "minutes": minutesString = parseString(value);
 
             case "show_birthday": showBirthday = parseBool(value);
             case "birthday": birthdayString = parseString(value);
@@ -486,7 +498,10 @@ class Configuration {
                 "shell = \'Shell\';\n\n" +
 
                 "show_uptime = true;\n" +
-                "uptime = \'Uptime\';\n\n" +
+                "uptime = \'Uptime\';\n" +
+                "days = \'d\';\n" +
+                "hours = \'h\';\n" +
+                "minutes = \'m\';\n\n" + 
 
                 "show_birthday = true;\n" +
                 "birthday = \'OS Birthday\';\n\n" +
@@ -555,7 +570,10 @@ class Configuration {
                 "shell='Shell'\n\n" +
 
                 "show_uptime=true\n" +
-                "uptime='Uptime'\n\n" +
+                "uptime='Uptime'\n" +
+                "days='d'\n" +
+                "hours='h'\n" +
+                "minutes='m'\n\n" +
 
                 "show_birthday=true\n" +
                 "birthday='OS Birthday'\n\n" +

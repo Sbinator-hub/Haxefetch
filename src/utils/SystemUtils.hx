@@ -204,11 +204,11 @@ class SystemUtils {
                     var minutes = Math.floor((seconds % 3600) / 60);
 
                     var part:Array<String> = [];
-                    if (days > 0) part.push(days + 'd');
-                    if (hours > 0) part.push(hours + 'h');
-                    if (minutes > 0) part.push(minutes + 'm');
+                    if (days > 0) part.push('${days}${Configuration.daysString}');
+                    if (hours > 0) part.push('${hours}${Configuration.hoursString}');
+                    if (minutes > 0) part.push('${minutes}${Configuration.minutesString}');
 
-                    return part.length > 0 ? part.join(" ") : "0m";
+                    return part.length > 0 ? part.join(" ") : "0" + Configuration.minutesString;
                 }
             }
         } catch (e:Dynamic) {}
@@ -217,7 +217,7 @@ class SystemUtils {
 
     public static function fetchBirthday():String {
         try {
-            var status = FileSystem.stat("/");
+            var status = FileSystem.stat(getBirthPath());
             var birth:Float = 0;
 
             if (status.ctime != null) birth = status.ctime.getTime() / 1000.0;
@@ -225,7 +225,7 @@ class SystemUtils {
             var seconds = Date.now().getTime() / 1000.0;
             var days = Math.floor((seconds - birth) / 86400.0);
 
-            if (days >= 0 && birth > 0) return '${days}d';
+            if (days >= 0 && birth > 0) return '${days}${Configuration.daysString}';
         } catch (e:Dynamic) {}
         
         return "N/A";
@@ -233,8 +233,9 @@ class SystemUtils {
 
     public static function fetchInstalledDate():String {
         try {
-            if (FileSystem.exists("/")) {
-                var stats = FileSystem.stat("/");
+            var path = getBirthPath();
+            if (FileSystem.exists(path)) {
+                var stats = FileSystem.stat(path);
                 var timestamp = stats.ctime.getTime();
                 var date = Date.fromTime(timestamp);
 
@@ -246,6 +247,37 @@ class SystemUtils {
             }
         } catch (e:Dynamic) {}
         return "N/A";
+    }
+
+    private static function getBirthPath():String {
+        var root = "/bedrock/strata";
+
+        if (FileSystem.exists(root) && FileSystem.isDirectory(root)) {
+            try {
+                var entry = FileSystem.readDirectory(root);
+                var oldTime:Float = Math.POSITIVE_INFINITY;
+                var oldPath:String = null;
+
+                for (entries in entry) {
+                    var path = root + "/" + entries;
+                    if (FileSystem.isDirectory(path)) {
+                        var stat = FileSystem.stat(path);
+                        if (stat.ctime != null) {
+                            var time = stat.ctime.getTime();
+                            if (time < oldTime) {
+                                oldTime = time;
+                                oldPath = path;
+                            }
+                        }
+                    }
+                }
+
+                if (oldPath != null) return oldPath;
+            } catch (e:Dynamic) {}
+        }
+
+        if (FileSystem.exists("/lost+found")) return  "/lost+found";
+        return "/";
     }
 
     public static macro function fetchGithubCommit():Expr {
