@@ -216,7 +216,7 @@ class SystemUtils {
     }
 
     public static function fetchBirthday():String {
-        try {
+        try {    
             var status = FileSystem.stat(getBirthPath());
             var birth:Float = 0;
 
@@ -250,8 +250,20 @@ class SystemUtils {
     }
 
     private static function getBirthPath():String {
-        var root = "/bedrock/strata";
+        var anaconda = ["/etc/machine-id", "/var/log/anaconda/anaconda.log", "/usr", "/var"];
 
+        for (path in anaconda) {
+            if (FileSystem.exists(path)) {
+                try {
+                    var stat = FileSystem.stat(path);
+                    if (stat.ctime != null && stat.ctime.getTime() > 0) {
+                        return path;
+                    }
+                } catch (e:Dynamic) {}
+            }
+        }
+
+        var root = "/bedrock/strata";
         if (FileSystem.exists(root) && FileSystem.isDirectory(root)) {
             try {
                 var entry = FileSystem.readDirectory(root);
@@ -276,7 +288,7 @@ class SystemUtils {
             } catch (e:Dynamic) {}
         }
 
-        if (FileSystem.exists("/lost+found")) return  "/lost+found";
+        if (FileSystem.exists("/lost+found")) return "/lost+found";
         return "/";
     }
 
