@@ -37,7 +37,9 @@ class Configuration {
     public static var init:Bool = true;
 
     public static var showKernel:Bool = true;
+    public static var systemKernel:Bool = true;
     public static var kernelString:String = "Kernel";
+    public static var systemKernelString:String = "Linux";
 
     public static var showDesktop:Bool = true;
     public static var desktopString:String = "DE";
@@ -201,6 +203,8 @@ class Configuration {
 
             interp.variables.set("show_kernel", showKernel);
             interp.variables.set("kernel", kernelString);
+            interp.variables.set("show_system_kernel", systemKernel);
+            interp.variables.set("system_kernel", systemKernelString);
 
             interp.variables.set("show_desktop_environment", showDesktop);
             interp.variables.set("desktop", desktopString);
@@ -274,6 +278,8 @@ class Configuration {
 
             if (interp.variables.exists("show_kernel")) showKernel = interp.variables.get("show_kernel");
             if (interp.variables.exists("kernel")) kernelString = interp.variables.get("kernel");
+            if (interp.variables.exists("show_system_kernel")) systemKernel = interp.variables.get("show_system_kernel");
+            if (interp.variables.exists("system_kernel")) systemKernelString = interp.variables.get("system_kernel");
 
             if (interp.variables.exists("show_desktop_environment")) showDesktop = interp.variables.get("show_desktop_environment");
             if (interp.variables.exists("desktop")) desktopString = interp.variables.get("desktop");
@@ -369,6 +375,8 @@ class Configuration {
 
             case "show_kernel": showKernel = parseBool(value);
             case "kernel": kernelString = parseString(value);
+            case "show_system_kernel": systemKernel = parseBool(value);
+            case "system_kernel": systemKernelString = parseString(value);
 
             case "show_desktop_environment": showDesktop = parseBool(value);
             case "desktop": desktopString = parseString(value);
@@ -465,7 +473,9 @@ class Configuration {
                 "init = true;\n\n" +
 
                 "show_kernel = true;\n" +
-                "kernel = \'Kernel\';\n\n" +
+                "kernel = \'Kernel\';\n" +
+                "show_system_kernel = true;\n" +
+                "system_kernel = \'Linux\';\n\n" +
 
                 "show_desktop_environment = true;\n" +
                 "desktop = \'DE\';\n\n" +
@@ -537,7 +547,9 @@ class Configuration {
                 "init=true\n\n" +
 
                 "show_kernel=true\n" +
-                "kernel='Kernel'\n\n" +
+                "kernel='Kernel'\n" +
+                "show_system_kernel=true\n" +
+                "system_kernel='Linux'\n\n" +
 
                 "show_desktop_environment=true\n" +
                 "desktop='DE'\n\n" +
