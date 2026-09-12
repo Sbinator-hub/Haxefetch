@@ -113,13 +113,6 @@ class SystemUtils {
     }
 
     public static function fetchInit():String {
-        if (FileSystem.exists("/run/systemd/system")) return "systemD";
-        if (FileSystem.exists("/run/openrc") || FileSystem.exists("/run/openrc/softlevel")) return "OpenRC";
-        if (FileSystem.exists("/run/runit")) return "Runit";
-        if (FileSystem.exists("/run/dinit")) return "Dinit";
-        if (FileSystem.exists("/run/finit")) return "Finit";
-        if (FileSystem.exists("/run/s6")) return "S6";
-        
         try {
             if (FileSystem.exists("/proc/1/comm")) {
                 var input = File.read("/proc/1/comm", false);
