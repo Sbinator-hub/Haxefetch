@@ -91,11 +91,15 @@ class Logo {
             case _ if (low.indexOf("mx") != -1): return "mx";
             case _ if (low.indexOf("linuxmint") != -1 || low.indexOf("linux-mint") != -1): return "mint";
             case _ if (low.indexOf("nixos") != -1): return "nix";
+            case _ if (low.indexOf("nobara") != -1): return "nobara";
             case _ if (low.indexOf("opensuse") != -1 || low.indexOf("opensuse-microos") != -1 || low.indexOf("opensuse-leap") != -1 || low.indexOf("opensuse-tumbleweed") != -1 || low.indexOf("opensuse-slowroll") != -1): return "suse";
             case _ if (low.indexOf("parabola") != -1): return "parabola";
             case _ if (low.indexOf("pikaos") != -1): return "pika";
             case _ if (low.indexOf("pisi") != -1): return "pisi";
             case _ if (low.indexOf("pop") != -1 || low.indexOf("popos") != -1): return "pop";
+            case _ if (low.indexOf("redcore") != -1): return "redcore";
+            case _ if (low.indexOf("rhel") != -1): return "rhel";
+            case _ if (low.indexOf("rocky") != -1): return "rocky";
             case _ if (low.indexOf("prismlinux") != -1): return "prism";
             case _ if (low.indexOf("slackware") != -1): return "slack";
             case _ if (low.indexOf("solus") != -1): return "solus"; 
@@ -104,6 +108,7 @@ class Logo {
             case _ if (low.indexOf("lubuntu") != -1): return "lubuntu";
             case _ if (low.indexOf("xubuntu") != -1): return "xubuntu";
             case _ if (low.indexOf("ubuntu") != -1 || low.indexOf("ubuntu-cinnamon") != -1 || low.indexOf("ubuntu-mate") != -1 || low.indexOf("ubuntu-sway") != -1 || low.indexOf("uwuntu") != -1): return "ubuntu";
+            case _ if (low.indexOf("ultramarine") != -1): return "ultramarine";
             case _ if (low.indexOf("void") != -1): return "void";
             default: return null;
         }
@@ -136,17 +141,22 @@ class Logo {
         if (s.indexOf("manjaro") != -1) return { primary: Colors.GREEN, secondary: Colors.GREEN, third: Colors.GREEN };
         if (s.indexOf("linuxmint") != -1 || s.indexOf("mint") != -1) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.GREEN };
         if (s.indexOf("nixos") != -1) return { primary: Colors.fg(26), secondary: Colors.COLOR_63, third: Colors.fg(25) };
+        if (s.indexOf("nobara") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("parabola") != -1) return { primary: Colors.MAGENTA, secondary: Colors.MAGENTA, third: Colors.MAGENTA };
         if (s.indexOf("parch") != -1) return { primary: Colors.COLOR_55, secondary: Colors.COLOR_55, third: Colors.COLOR_55 };
         if (s.indexOf("pika") != -1) return { primary: Colors.YELLOW, secondary: Colors.YELLOW, third: Colors.YELLOW };
         if (s.indexOf("pisi") != -1) return { primary: Colors.YELLOW, secondary: Colors.YELLOW, third: Colors.YELLOW };
         if (s.indexOf("pop") != -1) return { primary: Colors.BRIGHT_CYAN, secondary: Colors.WHITE, third: Colors.CYAN };
         if (s.indexOf("prism") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
+        if (s.indexOf("redcore") != -1) return { primary: Colors.RED, secondary: Colors.WHITE, third: Colors.WHITE };
+        if (s.indexOf("rhel") != -1) return { primary: Colors.RED, secondary: Colors.WHITE, third: Colors.WHITE};
+        if (s.indexOf("rocky") != -1) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("slackware") != -1) return { primary: Colors.fg(26), secondary: Colors.WHITE, third: Colors.fg(26) };
         if (s.indexOf("suse") != -1) return { primary: Colors.fg(28), secondary: Colors.fg(28), third: Colors.WHITE };
         if (s.indexOf("steamos") != -1) return { primary: Colors.fg(27), secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("solus") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("tonarchy") != -1) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE }; // Tony Banters my beloved guy
+        if (s.indexOf("ultramarine") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("void") != -1) return { primary: Colors.COLOR_22, secondary: Colors.WHITE, third: Colors.COLOR_22 };
         if (s.indexOf("zorin") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
 

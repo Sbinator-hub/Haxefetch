@@ -494,6 +494,10 @@ class Configuration {
                 "show_disk_usage = true;\n" +
                 "disk = \'Disk\';\n\n" +
 
+                "show_package = true;\n" +
+                "package = \'Packages\';\n" +
+                "package_manager = true;\n\n" +
+
                 "show_shell = true;\n" +
                 "shell = \'Shell\';\n\n" +
 

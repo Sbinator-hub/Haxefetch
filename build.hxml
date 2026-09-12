@@ -21,6 +21,7 @@
 
 # Add resources
 --resource src/resources/logos/aerynos.txt@aeryn
+--resource src/resources/logos/almalinux.txt@alma
 --resource src/resources/logos/alpine.txt@alpine
 --resource src/resources/logos/arch.txt@arch
 --resource src/resources/logos/arco.txt@arco
@@ -44,6 +45,7 @@
 --resource src/resources/logos/manjaro.txt@manjaro
 --resource src/resources/logos/mx.txt@mx
 --resource src/resources/logos/nixos.txt@nix
+--resource src/resources/logos/nobara.txt@nobara
 --resource src/resources/logos/slackware.txt@slack
 --resource src/resources/logos/solus.txt@solus
 --resource src/resources/logos/steamos.txt@steam
@@ -54,8 +56,12 @@
 --resource src/resources/logos/pisi.txt@pisi
 --resource src/resources/logos/pop.txt@pop
 --resource src/resources/logos/prismlinux.txt@prism
+--resource src/resources/logos/redcore.txt@redcore
+--resource src/resources/logos/rhel.txt@rhel
+--resource src/resources/logos/rocky.txt@rocky
 --resource src/resources/logos/tonarchy.txt@tonarchy
 --resource src/resources/logos/ubuntu.txt@ubuntu
+--resource src/resources/logos/ultramarine.txt@ultramarine
 --resource src/resources/logos/void.txt@void
 --resource src/resources/logos/xubuntu.txt@xubuntu
 --resource src/resources/logos/zorin.txt@zorin
@@ -78,7 +84,10 @@
 --resource src/resources/mini_logos/nixos.txt@nix_small
 --resource src/resources/mini_logos/parabola.txt@parabola_small
 --resource src/resources/mini_logos/pop.txt@pop_small
+--resource src/resources/mini_logos/rhel.txt@rhel_small
 --resource src/resources/mini_logos/prismlinux.txt@prism_small
+--resource src/resources/mini_logos/rocky.txt@rocky_small
 --resource src/resources/mini_logos/slackware.txt@slack_small
 --resource src/resources/mini_logos/ubuntu.txt@ubuntu_small
+--resource src/resources/mini_logos/ultramarine.txt@ultramarine_small
 --resource src/resources/mini_logos/void.txt@void_small
