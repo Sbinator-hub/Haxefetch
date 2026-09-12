@@ -48,9 +48,9 @@ class SystemUtils {
         var model:String = "";
 
         if (bios != "" && bios != "None")
-            vendor = bios
+            vendor = convertTitle(bios);
         else if (board != "" && board != "None")
-            vendor = board;
+            vendor = convertTitle(board);
 
         if (version != "" && version != "None" && version != "System Version")
             model = version;
@@ -70,19 +70,28 @@ class SystemUtils {
         return model;
     }
 
+    private static function convertTitle(title:String):String {
+        return title.toLowerCase().split(" ").map(word -> {
+            if (title.length == 0) return "";
+            return word.charAt(0).toUpperCase() + word.substr(1);
+        }).join(" ");
+    }
+
     private static function readFile(path:String):String {
         #if sys
         if (sys.FileSystem.exists(path)) {
             try {
-                var content = sys.io.File.getContent(path);
-                if (content != null) return StringTools.trim(content);
+                var input = File.read(path, false);
+                var content = input.readAll().toString();
+                input.close();
+                if (content != null && content != "") return StringTools.trim(content);
             } catch (e:Dynamic) {}
         }
         #end
-        var output = Haxefetch.runCmd("cat", [path]);
+        /*var output = Haxefetch.runCmd("cat", [path]);
             if (output != null && output != "") {
             return StringTools.trim(output);
-        }
+        }*/
         return "";
     }
 
