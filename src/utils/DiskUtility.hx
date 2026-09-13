@@ -15,7 +15,6 @@ class DiskUtility {
 
         #if cpp
         var result:String = "";
-
         untyped __cpp__('
             struct statvfs stat;
             char targetDir[256] = "/";
@@ -67,8 +66,15 @@ class DiskUtility {
                 unsigned long long free = (unsigned long long)stat.f_bavail * stat.f_frsize;
                 unsigned long long used = total - free;
                 
-                double usedGiB = (double)used / 1073741824.0;
-                double totalGiB = (double)total / 1073741824.0;
+                double u_val = (double)used;
+                double t_val = (double)total;
+                int unit_idx = 0;
+                const char* units[] = {"B", "KiB", "MiB", "GiB", "TiB", "PiB"};
+                while (t_val >= 1024.0 && unit_idx < 5) {
+                    u_val /= 1024.0;
+                    t_val /= 1024.0;
+                    unit_idx++;
+                }
                 int percent = (int)(((double)used / (double)total) * 100.0);
 
                 const char* colorCode = "\\033[32m";
@@ -80,7 +86,7 @@ class DiskUtility {
                 const char* resetCode = "\\033[0m";
 
                 char buffer[256];
-                snprintf(buffer, sizeof(buffer), "%.1f GiB / %.1f GiB (%s%d%%%s) [%s]", usedGiB, totalGiB, colorCode, percent, resetCode, fsType);
+                snprintf(buffer, sizeof(buffer), "%.1f %s / %.1f %s (%s%d%%%s) [%s]", u_val, units[unit_idx], t_val, units[unit_idx], colorCode, percent, resetCode, fsType);
                 result = String(buffer);
             }
         ');
