@@ -48,42 +48,7 @@ class Packages {
             if (!FileSystem.exists(rpmPath)) rpmPath = root + "/var/lib/rpm/rpmdb.sqlite";
             if (FileSystem.exists(rpmPath)) {
                 try {
-                    var count:Int = 0;
-                    #if cpp
-                    var cPath = rpmPath;
-                    count = untyped __cpp__('[](const char* path) -> int {
-                        void* handle = dlopen("libsqlite3.so.0", RTLD_LAZY);
-                        if (!handle) handle = dlopen("libsqlite3.so", RTLD_LAZY);
-                        if (!handle) return 0;
-
-                        auto s_open = (int(*)(const char*, void**, int, const char*))dlsym(handle, "sqlite3_open_v2");
-                        auto s_prep = (int(*)(void*, const char*, int, void**, const char**))dlsym(handle, "sqlite3_prepare_v2");
-                        auto s_step = (int(*)(void*))dlsym(handle, "sqlite3_step");
-                        auto s_col  = (int(*)(void*, int))dlsym(handle, "sqlite3_column_int");
-                        auto s_fin  = (int(*)(void*))dlsym(handle, "sqlite3_finalize");
-                        auto s_cls  = (int(*)(void*))dlsym(handle, "sqlite3_close");
-
-                        if (!s_open || !s_prep || !s_step || !s_col || !s_fin || !s_cls) {
-                            dlclose(handle);
-                            return 0;
-                        }
-
-                        void* db = nullptr;
-                        int total = 0;
-                        if (s_open(path, &db, 1 /* SQLITE_OPEN_READONLY */, nullptr) == 0) {
-                            void* stmt = nullptr;
-                            if (s_prep(db, "SELECT count(*) FROM Packages;", -1, &stmt, nullptr) == 0) {
-                                if (s_step(stmt) == 100 /* SQLITE_ROW */) {
-                                    total = s_col(stmt, 0);
-                                }
-                                s_fin(stmt);
-                            }
-                            s_cls(db);
-                        }
-                        dlclose(handle);
-                        return total;
-                    }({0})', cPath);
-                    #end
+                    var count = getSQLiteCount(rpmPath, "SELECT count(*) FROM Packages;");
 
                     if (count > 0) {
                         var entry = Configuration.packageManager ? '$count (rpm)' : '${count}';
@@ -246,9 +211,7 @@ class Packages {
             var database = root + "/.moss/db/state";
             if (FileSystem.exists(database)) {
                 try {
-                    var query = "SELECT COUNT(*) FROM state_selections WHERE state_id = (SELECT MAX(id) FROM state);";
-                    var raw = Haxefetch.runCmd("sqlite3", [database, query]);
-                    var count = Std.parseInt(StringTools.trim(raw));
+                    var count = getSQLiteCount(database, "SELECT COUNT(*) FROM state_selections WHERE state_id = (SELECT MAX(id) FROM state);");
 
                     if (count > 0) {
                         var entry = Configuration.packageManager ? '$count (moss)' : '${count}';
@@ -335,16 +298,16 @@ class Packages {
             if (paths != null && FileSystem.exists(paths) && FileSystem.isDirectory(paths)) {
                 try {
                     flatpaks += FileSystem.readDirectory(paths).length;
+
+                    if (flatpaks > 0) {
+                        var entry = Configuration.packageManager ? '$flatpaks (flatpak)' : '${flatpaks}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    }
                 } catch (e:Dynamic) {}
             }
         }
         
-        if (flatpaks > 0) {
-            var entry = Configuration.packageManager ? '$flatpaks (flatpak)' : '${flatpaks}';
-            if (!counts.contains(entry)) counts.push(entry);
-        }
-        
-        return counts.join(", ");
+        return counts.join(Configuration.packageSeparator != null ? Configuration.packageSeparator : "");
         #else
         return "Unknown";
         #end
@@ -362,5 +325,46 @@ class Packages {
                 if (root.length > 0) return root;
             } catch (e:Dynamic) {}
         } return [""];
+    }
+
+    private static function getSQLiteCount(dbPath:String, query:String):Int {
+        var count:Int = 0;
+        #if cpp
+        var cPath = dbPath;
+        var cQuery = query;
+        count = untyped __cpp__('[](const char* path, const char* query) -> int {
+            void* handle = dlopen("libsqlite3.so.0", RTLD_LAZY);
+            if (!handle) handle = dlopen("libsqlite3.so", RTLD_LAZY);
+            if (!handle) return 0;
+
+            auto s_open = (int(*)(const char*, void**, int, const char*))dlsym(handle, "sqlite3_open_v2");
+            auto s_prep = (int(*)(void*, const char*, int, void**, const char**))dlsym(handle, "sqlite3_prepare_v2");
+            auto s_step = (int(*)(void*))dlsym(handle, "sqlite3_step");
+            auto s_col  = (int(*)(void*, int))dlsym(handle, "sqlite3_column_int");
+            auto s_fin  = (int(*)(void*))dlsym(handle, "sqlite3_finalize");
+            auto s_cls  = (int(*)(void*))dlsym(handle, "sqlite3_close");
+
+            if (!s_open || !s_prep || !s_step || !s_col || !s_fin || !s_cls) {
+                dlclose(handle);
+                return 0;    
+            }
+
+            void * db = nullptr;
+            int total = 0;
+            if (s_open(path, &db, 1, nullptr) == 0) {
+                void* stmt = nullptr;
+                if (s_prep(db, query, -1, &stmt, nullptr) == 0) {
+                    if (s_step(stmt) == 100) {
+                        total = s_col(stmt, 0);
+                    }
+                    s_fin(stmt);       
+                }
+                s_cls(db);    
+            }
+            dlclose(handle);
+            return total;
+        }({0}, {1})', cPath, cQuery);
+        #end
+        return count;
     }
 }
