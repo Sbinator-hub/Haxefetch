@@ -78,20 +78,30 @@ class Haxefetch {
             "uptime"   => Configuration.showUptime ? Colors.colorize(Configuration.uptimeString, logoColor) + Configuration.separator + separator + uptime : null,
             "birthday" => Configuration.showBirthday ? Colors.colorize(Configuration.birthdayString, logoColor) + Configuration.separator + separator + birthday : null,
             "birth"    => Configuration.showBirth ? Colors.colorize(Configuration.birthString, logoColor) + Configuration.separator + separator + birth : null,
-            "colors"   => Configuration.showBlock ? Colors.getColorBlocks() : null
+            "colors"   => Configuration.showBlock ? Colors.getColorBlocks() + (Configuration.showBlock2 ? separator + Colors.getBrightColorBlocks() : "") : null
         ];
 
         var infoLine:Array<String> = Configuration.modules.map(function(key) return modules.get(key)).filter(function(line) return line != null);
 
+        var offsetX = Configuration.logoX;
+        var offsetY = Configuration.logoY;
+
+        var horizontalPad = StringTools.lpad("", " ", offsetX);
+        var paddingLogo = logo.map(line -> horizontalPad + line);
+
+        var finalLogo:Array<String> = [];
+        for (i in 0...offsetY) finalLogo.push("");
+        for (line in paddingLogo) finalLogo.push(line);
+
         var logoWidth = 0;
-        for (line in logo) {
+        for (line in finalLogo) {
             var visibleLen = Colors.stripAnsi(line).length;
             if (visibleLen > logoWidth) logoWidth = visibleLen;
         }
 
-        var maximumLine = logo.length > infoLine.length ? logo.length : infoLine.length;
+        var maximumLine = finalLogo.length > infoLine.length ? finalLogo.length : infoLine.length;
         for (i in 0...maximumLine) {
-            var left = i < logo.length ? logo[i] : "";
+            var left = i < finalLogo.length ? finalLogo[i] : "";
             var right = i < infoLine.length ? infoLine[i] : "";
 
             if (logoColor != "" && logoColor != null) {

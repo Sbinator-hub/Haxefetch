@@ -20,6 +20,8 @@ class Configuration {
     public static var separator:String = ":";
 
     public static var logo:String = "";
+    public static var logoX:Int = 2;
+    public static var logoY:Int = 1;
     // public static var customLogo:String = "";
     public static var logoSize:String = "normal";
     public static var logoColor = "";
@@ -89,6 +91,7 @@ class Configuration {
     public static var birthString:String = "OS Birth";
 
     public static var showBlock:Bool = true;
+    public static var showBlock2:Bool = true;
 
     public static function loadConfig():Void {
         var main = Sys.getEnv("HOME");
@@ -189,6 +192,8 @@ class Configuration {
             interp.variables.set("separator", separator);
 
             interp.variables.set("logo", logo);
+            interp.variables.set("logo_x", logoX);
+            interp.variables.set("logo_y", logoY);
             interp.variables.set("logo_type", logoSize);
             interp.variables.set("logo_color", modules);
 
@@ -257,6 +262,7 @@ class Configuration {
             interp.variables.set("birth", birthString);
 
             interp.variables.set("show_color_block", showBlock);
+            interp.variables.set("show_bright_color_block", showBlock2);
 
             var program = parser.parseString(File.getContent(path));
             interp.execute(program);
@@ -265,6 +271,8 @@ class Configuration {
             if (interp.variables.exists("separator")) separator = interp.variables.get("separator");
 
             if (interp.variables.exists("logo")) logo = interp.variables.get("logo");
+            if (interp.variables.exists("logo_x")) logoX = interp.variables.get("logo_x");
+            if (interp.variables.exists("logo_y")) logoY = interp.variables.get("logo_y");
             if (interp.variables.exists("logo_type")) logoSize = interp.variables.get("logo_type");
             if (interp.variables.exists("logo_color")) logoColor = interp.variables.get("logo_color");
 
@@ -333,6 +341,8 @@ class Configuration {
             if (interp.variables.exists("birth")) birthString = interp.variables.get("birth");
 
             if (interp.variables.exists("show_color_block")) showBlock = interp.variables.get("show_color_block");
+            if (interp.variables.exists("show_bright_color_block")) showBlock2 = interp.variables.get("show_bright_color_block");
+
         } catch (e:hscript.Expr.Error) {
             var lineNumb = switch (e) {
                 case EInvalidChar(_), EUnexpected(_), EUnterminatedString, EUnterminatedComment:
@@ -363,6 +373,8 @@ class Configuration {
 
             case "logo": logo = parseString(value);
             // case "custom_logo": customLogo = parseString(value);
+            case "logo_x": logoX = parseInt(value, 2);
+            case "logo_y": logoY = parseInt(value, 1);
             case "logo_type": logoSize = parseString(value);
             case "logo_color": logoColor = parseString(value);
 
@@ -431,6 +443,7 @@ class Configuration {
             case "birth": birthString = parseString(value);
 
             case "show_color_block": showBlock = parseBool(value);
+            case "show_bright_color_block": showBlock2 = parseBool(value);
             default:
                 Sys.println('${Colors.colorize("Error in configuration of Haxefetch!", Colors.RED)} ${Colors.colorize('[Line ${lineNumber}]:', Colors.YELLOW)} ${Colors.colorize('Unknown option key', Colors.RED)} -> ${Colors.colorize('"${key}"', Colors.YELLOW)} <-');
                 Sys.exit(1);
@@ -452,6 +465,12 @@ class Configuration {
         return value;
     }
 
+    private static function parseInt(value:String, fallback:Int):Int {
+        if (value == null || value == "") return fallback;
+        var parse = Std.parseInt(value);
+        return parse != null ? parse : fallback;
+    }
+
     private static function createConfiguration(directory:String, path:String, creation:Bool, isHScript:Bool = false):Void {
         try {
             if (!FileSystem.exists(directory)) FileSystem.createDirectory(directory);
@@ -464,6 +483,8 @@ class Configuration {
                 "separator = \":\";\n\n" +
 
                 "logo = \'\';\n" +
+                "logo_x = \'2\';\n" +
+                "logo_y = \'1\';\n" +
                 "logo_type = \'normal\';\n" +
                 "logo_color = \'\';\n\n" +
 
@@ -530,7 +551,8 @@ class Configuration {
                 "show_birth = true;\n" +
                 "birth = \'OS Birth\';\n\n" +
 
-                "show_color_block = true;";
+                "show_color_block = true;\n" +
+                "show_bright_color_block = true;";
             } else {
                 defaults =
                 "# Haxefetch configuration\n\n" +
@@ -538,6 +560,8 @@ class Configuration {
                 "separator=':'\n\n" +
 
                 "logo=''\n" +
+                "logo_x='2'\n" +
+                "logo_y='1'\n" + 
                 // "custom_logo=''\n" + IT IS BROKEN AND NOT WORKING
                 "logo_type='normal'\n" +
                 "logo_color=''\n\n" +
@@ -605,7 +629,8 @@ class Configuration {
                 "show_birth=true\n" +
                 "birth='OS Birth'\n\n" +
 
-                "show_color_block=true";
+                "show_color_block=true\n" + 
+                "show_bright_color_block=true";
             }
 
             File.saveContent(path, defaults);

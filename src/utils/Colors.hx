@@ -229,4 +229,15 @@ class Colors {
                "\x1b[46m  " +
                "\x1b[47m  " + RESET;
     }
+
+    public static function getBrightColorBlocks():String {
+        return "\x1b[100m  " +
+               "\x1b[101m  " + 
+               "\x1b[102m  " + 
+               "\x1b[103m  " + 
+               "\x1b[104m  " +
+               "\x1b[105m  " +
+               "\x1b[106m  " + 
+               "\x1b[107m  " + RESET;
+    }
 }
