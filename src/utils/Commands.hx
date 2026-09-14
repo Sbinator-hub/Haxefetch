@@ -24,6 +24,10 @@ class Commands {
                 case "-t" | "--tutorial":
                     fetchInstructions();
                     Sys.exit(0);
+                
+                case "-s" | "--supported":
+                    checkIfSupported();
+                    Sys.exit(0);
 
                 default:
                     Sys.println('Unknown command ${args}');
@@ -40,10 +44,19 @@ class Commands {
         Sys.println("   -v | --version " + " " + "     Show version of Haxefetch.");
         Sys.println("   -c | --config " + " " + "      Generate new config of Haxefetch.");
         Sys.println("   -t | --tutorial " + " " + "    Show how to customize Haxefetch.");
+        Sys.println("   -s | --supported " + " " + "   Check if Haxefetch is supported.");
     } 
 
     private static function fetchInstructions():Void {
         Sys.println('In order to customise this:\n');
         Sys.println('Generate configuration with "haxefetch --config | -c" (it is located into /home/${Sys.getEnv("USER")}/.config/haxefetch directory).\nYou can see there is some options to customise this fetch program, so enjoy :)');
+    }
+
+    private static function checkIfSupported():Void {
+        #if (windows || macos || android || bsd)
+        Sys.println('Your platform ${SystemUtils.osPlatform()} does not supports Haxefetch!');
+        #else
+        Sys.println('Detected ${SystemUtils.fetchDistro()}! Supported.');
+        #end
     }
 }

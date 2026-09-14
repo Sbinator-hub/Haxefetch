@@ -65,7 +65,7 @@ Getting binary using `wget`
 2. Clone my repo.
    - `git clone https://github.com/ACoolioDude/Haxefetch.git`
 2. Setup development.
-   - `cd Haxefetch` > `haxelib setup` (requires Haxe!) > Set haxelib environent to Haxefetch folder `home/$USER/Haxefetch/.haxelib` > install HXCPP `haxelib install hxcpp`
+   - `cd Haxefetch` > `haxelib setup` (requires Haxe!) > Set haxelib environent to Haxefetch folder `home/$USER/Haxefetch/.haxelib` > install depemdenices `haxelib install all`
 3. Compile Haxefetch.
    - `haxe build.hxml`
 </details>

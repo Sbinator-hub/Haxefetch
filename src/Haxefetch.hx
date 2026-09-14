@@ -8,7 +8,7 @@ class Haxefetch {
         Configuration.loadConfig();
 
         #if (windows || macos || android || bsd)
-        Sys.println('${Sys.systemInfo()} is not currently supported!');
+        Sys.println('Haxefetch on ${SystemUtils.osPlatform()} is not currently supported!');
         #else
         initFetch();
         #end
