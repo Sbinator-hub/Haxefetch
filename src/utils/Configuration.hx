@@ -120,6 +120,8 @@ class Configuration {
         Sys.println('There are ${Colors.colorize("2", Colors.GREEN)} types of configuration support. Which you\'re choosing?');
         Sys.println('${Colors.colorize(".conf", Colors.GREEN)} (default)');
         Sys.println('${Colors.colorize(".hx", Colors.fg(208))} (new)');
+        Sys.stdout().writeString('[1-2]: ');
+        Sys.stdout().flush();
 
         var choice = StringTools.trim(Sys.stdin().readLine());
         var isHaxe = (choice == "2" || choice.toLowerCase() == "hx");
