@@ -7,7 +7,11 @@ class Haxefetch {
         Commands.parse(Sys.args());
         Configuration.loadConfig();
 
+        #if (windows || macos || android || bsd)
+        Sys.println('${Sys.systemInfo()} is not currently supported!');
+        #else
         initFetch();
+        #end
     }
 
     static function initFetch():Void {
