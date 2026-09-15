@@ -37,6 +37,7 @@ class Configuration {
     public static var distroString:String = "OS";
     public static var architecture:Bool = true;
     public static var init:Bool = true;
+    public static var initString:String;
 
     public static var showKernel:Bool = true;
     public static var systemKernel:Bool = true;
@@ -208,6 +209,7 @@ class Configuration {
             interp.variables.set("distro", distroString);
             interp.variables.set("cpu_architecture", architecture);
             interp.variables.set("init", init);
+            interp.variables.set("init_string", initString);
 
             interp.variables.set("show_kernel", showKernel);
             interp.variables.set("kernel", kernelString);
@@ -282,6 +284,7 @@ class Configuration {
             if (interp.variables.exists("machine_vendor")) vendor = interp.variables.get("machine_vendor");
             if (interp.variables.exists("machine_product")) productName = interp.variables.get("machine_product");
             if (interp.variables.exists("host")) hostString = interp.variables.get("host");
+            if (interp.variables.exists("init_string")) initString = interp.variables.get("init_string");
 
             if (interp.variables.exists("show_distro")) showDistro = interp.variables.get("show_distro");
             if (interp.variables.exists("distro")) distroString = interp.variables.get("distro");
@@ -389,6 +392,7 @@ class Configuration {
             case "distro": distroString = parseString(value);
             case "cpu_architecture": architecture = parseBool(value);
             case "init": init = parseBool(value);
+            case "init_string": initString = parseString(value);
 
             case "show_kernel": showKernel = parseBool(value);
             case "kernel": kernelString = parseString(value);
@@ -497,7 +501,8 @@ class Configuration {
                 "show_distro = true;\n" +
                 "distro = \'OS\';\n" +
                 "cpu_architecture = true;\n" +
-                "init = true;\n\n" +
+                "init = true;\n" +
+                "init_string = \'\';\n\n" +
 
                 "show_kernel = true;\n" +
                 "kernel = \'Kernel\';\n" +
@@ -575,7 +580,8 @@ class Configuration {
                 "show_distro=true\n" +
                 "distro='OS'\n" +
                 "cpu_architecture=true\n" +
-                "init=true\n\n" +
+                "init=true\n" +
+                "init_string=''\n\n" +
 
                 "show_kernel=true\n" +
                 "kernel='Kernel'\n" +

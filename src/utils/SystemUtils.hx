@@ -129,13 +129,13 @@ class SystemUtils {
                 input.close();
 
                 switch (com) {
-                    case "systemd": return "systemD";
-                    case "openrc-init": return "OpenRC";
-                    case "runit": return "Runit";
-                    case "dinit": return "Dinit";
-                    case "finit": return "Finit";
-                    case "s6-svscan": return "S6";
-                    case "init": return "SysVinit";
+                    case "systemd": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "systemD"; 
+                    case "openrc-init": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "OpenRC";
+                    case "runit": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Runit";
+                    case "dinit": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Dinit";
+                    case "finit": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Finit";
+                    case "s6-svscan": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "S6";
+                    case "init": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "SysVInit";
                     default: return com;
                 }
             }
