@@ -128,23 +128,6 @@ class Haxefetch {
         return Math.round(val * factor) / factor;
     }
 
-    public static function executeCount(cmd:String, args:Array<String>):Int {
-        try {
-            var p = new Process(cmd, args);
-            var count = 0;
-            try {
-                while (true) {
-                    p.stdout.readLine();
-                    count++;
-                }
-            } catch (e:haxe.io.Eof) {}
-            p.close();
-            return count;
-        } catch (e:Dynamic) {
-            return 0;
-        }
-    }
-
     public static function runCmd(cmd:String, args:Array<String>):String {
         try {
             var p = new Process(cmd, args);
