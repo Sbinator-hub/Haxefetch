@@ -18,11 +18,15 @@ class Packages {
         var counts:Array<String> = [];
         var bedrockRoot = fetchBedrockPackages();
         
-        var home = Sys.getEnv("HOME");
+        var env = Sys.environment();
+
+        var home = env.get("HOME");
         if (home == null) home == "";
 
-        var user = Sys.getEnv("USER");
+        var user = env.get("USER");
         if (user == null) user == "";
+
+        var xdg = env.get("XDG_STATE_HOME");
 
         for (root in bedrockRoot) {
             // Debian/GNU Linux based system (dpkg) - Debian Organization
@@ -117,16 +121,51 @@ class Packages {
             }
 
             // NixOS based system (nix) - Nix Team
-            if (FileSystem.exists(root + "/nix/store") || FileSystem.exists(home + "/.nix-profile")) {
+            var nixUserCount = 0;
+            var nixSystemCount = 0;
+
+            if (home != null) {
+                var profile = home + "/.nix-profile";
                 try {
-                    if (FileSystem.exists(root + "/nix/store")) {
-                        var count = FileSystem.readDirectory(root + "/nix/store").length;
-                        if (count > 0) {
-                            var entry = Configuration.packageManager ? '$count (nix)' : '$count';
-                            if (!counts.contains(entry)) counts.push(entry);
-                        }
+                    if (FileSystem.exists(profile) && FileSystem.isDirectory(profile)) {
+                        nixUserCount += FileSystem.readDirectory(profile).length;
                     }
                 } catch (e:Dynamic) {}
+            }
+
+            var systemPath = "/run/current-system/sw/bin";
+            try {
+                if (FileSystem.exists(systemPath)) {
+                    nixSystemCount += FileSystem.readDirectory(systemPath).length;
+                }
+            } catch (e:Dynamic) {}
+
+            var state = "";
+            if (xdg != null && xdg.length > 0) {
+                state = xdg + "/nix/profile/bin";
+            } else if (home != null) {
+                state = home + "/.local/state/nix/profile/bin";
+            }
+            if (state.length > 0) {
+                try {
+                    if (FileSystem.exists(state) && FileSystem.isDirectory(state)) nixUserCount += FileSystem.readDirectory(state).length;
+                } catch (e:Dynamic) {}
+            }
+
+            if (user != null) {
+                var etcPath = "/etc/profile/per-user/$user/bin";
+                try {
+                    if (FileSystem.exists(etcPath) && FileSystem.isDirectory(etcPath)) nixUserCount += FileSystem.readDirectory(etcPath).length;
+                } catch (e:Dynamic) {}
+            }
+
+            var parts:Array<String> = [];
+            if (nixSystemCount > 0) parts.push(Configuration.packageManager ? '$nixSystemCount (nix-system)' : '$nixSystemCount');
+            if (nixUserCount > 0) parts.push(Configuration.packageManager ? '$nixUserCount (nix-user)' : '$nixUserCount');
+
+            if (parts.length > 0) {
+                var entry = parts.join(Configuration.packageSeparator != null ? Configuration.packageSeparator : "");
+                if (!counts.contains(entry)) counts.push(entry);
             }
 
             // Slackware Linux based system (slackpkg) - Patrick Volkerding
