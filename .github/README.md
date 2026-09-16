@@ -27,9 +27,11 @@ Haxefetch is fetch program inspired by fastfetch, neofetch, pfetch, nerdfetch, h
 <p align="center">(Haxefetch commands)</p>
 
 <p align="center">
-  <img src="../src/resources/screenshots/configuration.png" width="50%" alt="Haxefetch configuration">
+  <img src="../src/resources/screenshots/config_types.png" width="50%" alt="Haxefetch configuration types">
+  <img src="../src/resources/screenshots/config_default.png" width="50%" alt="Haxefetch configuration on .conf (default)">
+  <img src="../src/resources/screenshots/config_hx.png" width="50%" alt="Haxefetch configuration on .hx (HScipt/HaxeScript)">
 </p>
-<p align="center">(Configuring Haxefetch with .conf support)</p>
+<p align="center">(Configuring Haxefetch with .conf and .hx support)</p>
 
 ## How to use this?
 
@@ -53,24 +55,57 @@ For NixOS users
 - My friend [StaryPlemnik](https://github.com/Staryplemnik) made [official NixOS flake repo](https://github.com/Sbinator-hub/haxefetch-nix). Read more by clicking on "official NixOS flake repo" text
 
 Getting compiled binary from Git using `wget`
-- `wget https://raw.githubusercontent.com/Sbinator-hub/Haxefetch/main/binary/haxefetch && chmod +x haxefetch && sudo mv haxefetch /usr/bin/haxefetch`
+```
+wget https://raw.githubusercontent.com/Sbinator-hub/Haxefetch/main/binary/haxefetch && chmod +x haxefetch && sudo mv haxefetch /usr/bin/haxefetch
+```
+
 </details>
 
 <details>
     <summary>Getting Haxe and it's dependencies</summary>
 
-1. Install dependencies.
-   - Debian/Ubuntu: `apt-get install haxe git g++`
-   - Fedora/RHEL/RPM: `dnf install haxe git g++`
-   - openSUSE Leap/Tumbleweed: `zypper install haxe git g++`
-   - Arch: `pacman -S base-devel haxe git`
-   - Gentoo: `emerge --ask --verbose dev-lang/haxe dev-vcs/git sys-devel/gcc` (if you have packages that are masked, [unmask them](https://wiki.gentoo.org/wiki/Knowledge_Base:Unmasking_a_package))
-2. Clone my repo.
-   - `git clone https://github.com/ACoolioDude/Haxefetch.git`
-2. Setup development.
-   - `cd Haxefetch` > `haxelib setup` (requires Haxe!) > Set haxelib environent to Haxefetch folder `home/$USER/Haxefetch/.haxelib` > install depemdenices `haxelib install all`
-3. Compile Haxefetch.
-   - `haxe build.hxml`
+- Install dependencies.
+
+  - Debian/Ubuntu: 
+  ```
+  apt-get install git g++ haxe
+  ```
+
+  - Fedora/RHEL/Rocky/Alma: 
+  ```
+  dnf install git g++ haxe
+  ```
+
+  - openSUSE Leap/Tumbleweed:
+  ```
+  zypper install git g++ haxe
+  ```
+
+  - Arch Linux: 
+  ```
+  pacman -S base-devel git haxe
+  ```
+
+  - Gentoo Linux: 
+  ```
+  emerge --ask --verbose (-av) dev-vcs/git sys-devel/gcc dev-lang/haxe
+  ```
+  > (if you have packages that are masked, [unmask them](https://wiki.gentoo.org/wiki/Knowledge_Base:Unmasking_a_package))
+
+- Clone my repo.
+  ```
+  git clone https://github.com/ACoolioDude/Haxefetch.git
+  ```
+
+- Setup development.
+  ```
+  cd Haxefetch > haxelib setup > Set haxelib environent to Haxefetch folder 'home/$USER/Haxefetch/.haxelib' > install dependenices 'haxelib install all'
+  ``` 
+  
+- Compile Haxefetch.
+  ```
+  haxe build.hxml
+  ```
 </details>
 
 
