@@ -7,8 +7,8 @@ $1             -+oooooo+:
 $1            `/:-:++oooo+:
 $1           `/++++/+++++++:
 $1          `/++++++++++++++:
-$1         `/+++o$2oooooooo$1oooo/`
-$1        ./$2ooosssso++osssssso$1+`
+$1         `/+++ooooooooooooo/`
+$1        ./ooosssso++osssssso+`
 $1       .oossssso-````/ossssss+`
 $1      -osssssso.      :ssssssso.
 $1     :osssssss/        osssso+++.

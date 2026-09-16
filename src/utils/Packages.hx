@@ -41,7 +41,7 @@ class Packages {
                         content = pattern.matchedRight();
                     }
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (dpkg)' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(dpkg)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -55,7 +55,7 @@ class Packages {
                     var count = getSQLiteCount(rpmPath, "SELECT count(*) FROM Packages;");
 
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (rpm)' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(rpm)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -68,7 +68,7 @@ class Packages {
                     var count = entries.filter(e -> !StringTools.startsWith(e, "ALPM") && StringTools.contains(e, "-")).length;
 
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (pacman)' : '$count';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(pacman)"}' : '$count';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -96,7 +96,7 @@ class Packages {
                             content = pattern.matchedRight();
                         }
                         if (count > 0) {
-                            var entry = Configuration.packageManager ? '$count (xbps)' : '$count';
+                            var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(xbps)"}' : '$count';
                             if (!counts.contains(entry)) counts.push(entry);
                         }
                     }
@@ -114,7 +114,7 @@ class Packages {
                         content = pattern.matchedRight();
                     }
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (apk)' : '$count';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(apk)"}' : '$count';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -142,9 +142,9 @@ class Packages {
 
             var state = "";
             if (xdg != null && xdg.length > 0) {
-                state = xdg + "/nix/profile/bin";
+                state = xdg + "nix/profile";
             } else if (home != null) {
-                state = home + "/.local/state/nix/profile/bin";
+                state = home + "/.local/state/";
             }
             if (state.length > 0) {
                 try {
@@ -160,8 +160,8 @@ class Packages {
             }
 
             var parts:Array<String> = [];
-            if (nixSystemCount > 0) parts.push(Configuration.packageManager ? '$nixSystemCount (nix-system)' : '$nixSystemCount');
-            if (nixUserCount > 0) parts.push(Configuration.packageManager ? '$nixUserCount (nix-user)' : '$nixUserCount');
+            if (nixSystemCount > 0) parts.push(Configuration.packageManager ? '$nixSystemCount ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(nix-system)"}' : '$nixSystemCount');
+            if (nixUserCount > 0) parts.push(Configuration.packageManager ? '$nixUserCount ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(nix-user)"}' : '$nixUserCount');
 
             if (parts.length > 0) {
                 var entry = parts.join(Configuration.packageSeparator != null ? Configuration.packageSeparator : "");
@@ -173,7 +173,7 @@ class Packages {
                 try {
                     var total = FileSystem.readDirectory(root + "/var/log/packages").length;
                     if (total > 0) {
-                        var entry = Configuration.packageManager ? '$total (pkgtools)' : '${total}';
+                        var entry = Configuration.packageManager ? '$total ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(pkgtools)"}' : '${total}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -193,7 +193,7 @@ class Packages {
                         content = pattern.matchedRight();
                     }
                     if (count > 0) {        
-                        var entry = Configuration.packageManager ? '$count (guix)' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(guix)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -211,7 +211,7 @@ class Packages {
                     }
 
                     if (total > 0) {
-                        var entry = Configuration.packageManager ? '$total (emerge)' : '${total}';
+                        var entry = Configuration.packageManager ? '$total ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(emerge)"}' : '${total}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -229,7 +229,7 @@ class Packages {
                     }
 
                     if (total > 0) {
-                        var entry = Configuration.packageManager ? '$total (cave)' : '${total}';
+                        var entry = Configuration.packageManager ? '$total ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(cave)"}' : '${total}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 }
@@ -240,7 +240,7 @@ class Packages {
                 try {
                     var count = FileSystem.readDirectory(root + "/var/lib/eopkg/package").length;
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (eopkg)' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(eopkg)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -253,7 +253,7 @@ class Packages {
                     var count = getSQLiteCount(database, "SELECT COUNT(*) FROM state_selections WHERE state_id = (SELECT MAX(id) FROM state);");
 
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (moss)' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(moss)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -264,7 +264,7 @@ class Packages {
                 try {
                     var count = FileSystem.readDirectory(root + "/var/db/kiss/installed").length;
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (kiss)' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(kiss)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -275,7 +275,7 @@ class Packages {
                 try {
                     var count = FileSystem.readDirectory(root + "/var/lib/upkg/db").length;
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (upkg)' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(upkg)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -286,7 +286,7 @@ class Packages {
                 try {
                     var count = FileSystem.readDirectory(root + "/var/lib/pisi/package").length;
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (pisi)' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(pisi)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     } 
                 } catch (e:Dynamic) {}
@@ -297,7 +297,7 @@ class Packages {
                 try {
                     var count = FileSystem.readDirectory(root + "/var/db/Veiler").length;
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '$count (velier)' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(veiler)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -308,7 +308,7 @@ class Packages {
                 try {
                     var count = FileSystem.readDirectory(root + "/var/lib/rad/local").length;
                     if (count > 0) {
-                        var entry = Configuration.packageManager ? '${count} (rad)' : '${count}';
+                        var entry = Configuration.packageManager ? '${count} ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(rad)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -321,7 +321,7 @@ class Packages {
                     var snaps = FileSystem.readDirectory(path).filter(e -> StringTools.endsWith(e, ".snap"));
                     if (snaps.length > 0) {
                         var count = snaps.length;
-                        var entry = Configuration.packageManager ? '$count (snaps)' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(snaps)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -339,7 +339,7 @@ class Packages {
                     flatpaks += FileSystem.readDirectory(paths).length;
 
                     if (flatpaks > 0) {
-                        var entry = Configuration.packageManager ? '$flatpaks (flatpak)' : '${flatpaks}';
+                        var entry = Configuration.packageManager ? '$flatpaks ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(flatpak)"}' : '${flatpaks}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}

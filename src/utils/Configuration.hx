@@ -75,6 +75,7 @@ class Configuration {
     public static var packageString:String = "Packages";
     public static var packageManager:Bool = true;
     public static var packageSeparator:String = ",";
+    public static var packageName:String;
 
     public static var showShell:Bool = true;
     public static var shellString:String = "Shell";
@@ -247,6 +248,7 @@ class Configuration {
             interp.variables.set("package", packageString);
             interp.variables.set("package_manager", packageManager);
             interp.variables.set("package_separator", packageSeparator);
+            interp.variables.set("package_manager_name", packageName);
 
             interp.variables.set("show_shell", showShell);
             interp.variables.set("shell", shellString);
@@ -327,6 +329,7 @@ class Configuration {
             if (interp.variables.exists("package")) packageString = interp.variables.get("package");
             if (interp.variables.exists("package_manager")) packageManager = interp.variables.get("package_manager");
             if (interp.variables.exists("package_separator")) packageSeparator = interp.variables.get("package_separator");
+            if (interp.variables.exists("package_manager_name")) packageName = interp.variables.get("package_manager_name");
 
             if (interp.variables.exists("show_shell")) showShell = interp.variables.get("show_shell");
             if (interp.variables.exists("shell")) shellString = interp.variables.get("shell");
@@ -430,6 +433,7 @@ class Configuration {
             case "package": packageString = parseString(value);
             case "package_manager": packageManager = parseBool(value);
             case "package_separator": packageSeparator = parseString(value);
+            case "package_manager_name": packageName = parseString(value);
 
             case "show_shell": showShell = parseBool(value);
             case "shell": shellString = parseString(value);
@@ -539,7 +543,8 @@ class Configuration {
                 "show_package = true;\n" +
                 "package = \'Packages\';\n" +
                 "package_manager = true;\n" +
-                "package_separator = \', \';\n\n" +
+                "package_separator = \', \';\n" +
+                "package_manager_name = \'\';\n\n" +
 
                 "show_shell = true;\n" +
                 "shell = \'Shell\';\n\n" +
@@ -618,7 +623,8 @@ class Configuration {
                 "show_package=true\n" +
                 "package='Packages'\n" +
                 "package_manager=true\n" +
-                "package_separator=', '\n\n" +
+                "package_separator=', '\n" +
+                "package_manager_name=''\n\n" +
 
                 "show_shell=true\n" +
                 "shell='Shell'\n\n" +

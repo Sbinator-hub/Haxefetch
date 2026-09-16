@@ -316,7 +316,6 @@ class SystemUtils {
         var platform = Sys.systemName();
 
         return switch (platform) {
-            case "android": "Android";
             case "bsd": "BSD";
             case "linux": "Linux";
             case "mac": "MacOS";

@@ -53,7 +53,7 @@ class Commands {
     }
 
     private static function checkIfSupported():Void {
-        #if (windows || macos || android || bsd)
+        #if (windows || macos || bsd)
         Sys.println('Your platform ${SystemUtils.osPlatform()} does not supports Haxefetch!');
         #else
         Sys.println('Detected ${SystemUtils.fetchDistro()}! Supported.');
