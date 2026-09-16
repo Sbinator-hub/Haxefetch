@@ -49,7 +49,10 @@ For Fedora Linux users
 For Gentoo Linux users
 - I made [official overlay](https://github.com/Sbinator-hub/haxefetch-overlay) with included ebuilds. Read more by clicking on "official overlay" text
 
-Getting binary using `wget`
+For NixOS users
+- My friend [StaryPlemnik](https://github.com/Staryplemnik) made [official NixOS flake repo](https://github.com/Sbinator-hub/haxefetch-nix). Read more by clicking on "official NixOS flake repo" text
+
+Getting compiled binary from Git using `wget`
 - `wget https://raw.githubusercontent.com/Sbinator-hub/Haxefetch/main/binary/haxefetch && chmod +x haxefetch && sudo mv haxefetch /usr/bin/haxefetch`
 </details>
 
