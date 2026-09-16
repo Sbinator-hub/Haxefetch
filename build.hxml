@@ -35,6 +35,8 @@
 --resource src/resources/logos/fedora.txt@fedora
 --resource src/resources/logos/garuda.txt@garuda
 --resource src/resources/logos/gentoo.txt@gentoo
+--resource src/resources/logos/glaucus.txt@glaucus
+--resource src/resources/logos/guix.txt@guix
 --resource src/resources/logos/kali.txt@kail
 --resource src/resources/logos/kaos.txt@kaos
 --resource src/resources/logos/kdeneon.txt@neon
@@ -77,6 +79,8 @@
 --resource src/resources/mini_logos/fedora.txt@fedora_small
 --resource src/resources/mini_logos/garuda.txt@garuda_small
 --resource src/resources/mini_logos/gentoo.txt@gentoo_small
+--resource src/resources/mini_logos/glaucus.txt@glaucus_small
+--resource src/resources/mini_logos/guix.txt@guix_small
 --resource src/resources/mini_logos/kali.txt@kail_small
 --resource src/resources/mini_logos/manjaro.txt@manjaro_small
 --resource src/resources/mini_logos/mint.txt@mint_small

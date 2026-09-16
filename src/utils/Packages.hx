@@ -124,48 +124,49 @@ class Packages {
             var nixUserCount = 0;
             var nixSystemCount = 0;
 
-            if (home != null) {
-                var profile = home + "/.nix-profile";
+            if (FileSystem.exists("/nix") && FileSystem.isDirectory("/nix")) {
+                if (home != null) {
+                    var profile = home + "/.nix-profile";
+                     try {
+                        if (FileSystem.exists(profile) && FileSystem.isDirectory(profile)) {
+                            nixUserCount += FileSystem.readDirectory(profile).length;
+                        }
+                    } catch (e:Dynamic) {}
+                }
+
+                var systemPath = "/run/current-system/sw/bin";
                 try {
-                    if (FileSystem.exists(profile) && FileSystem.isDirectory(profile)) {
-                        nixUserCount += FileSystem.readDirectory(profile).length;
+                    if (FileSystem.exists(systemPath)) {
+                        nixSystemCount += FileSystem.readDirectory(systemPath).length;
                     }
                 } catch (e:Dynamic) {}
-            }
 
-            var systemPath = "/run/current-system/sw/bin";
-            try {
-                if (FileSystem.exists(systemPath)) {
-                    nixSystemCount += FileSystem.readDirectory(systemPath).length;
+                var state = "";
+                if (xdg != null && xdg.length > 0) state = xdg + "nix/profile" else if (home != null) state = home + "/.local/state/";
+    
+                if (state.length > 0) {
+                    try {
+                        if (FileSystem.exists(state) && FileSystem.isDirectory(state)) 
+                            nixUserCount += FileSystem.readDirectory(state).length;
+                    } catch (e:Dynamic) {}
                 }
-            } catch (e:Dynamic) {}
 
-            var state = "";
-            if (xdg != null && xdg.length > 0) {
-                state = xdg + "nix/profile";
-            } else if (home != null) {
-                state = home + "/.local/state/";
-            }
-            if (state.length > 0) {
-                try {
-                    if (FileSystem.exists(state) && FileSystem.isDirectory(state)) nixUserCount += FileSystem.readDirectory(state).length;
-                } catch (e:Dynamic) {}
-            }
+                if (user != null) {
+                    var etcPath = "/etc/profile/per-user/$user/bin";
+                    try {
+                        if (FileSystem.exists(etcPath) && FileSystem.isDirectory(etcPath)) 
+                            nixUserCount += FileSystem.readDirectory(etcPath).length;
+                    } catch (e:Dynamic) {}
+                }
 
-            if (user != null) {
-                var etcPath = "/etc/profile/per-user/$user/bin";
-                try {
-                    if (FileSystem.exists(etcPath) && FileSystem.isDirectory(etcPath)) nixUserCount += FileSystem.readDirectory(etcPath).length;
-                } catch (e:Dynamic) {}
-            }
+                var parts:Array<String> = [];
+                if (nixSystemCount > 0) parts.push(Configuration.packageManager ? '$nixSystemCount ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(nix-system)"}' : '$nixSystemCount');
+                if (nixUserCount > 0) parts.push(Configuration.packageManager ? '$nixUserCount ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(nix-user)"}' : '$nixUserCount');
 
-            var parts:Array<String> = [];
-            if (nixSystemCount > 0) parts.push(Configuration.packageManager ? '$nixSystemCount ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(nix-system)"}' : '$nixSystemCount');
-            if (nixUserCount > 0) parts.push(Configuration.packageManager ? '$nixUserCount ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(nix-user)"}' : '$nixUserCount');
-
-            if (parts.length > 0) {
-                var entry = parts.join(Configuration.packageSeparator != null ? Configuration.packageSeparator : "");
-                if (!counts.contains(entry)) counts.push(entry);
+                if (parts.length > 0) {
+                    var entry = parts.join(Configuration.packageSeparator != null ? Configuration.packageSeparator : "");
+                    if (!counts.contains(entry)) counts.push(entry);
+                }
             }
 
             // Slackware Linux based system (slackpkg) - Patrick Volkerding
