@@ -92,6 +92,11 @@ wget https://raw.githubusercontent.com/Sbinator-hub/Haxefetch/main/binary/haxefe
   ```
   > (if you have packages that are masked, [unmask them](https://wiki.gentoo.org/wiki/Knowledge_Base:Unmasking_a_package))
 
+ - GNU Guix: 
+  ```
+  guix install git gcc haxe
+  ```
+
 - Clone my repo.
   ```
   git clone https://github.com/ACoolioDude/Haxefetch.git
