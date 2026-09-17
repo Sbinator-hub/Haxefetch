@@ -135,6 +135,7 @@ class SystemUtils {
                     case "dinit": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Dinit";
                     case "finit": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Finit";
                     case "s6-svscan": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "S6";
+                    case "shepherd": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "GNU Shepherd";
                     case "init": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "SysVInit";
                     default: return com;
                 }

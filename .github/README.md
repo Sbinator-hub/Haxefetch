@@ -67,50 +67,50 @@ wget https://raw.githubusercontent.com/Sbinator-hub/Haxefetch/main/binary/haxefe
 - Install dependencies.
 
   - Debian/Ubuntu: 
-  ```
-  apt-get install git g++ haxe
-  ```
+    - ```
+      apt-get install git g++ haxe
+      ```
 
   - Fedora/RHEL/Rocky/Alma: 
-  ```
-  dnf install git g++ haxe
-  ```
+    - ```
+      dnf install git g++ haxe
+      ```
 
   - openSUSE Leap/Tumbleweed:
-  ```
-  zypper install git g++ haxe
-  ```
+    - ```
+      zypper install git g++ haxe
+      ```
 
   - Arch Linux: 
-  ```
-  pacman -S base-devel git haxe
-  ```
+    - ```
+      pacman -S base-devel git haxe
+      ```
 
   - Gentoo Linux: 
-  ```
-  emerge --ask --verbose (-av) dev-vcs/git sys-devel/gcc dev-lang/haxe
-  ```
-  > (if you have packages that are masked, [unmask them](https://wiki.gentoo.org/wiki/Knowledge_Base:Unmasking_a_package))
+    - ```
+      emerge --ask --verbose (-av) dev-vcs/git sys-devel/gcc dev-lang/haxe
+      ```
+      > (if you have packages that are masked, [unmask them](https://wiki.gentoo.org/wiki/Knowledge_Base:Unmasking_a_package))
 
- - GNU Guix: 
-  ```
-  guix install git gcc haxe
-  ```
+  - GNU Guix: 
+    - ```
+      guix install git gcc haxe
+      ```
 
 - Clone my repo.
-  ```
-  git clone https://github.com/ACoolioDude/Haxefetch.git
-  ```
+  - ```
+    git clone https://github.com/ACoolioDude/Haxefetch.git
+    ```
 
 - Setup development.
-  ```
-  cd Haxefetch > haxelib setup > Set haxelib environent to Haxefetch folder 'home/$USER/Haxefetch/.haxelib' > install dependenices 'haxelib install all'
-  ``` 
+  - ```
+    cd Haxefetch > haxelib setup > Set haxelib environent to Haxefetch folder 'home/$USER/Haxefetch/.haxelib' > install dependenices 'haxelib install all'
+    ``` 
   
 - Compile Haxefetch.
-  ```
-  haxe build.hxml
-  ```
+  - ```
+    haxe build.hxml
+    ```
 </details>
 
 
