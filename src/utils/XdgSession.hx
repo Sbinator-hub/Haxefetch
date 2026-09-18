@@ -64,6 +64,7 @@ class XdgSession {
                     case _ if (upper.indexOf("NIRI") != -1): return "Niri";
                     case _ if (upper.indexOf("MANGO") != -1): return "Mango";
                     case _ if (upper.indexOf("DWL") != -1): return "DWL";
+                    case _ if (upper.indexOf("MIRACLE") != -1 || upper.indexOf("MIRACLE-WM") != -1): return "Miracle";
                     case _ if (upper.indexOf("RIVER") != -1): return "River";
                     case _ if (upper.indexOf("LABWC") != -1): return "LabWC";
                     case _ if (upper.indexOf("WAYFIRE") != -1): return "Wayfire";
@@ -119,6 +120,7 @@ class XdgSession {
             "niri" => "Niri",
             "mangowc" => "Mango",
             "dwl" => "DWL",
+            "miracle-wm" => "Miracle",
             "river" => "River",
             "labwc" => "LabWC",
             "wayfire" => "Wayfire",

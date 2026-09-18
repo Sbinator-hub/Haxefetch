@@ -14,7 +14,8 @@ class Configuration {
     public static var modules:Array<String> = [
         "hostname", "host", "os", "kernel", "de", "wm",
         "ram", "swap", "cpu", "gpu", "disk", "packages",
-        "uptime", "birthday", "birth", "colors"
+        "terminal", "shell", "uptime", "birthday", 
+        "birth", "colors"
     ];
 
     public static var separator:String = ":";
@@ -76,6 +77,9 @@ class Configuration {
     public static var packageManager:Bool = true;
     public static var packageSeparator:String = ",";
     public static var packageName:String;
+
+    public static var showTerminal:Bool = true;
+    public static var terminalString:String = "Terminal";
 
     public static var showShell:Bool = true;
     public static var shellString:String = "Shell";
@@ -250,6 +254,9 @@ class Configuration {
             interp.variables.set("package_separator", packageSeparator);
             interp.variables.set("package_manager_name", packageName);
 
+            interp.variables.set("show_terminal", showTerminal);
+            interp.variables.set("terminal", terminalString);
+
             interp.variables.set("show_shell", showShell);
             interp.variables.set("shell", shellString);
 
@@ -330,6 +337,9 @@ class Configuration {
             if (interp.variables.exists("package_manager")) packageManager = interp.variables.get("package_manager");
             if (interp.variables.exists("package_separator")) packageSeparator = interp.variables.get("package_separator");
             if (interp.variables.exists("package_manager_name")) packageName = interp.variables.get("package_manager_name");
+
+            if (interp.variables.exists("show_terminal")) showTerminal = interp.variables.get("show_terminal");
+            if (interp.variables.exists("terminal")) terminalString = interp.variables.get("terminal");
 
             if (interp.variables.exists("show_shell")) showShell = interp.variables.get("show_shell");
             if (interp.variables.exists("shell")) shellString = interp.variables.get("shell");
@@ -435,6 +445,9 @@ class Configuration {
             case "package_separator": packageSeparator = parseString(value);
             case "package_manager_name": packageName = parseString(value);
 
+            case "show_terminal": showTerminal = parseBool(value);
+            case "terminal": terminalString = parseString(value);
+
             case "show_shell": showShell = parseBool(value);
             case "shell": shellString = parseString(value);
 
@@ -487,7 +500,7 @@ class Configuration {
 
             if (isHScript) {
                 defaults =
-                "modules = [\"hostname\", \"host\", \"os\", \"kernel\", \"de\", \"wm\", \"ram\", \"swap\", \"cpu\", \"gpu\", \"disk\", \"packages\", \"shell\", \"uptime\", \"birthday\", \"birth\", \"colors\"];\n" +
+                "modules = [\"hostname\", \"host\", \"os\", \"kernel\", \"de\", \"wm\", \"ram\", \"swap\", \"cpu\", \"gpu\", \"disk\", \"packages\", \"terminal\", \"shell\", \"uptime\", \"birthday\", \"birth\", \"colors\"];\n" +
                 "separator = \":\";\n\n" +
 
                 "logo = \'\';\n" +
@@ -545,6 +558,9 @@ class Configuration {
                 "package_manager = true;\n" +
                 "package_separator = \', \';\n" +
                 "package_manager_name = \'\';\n\n" +
+
+                "show_terminal = true;\n" +
+                "terminal = \'Terminal\';\n\n" +
 
                 "show_shell = true;\n" +
                 "shell = \'Shell\';\n\n" +

@@ -157,6 +157,36 @@ class SystemUtils {
         return Sys.systemName();
     }
 
+    public static function fetchTerminal():String {
+        var raw = Sys.getEnv("TERM_PROGRAM");
+        if (raw == null || raw == "") raw = Sys.getEnv("TERM");
+        if (raw == null || raw == "") return "";
+
+        var terminals = raw.toLowerCase();
+        switch (terminals) {
+            case "alacritty": return "Alacritty";
+            case "emacs": return "Emacs";
+            case "gnome-console": return "GNOME Console";
+            case "gnome-terminal": return "GNOME Terminal";
+            case "ghostty": return "Ghostty";
+            case "kitty": return "Kitty";
+            case "konsole" | "xterm-konsole": return "Konsole";
+            case "foot": return "Foot";
+            case "lx-terminal": return "LXTerminal";
+            case "screen" | "screen-256color": return "Screen";
+            case "st": return "ST";
+            case "tmux" | "tmux-256color": return "Tmux";
+            case "vscode" | "code": return "VSCode";
+            case "zed" | "zed-editor": return "Zed";
+            case "q-terminal": return "QTerminal";
+            case "xfce4-terminal": return "XFCE4 Terminal";
+            case "xterm-256color" | "xterm": return "XTerm";
+            default:
+                var cleaned = terminals.split("-")[0];
+                return cleaned.charAt(0).toUpperCase();
+        }
+    }
+
     public static function fetchShell():String {
         try {
             var stat = File.getContent("/proc/self/stat");
@@ -178,7 +208,7 @@ class SystemUtils {
                         if (StringTools.startsWith(binary, "-")) {
                             binary = binary.substr(1);
                         }
-                        return binary;
+                        return formatShell(binary);
                     }
                 }
             }
@@ -187,10 +217,28 @@ class SystemUtils {
         var environment = Sys.getEnv("SHELL");
         if (environment !=  null) {
             var part = environment.split("/");
-            return part[part.length - 1];
+            return formatShell(part[part.length - 1]);
         }
 
         return "Unknown";
+    }
+
+    private static function formatShell(shell:String):String {
+        if (shell == null || shell == "") return "";
+
+        var low = shell.toLowerCase();
+        switch (low) {
+            case "bash": return "Bash";
+            case "zsh": return "Zsh";
+            case "fish": return "Fish";
+            case "sh": return "Sh";
+            case "dash": return "Dash";
+            case "nu" | "nushell": return "NuShell";
+            case "ksh": return "Ksh";
+            case "csh": return "Csh";
+            case "tcsh": return "Tcsh";
+            default: return low.charAt(0).toUpperCase();
+        }
     }
 
     public static function fetchUptime():String {
