@@ -120,7 +120,7 @@ class Logo {
 
         if (s.indexOf("aerynos") != -1) return { primary: Colors.fg(23), secondary: Colors.fg(136), third: Colors.fg(23) };
         if (s.indexOf("alpine") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.BLUE };
-        if (s.indexOf("arch") != -1) return { primary: Colors.BLUE, secondary: Colors.BLUE, third: Colors.WHITE };
+        if (s.indexOf("arch") != -1) return { primary: Colors.BRIGHT_CYAN, secondary: Colors.BLUE, third: Colors.WHITE };
         if (s.indexOf("arco") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("artix") != -1) return { primary: Colors.CYAN, secondary: Colors.CYAN, third: Colors.CYAN };
         if (s.indexOf("bazzite") != -1) return { primary: Colors.fg(26), secondary: Colors.fg(97), third: Colors.BLUE };
