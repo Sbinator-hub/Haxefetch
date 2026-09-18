@@ -63,7 +63,7 @@ class Packages {
 
             // Arch Linux based system (pacman) - Arch Linux devs
             var pacman = 0;
-            var aur = 0;
+            var forgeign = 0;
 
             var entry = FileSystem.readDirectory(root + "/var/lib/pacman/local");
             for (entries in entry) {
@@ -73,7 +73,7 @@ class Packages {
                         if (FileSystem.exists(path)) {
                             var content = File.getContent(path);
                             if (content.indexOf("%VALIDATION") != -1 && content.indexOf("none") != -1) {
-                                aur++;
+                                forgeign++;
                             } else {
                                 pacman++;
                             }
@@ -96,7 +96,7 @@ class Packages {
 
             var parts:Array<String> = [];
             if (pacman > 0) parts.push('${pacman} ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(pacman)"}');
-            if (aur > 0) parts.push('${aur} ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(aur)"}');
+            if (forgeign > 0) parts.push('${forgeign} ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(forgeign)"}');
 
             if (parts.length > 0) {
                 var entrie = parts.join(Configuration.packageSeparator != null ? Configuration.packageSeparator : "");
