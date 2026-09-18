@@ -68,7 +68,7 @@ class XdgSession {
                     case _ if (upper.indexOf("RIVER") != -1): return "River";
                     case _ if (upper.indexOf("LABWC") != -1): return "LabWC";
                     case _ if (upper.indexOf("WAYFIRE") != -1): return "Wayfire";
-                    case _ if (upper.indexOf("XFWL") != -1 || upper.indexOf("XFCE") != -1): return "XFWL";
+                    case _ if (upper.indexOf("XFWL") != -1): return "XFWL";
 
                     // X11/Xorg
                     case _ if (upper.indexOf("XFCE") != -1): return "Xfwm4";
