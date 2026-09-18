@@ -169,7 +169,7 @@ class SystemUtils {
             case "gnome-console": return "GNOME Console";
             case "gnome-terminal": return "GNOME Terminal";
             case "ghostty": return "Ghostty";
-            case "kitty": return "Kitty";
+            case "kitty" | "xterm-kitty": return "Kitty";
             case "konsole" | "xterm-konsole": return "Konsole";
             case "foot": return "Foot";
             case "lx-terminal": return "LXTerminal";
@@ -183,7 +183,8 @@ class SystemUtils {
             case "xterm-256color" | "xterm": return "XTerm";
             default:
                 var cleaned = terminals.split("-")[0];
-                return cleaned.charAt(0).toUpperCase();
+                if (cleaned.length == 0) return "";
+                return cleaned.charAt(0).toUpperCase() + cleaned.substr(1);
         }
     }
 

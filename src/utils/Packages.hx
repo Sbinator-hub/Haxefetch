@@ -338,13 +338,13 @@ class Packages {
             if (paths != null && FileSystem.exists(paths) && FileSystem.isDirectory(paths)) {
                 try {
                     flatpaks += FileSystem.readDirectory(paths).length;
-
-                    if (flatpaks > 0) {
-                        var entry = Configuration.packageManager ? '$flatpaks ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(flatpak)"}' : '${flatpaks}';
-                        if (!counts.contains(entry)) counts.push(entry);
-                    }
                 } catch (e:Dynamic) {}
             }
+        }
+
+        if (flatpaks > 0) {
+            var entry = Configuration.packageManager ? '$flatpaks ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(flatpak)"}' : '${flatpaks}';
+            if (!counts.contains(entry)) counts.push(entry);
         }
         
         return counts.join(Configuration.packageSeparator != null ? Configuration.packageSeparator : "");
