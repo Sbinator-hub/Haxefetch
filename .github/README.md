@@ -54,6 +54,9 @@ For Gentoo Linux users
 For NixOS users
 - My friend [StaryPlemnik](https://github.com/Staryplemnik) made [official NixOS flake repo](https://github.com/Sbinator-hub/haxefetch-nix). Read more by clicking on "official NixOS flake repo" text
 
+For Guix users
+- The package definition is available in the [guix.scm](/guix.scm) file, you can run `guix shell -f guix.scm` to load Haxefetch temporarily in your shell
+
 Getting compiled binary from Git using `wget`
 ```
 wget https://raw.githubusercontent.com/Sbinator-hub/Haxefetch/main/binary/haxefetch && chmod +x haxefetch && sudo mv haxefetch /usr/bin/haxefetch
