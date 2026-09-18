@@ -67,7 +67,7 @@ class Haxefetch {
             "os"       => Configuration.showDistro ? Colors.colorize(Configuration.distroString, logoColor) + Configuration.separator + separator + distro + (Configuration.architecture ? archSuffix : "") + (Configuration.init ? initSuffix : "") : null,
             "kernel"   => Configuration.showKernel ? Colors.colorize(Configuration.kernelString, logoColor) + Configuration.separator + separator + (Configuration.systemKernel ? Configuration.systemKernelString + separator + kernel : kernel) : null,
             "de"       => (desktop != null && desktop != "N/A" && desktop != "" && Configuration.showDesktop) ? Colors.colorize(Configuration.desktopString, logoColor) + Configuration.separator + separator + desktop : null,
-            "wm"       => (Configuration.showSession && session != null && session != "") ? Colors.colorize(Configuration.sessionString, logoColor) + Configuration.separator + separator + session + (Configuration.protocol ? ' (${protocol})' : '') : null,
+            "wm"       => (Configuration.showSession && session != null && session != "" && Sys.environment().get("DISPLAY") != null) ? Colors.colorize(Configuration.sessionString, logoColor) + Configuration.separator + separator + session + (Configuration.protocol ? ' (${protocol})' : '') : null,
             "ram"      => Configuration.showRAM ? Colors.colorize(Configuration.ramString, logoColor) + Configuration.separator + separator + ram : null,
             "swap"     => Configuration.showSWAP ? Colors.colorize(Configuration.swapString, logoColor) + Configuration.separator + separator + swap : null,
             "cpu"      => Configuration.showCPU ? Colors.colorize(Configuration.cpuString, logoColor) + Configuration.separator + separator + cpu : null,
