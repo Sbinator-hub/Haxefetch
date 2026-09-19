@@ -62,27 +62,6 @@ class Packages {
             }
 
             // Arch Linux based system (pacman) - Arch Linux devs
-            var pacman = 0;
-            var forgeign = 0;
-
-            var entry = FileSystem.readDirectory(root + "/var/lib/pacman/local");
-            for (entries in entry) {
-                if (!StringTools.startsWith(entries, "ALPM") && StringTools.contains(entries, "-")) {
-                    var path = root + '/var/lib/pacman/local/$entries/desc';
-                    try {
-                        if (FileSystem.exists(path)) {
-                            var content = File.getContent(path);
-                            if (content.indexOf("%VALIDATION") != -1 && content.indexOf("none") != -1) {
-                                forgeign++;
-                            } else {
-                                pacman++;
-                            }
-                        }
-                    } catch (e:Dynamic) {}
-                }
-            }
-
-            // Arch Linux based system (pacman) - Arch Linux devs
             if (FileSystem.exists(root + "/var/lib/pacman/local")) {
                 try {
                     var entries = FileSystem.readDirectory(root + "/var/lib/pacman/local");
