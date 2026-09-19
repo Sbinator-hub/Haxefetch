@@ -61,11 +61,23 @@ class GPUUtility {
 
     private static function fetchGPUName(vendorId:String, deviceId:String):String {
         var vendor = fetchVendor(vendorId);
-        var pci = "/usr/share/hwdata/pci.ids";
-        if (!FileSystem.exists(pci)) pci = "/usr/share/misc/pci.ids";
+        
+        var pcis = [
+            "/run/current-system/sw/share/hwdata/pci.ids",
+            "/usr/share/hwdata/pci.ids",
+            ".usr/share/misc/pci.ids"
+        ];
+
+        var pciFile = "";
+        for (path in pcis) {
+            if (FileSystem.exists(path)) {
+                pciFile = path;
+                break;
+            }
+        }
 
         var device = "";
-        if (FileSystem.exists(pci) && vendorId != "" && deviceId != "") device = parsePCI(pci, vendorId, deviceId);
+        if (FileSystem.exists(pciFile) && vendorId != "" && deviceId != "") device = parsePCI(pciFile, vendorId, deviceId);
         if (device != "") return fetchActualGPU('${vendor}  ${device}');
 
         return vendor != "" ? vendor + 'GPU (${deviceId})' : "N/A";
