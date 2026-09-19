@@ -82,7 +82,8 @@ class Packages {
                 }
             }
 
-            /*if (FileSystem.exists(root + "/var/lib/pacman/local")) {
+            // Arch Linux based system (pacman) - Arch Linux devs
+            if (FileSystem.exists(root + "/var/lib/pacman/local")) {
                 try {
                     var entries = FileSystem.readDirectory(root + "/var/lib/pacman/local");
                     var count = entries.filter(e -> !StringTools.startsWith(e, "ALPM") && StringTools.contains(e, "-")).length;
@@ -92,15 +93,6 @@ class Packages {
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
-            }*/
-
-            var parts:Array<String> = [];
-            if (pacman > 0) parts.push('${pacman} ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(pacman)"}');
-            if (forgeign > 0) parts.push('${forgeign} ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(forgeign)"}');
-
-            if (parts.length > 0) {
-                var entrie = parts.join(Configuration.packageSeparator != null ? Configuration.packageSeparator : "");
-                if (!counts.contains(entrie)) counts.push(entrie);
             }
 
             // Void Linux based system (xbps) - Void Linux devs
