@@ -64,6 +64,7 @@ class GPUUtility {
         
         var pcis = [
             "/run/current-system/sw/share/hwdata/pci.ids",
+            "/etc/profiles/per-user" + Sys.getEnv("USER") + "/share/hwdata/pci.ids",
             "/usr/share/hwdata/pci.ids",
             ".usr/share/misc/pci.ids"
         ];
