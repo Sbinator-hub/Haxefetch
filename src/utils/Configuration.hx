@@ -36,6 +36,7 @@ class Configuration {
 
     public static var showDistro:Bool = true;
     public static var distroString:String = "OS";
+    public static var distroNameString:String;
     public static var architecture:Bool = true;
     public static var init:Bool = true;
     public static var initString:String;
@@ -212,6 +213,7 @@ class Configuration {
 
             interp.variables.set("show_distro", showDistro);
             interp.variables.set("distro", distroString);
+            interp.variables.set("distro_name", distroNameString);
             interp.variables.set("cpu_architecture", architecture);
             interp.variables.set("init", init);
             interp.variables.set("init_string", initString);
@@ -297,6 +299,7 @@ class Configuration {
 
             if (interp.variables.exists("show_distro")) showDistro = interp.variables.get("show_distro");
             if (interp.variables.exists("distro")) distroString = interp.variables.get("distro");
+            if (interp.variables.exists("distro_name")) distroNameString = interp.variables.get("distro_name");
             if (interp.variables.exists("cpu_architecture")) architecture = interp.variables.get("cpu_architecture");
             if (interp.variables.exists("init")) init = interp.variables.get("init");
 
@@ -403,6 +406,7 @@ class Configuration {
 
             case "show_distro": showDistro = parseBool(value);
             case "distro": distroString = parseString(value);
+            case "distro_name": distroNameString = parseString(value);
             case "cpu_architecture": architecture = parseBool(value);
             case "init": init = parseBool(value);
             case "init_string": initString = parseString(value);
@@ -517,6 +521,7 @@ class Configuration {
 
                 "show_distro = true;\n" +
                 "distro = \'OS\';\n" +
+                "distro_name = \'\';\n" +
                 "cpu_architecture = true;\n" +
                 "init = true;\n" +
                 "init_string = \'\';\n\n" +
@@ -600,6 +605,7 @@ class Configuration {
 
                 "show_distro=true\n" +
                 "distro='OS'\n" +
+                "distro_name=''\n" +
                 "cpu_architecture=true\n" +
                 "init=true\n" +
                 "init_string=''\n\n" +

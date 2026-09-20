@@ -7,6 +7,8 @@ import sys.FileSystem;
 import sys.io.File;
 
 class SystemUtils {
+    private static var realDistro:String = null;
+
     public static function fetchHostname():String {
         #if sys
         if (FileSystem.exists("/etc/hostname")) {
@@ -95,8 +97,9 @@ class SystemUtils {
         return "";
     }
 
-    public static function fetchDistro():String {
-        #if sys
+    public static function getRawDistro():String {
+        if (realDistro != null) return realDistro;
+
         if (FileSystem.exists("/etc/os-release")) {
             try {
                 var lines = File.getContent("/etc/os-release").split("\n");
@@ -107,19 +110,33 @@ class SystemUtils {
                         var parts = cleanLine.indexOf("=");
                         if (parts != -1) {
                             var name = StringTools.trim(cleanLine.substr(parts + 1));
-                            if ((StringTools.startsWith(name, '"') && StringTools.endsWith(name, '"')) || (StringTools.startsWith(name, "'") && StringTools.endsWith(name, "'"))) {
+                            if ((StringTools.startsWith(name, '"') && StringTools.endsWith(name, '"')) || 
+                                (StringTools.startsWith(name, "'") && StringTools.endsWith(name, "'"))) {
                                 name = name.substring(1, name.length -1 );
                             }
-                            
-                            return name;
+                            realDistro = name;
+                            return realDistro;
                         }
                     }
                 }
             } catch (e:Dynamic) {}
         }
-        #end
-        return Sys.systemName();
+
+        realDistro = Sys.systemName();
+        return realDistro;
     }
+
+    public static function fetchDistro():String {
+        var actualName = getRawDistro();
+
+        if (Configuration.distroNameString != null && Configuration.distroNameString != "") {
+            return Configuration.distroNameString;
+        }
+
+        return actualName;
+    }
+
+    public static function readDistroKey():String return fetchDistro();
 
     public static function fetchInit():String {
         try {

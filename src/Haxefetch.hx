@@ -18,12 +18,13 @@ class Haxefetch {
         var user = getEnvironment("USER", getEnvironment("USERNAME", "user"));
         var hostname = SystemUtils.fetchHostname();
         var host = SystemUtils.fetchHost();
-        var distro = SystemUtils.fetchDistro();
+        var distro = SystemUtils.readDistroKey();
+        var realDistro = SystemUtils.getRawDistro();
         var architecture = CPUUtility.fetchArchitecture();
         var archSuffix = (architecture != "") ? ' ${architecture}' : '';
         var init = SystemUtils.fetchInit();
         var initSuffix = (init != "") ? ' [${Colors.colorize(init, Colors.GREEN)}]' : '';
-        var logoFetch = (Configuration.logo != "") ? Configuration.logo : distro;
+        var logoFetch = (Configuration.logo != "") ? Configuration.logo : realDistro;
         var kernel = SystemUtils.fetchKernel();
         var desktop = XdgSession.fetchDestkop();
         var session = XdgSession.fetchSession();
@@ -43,7 +44,7 @@ class Haxefetch {
         var birth = SystemUtils.fetchInstalledDate();
         var separator:String = " ";
 
-        var target = (Configuration.logo != null && Configuration.logo != "") ? Configuration.logo : distro;
+        var target = (Configuration.logo != null && Configuration.logo != "") ? Configuration.logo : realDistro;
         var object = Logo.fetchColor(target);
         var mainColor = (object != null && object.primary != null) ? object.primary : Colors.RESET;
 
@@ -60,7 +61,7 @@ class Haxefetch {
 
         var logoColor = (parseColor != "" && parseColor != null) ? parseColor : mainColor;
 
-        var logo = Logo.fetchLogo(distro, Configuration.logoSize, Configuration.logo, logoColor, parseColor1, parseColor2);
+        var logo = Logo.fetchLogo(realDistro, Configuration.logoSize, Configuration.logo, logoColor, parseColor1, parseColor2);
 
         var modules:Map<String, String> = [
             "hostname" => Configuration.showHostname ? Colors.colorize(user, Colors.RED) + "@" + Colors.colorize(hostname, Colors.RED) : null,
