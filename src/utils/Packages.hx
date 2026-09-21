@@ -322,7 +322,7 @@ class Packages {
                     var snaps = FileSystem.readDirectory(path).filter(e -> StringTools.endsWith(e, ".snap"));
                     if (snaps.length > 0) {
                         var count = snaps.length;
-                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(snaps)"}' : '${count}';
+                        var entry = Configuration.packageManager ? '$count ${Configuration.snapName != null && Configuration.snapName != "" ? Configuration.snapName : "(snaps)"}' : '${count}';
                         if (!counts.contains(entry)) counts.push(entry);
                     }
                 } catch (e:Dynamic) {}
@@ -343,7 +343,7 @@ class Packages {
         }
 
         if (flatpaks > 0) {
-            var entry = Configuration.packageManager ? '$flatpaks ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(flatpak)"}' : '${flatpaks}';
+            var entry = Configuration.packageManager ? '$flatpaks ${Configuration.flatpakName != null && Configuration.flatpakName != "" ? Configuration.flatpakName : "(flatpak)"}' : '${flatpaks}';
             if (!counts.contains(entry)) counts.push(entry);
         }
         

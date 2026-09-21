@@ -78,6 +78,8 @@ class Configuration {
     public static var packageManager:Bool = true;
     public static var packageSeparator:String = ",";
     public static var packageName:String;
+    public static var flatpakName:String;
+    public static var snapName:String;
 
     public static var showTerminal:Bool = true;
     public static var terminalString:String = "Terminal";
@@ -255,6 +257,8 @@ class Configuration {
             interp.variables.set("package_manager", packageManager);
             interp.variables.set("package_separator", packageSeparator);
             interp.variables.set("package_manager_name", packageName);
+            interp.variables.set("flatpak_name", flatpakName);
+            interp.variables.set("snap_name", snapName); 
 
             interp.variables.set("show_terminal", showTerminal);
             interp.variables.set("terminal", terminalString);
@@ -340,7 +344,9 @@ class Configuration {
             if (interp.variables.exists("package_manager")) packageManager = interp.variables.get("package_manager");
             if (interp.variables.exists("package_separator")) packageSeparator = interp.variables.get("package_separator");
             if (interp.variables.exists("package_manager_name")) packageName = interp.variables.get("package_manager_name");
-
+            if (interp.variables.exists("flatpak_name")) flatpakName = interp.variables.get("flatpak_name");
+            if (interp.variables.exists("snap_name")) snapName = interp.variables.get("snap_name");
+ 
             if (interp.variables.exists("show_terminal")) showTerminal = interp.variables.get("show_terminal");
             if (interp.variables.exists("terminal")) terminalString = interp.variables.get("terminal");
 
@@ -448,6 +454,8 @@ class Configuration {
             case "package_manager": packageManager = parseBool(value);
             case "package_separator": packageSeparator = parseString(value);
             case "package_manager_name": packageName = parseString(value);
+            case "flatpak_name": flatpakName = parseString(value);
+            case "snap_name": snapName = parseString(value);
 
             case "show_terminal": showTerminal = parseBool(value);
             case "terminal": terminalString = parseString(value);
@@ -562,7 +570,9 @@ class Configuration {
                 "package = \'Packages\';\n" +
                 "package_manager = true;\n" +
                 "package_separator = \', \';\n" +
-                "package_manager_name = \'\';\n\n" +
+                "package_manager_name = \'\';\n" +
+                "flatpak_name= \'\';\n" +
+                "snap_name = \'\';\n\n" +
 
                 "show_terminal = true;\n" +
                 "terminal = \'Terminal\';\n\n" +
@@ -646,7 +656,9 @@ class Configuration {
                 "package='Packages'\n" +
                 "package_manager=true\n" +
                 "package_separator=', '\n" +
-                "package_manager_name=''\n\n" +
+                "package_manager_name=''\n" +
+                "flatpak_name=''\n" +
+                "snap_name=''\n\n" +
 
                 "show_shell=true\n" +
                 "shell='Shell'\n\n" +
