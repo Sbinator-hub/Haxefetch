@@ -49,13 +49,12 @@ class Memory {
             var usedKylo = (availableMemory > 0) ? (totalMemory - availableMemory) : (totalMemory - freeMemory - bufferedMemory - cachedMemory);
             if (usedKylo < 0) usedKylo = 0;
 
-            var usedGiga = roundDecimal(usedKylo / (1024.0 * 1024.0), 2);
-            var totalGiga = roundDecimal(totalMemory / (1024.0 * 1024.0), 2);
             var percentage = Math.floor((usedKylo / totalMemory) * 100.0);
             var colors = (percentage >= 85) ? Colors.RED : (percentage >= 60 ? Colors.YELLOW : Colors.GREEN);
             var coloredPact = Colors.colorize('$percentage%', colors);
  
-            Configuration.ramPercent ? ramString = '${usedGiga} GiB / ${totalGiga} GiB (${coloredPact})' : ramString = '${usedGiga} GiB / ${totalGiga} GiB';
+            var pairedMemoryString = formatMemory(usedKylo, totalMemory);
+            Configuration.ramPercent ? ramString = '${pairedMemoryString} (${coloredPact})' : ramString = '${pairedMemoryString}';
         }
 
         var swapString = "Disabled";
@@ -63,33 +62,50 @@ class Memory {
             var usedSwapKilo = totalSwap - freeSwap;
             if (usedSwapKilo < 0) usedSwapKilo = 0;
 
-            var usedSwapGiga = roundDecimal(usedSwapKilo / (1024.0 * 1024.0), 2);
-            var totalSwapGiga = roundDecimal(totalSwap / (1024.0 * 1024.0), 2);
             var percentage = Math.floor((usedSwapKilo / totalSwap) * 100.0);
             var colors = (percentage >= 85) ? Colors.RED : (percentage >= 60 ? Colors.YELLOW : Colors.GREEN);
             var coloredPact = Colors.colorize('$percentage%', colors);
 
-            Configuration.swapPercent ? swapString = '${usedSwapGiga} GiB / ${totalSwapGiga} GiB (${coloredPact})' : swapString = '${usedSwapGiga} GiB / ${totalSwapGiga} GiB';
+            var pairedSwapString = formatMemory(usedSwapKilo, totalSwap);
+            Configuration.swapPercent ? swapString = '${pairedSwapString} (${coloredPact})' : swapString = '${pairedSwapString}';
         }
 
         return {ram: ramString, swap: swapString};
     }
 
+    private static function formatData(kilo:Float):String {
+        var value = kilo * 1024.0;
+        var units = ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
+        var unitIDx = 0;
+
+        while (value >= 1024.0 && unitIDx < units.length - 1) {
+            value /= 1024.0;
+            unitIDx++;
+        }
+
+        return '${roundDecimal(value, 2)} ${units[unitIDx]}';
+    }
+
+    private static function formatMemory(usedKilo:Float, totalKilo:Float):String {
+        return '${formatData(usedKilo)} / ${formatData(totalKilo)}';
+    }
+
     private static function extractDigits(raw:String):Float {
-        var sb = new StringBuf();
+        var stringBuff = new StringBuf();
         for (i in 0...raw.length) {
             var code = raw.charCodeAt(i);
             if (code >= 48 && code <= 57) {
-                sb.addChar(code);
-            } else if (sb.length > 0) {
+                stringBuff.addChar(code);
+            } else if (stringBuff.length > 0) {
                 break;
             }
         }
-        var numStr = sb.toString();
-        if (numStr.length == 0) return 0.0;
-        
-        var parsed = Std.parseFloat(numStr);
-        return Math.isNaN(parsed) ? 0.0 : parsed;
+
+        var numberString = stringBuff.toString();
+        if (numberString.length == 0) return 0.0;
+
+        var floatParser = Std.parseFloat(numberString);
+        return Math.isNaN(floatParser) ? 0.0 : floatParser;
     }
 
     private static function roundDecimal(val:Float, precision:Int):Float {
