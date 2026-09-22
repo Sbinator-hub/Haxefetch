@@ -32,7 +32,6 @@ class Logo {
         }
 
         if (raw != null) {
-            //var target = (overrideLogo != "") ? overrideLogo : StringTools.trim(clean);
             var color = fetchColor((overrideLogo != "") ? overrideLogo : distroName);
             var custom = (customColor != null && customColor != "") ? customColor : color.primary; 
             var custom2 = (customColor2 != null && customColor2 != "") ? customColor2 : color.secondary;
