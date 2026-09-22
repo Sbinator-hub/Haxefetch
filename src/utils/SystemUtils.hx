@@ -100,6 +100,30 @@ class SystemUtils {
     public static function getRawDistro():String {
         if (realDistro != null) return realDistro;
 
+        var osName = "";
+
+        if (FileSystem.exists("/etc/lsb-release")) {
+            try {
+                var lsbLine = File.getContent("/etc/lsb-release").split("\n");
+                for (lines in lsbLine) {
+                    var cleanLsbLine = StringTools.trim(lines);
+
+                    if (StringTools.startsWith(cleanLsbLine, "DISTRIB_DESCRIPTION=")) {
+                        var lsbPart = cleanLsbLine.indexOf("=");
+                        if (lsbPart != -1) {
+                            var lsbName = StringTools.trim(cleanLsbLine.substr(lsbPart + 1));
+                            if ((StringTools.startsWith(lsbName, '"') && StringTools.endsWith(lsbName, '"')) ||
+                                (StringTools.startsWith(lsbName, "'") && StringTools.endsWith(lsbName, "'"))) {
+                                    lsbName = lsbName.substring(1, lsbName.length -1);
+                            }
+                            osName = lsbName;
+                            break;
+                        } 
+                    }
+                }
+            } catch (e:Dynamic) {}
+        }
+
         if (FileSystem.exists("/etc/os-release")) {
             try {
                 var lines = File.getContent("/etc/os-release").split("\n");
@@ -114,12 +138,17 @@ class SystemUtils {
                                 (StringTools.startsWith(name, "'") && StringTools.endsWith(name, "'"))) {
                                 name = name.substring(1, name.length -1 );
                             }
-                            realDistro = name;
-                            return realDistro;
+                            osName = name;
+                            break;
                         }
                     }
                 }
             } catch (e:Dynamic) {}
+        }
+
+        if (osName != "") {
+            realDistro = osName;
+            return realDistro;
         }
 
         realDistro = Sys.systemName();

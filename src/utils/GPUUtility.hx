@@ -99,8 +99,14 @@ class GPUUtility {
         var gtString = ~/\(GT[0-9](\.[0-9]+)?\)|\bGT[0-9](\.[0-9]+)?\b/gi;
         gpu = gtString.replace(gpu, "");
 
-        var codenames = ~/Intel\s+(Alder|Raptor|Tiger|Ice|Comet|Coffe|Kaby|Skylake|Haswell|Ivy|Rocket)\s*Lake[A-Za-z0-9-]*\s+/i;
+        var codenames = ~/Intel\s+(Alder|Raptor|Tiger|Ice|Comet|Coffe|Kaby|Skylake|Haswell|Ivy|Rocket|Jasper|Whiskey|Amber|Cannon|Lake|Meteor|Lunar|Arrow|Panther|Gemini|Apollo|Elkhart)\s*Lake[A-Za-z0-9-]*\s+/i;
         gpu = codenames.replace(gpu, "Intel ");
+
+        var amdCodeRegex = new EReg("AMD\\s+(.*?)\\s+Radeon", "i");
+        gpu = amdCodeRegex.replace(gpu, "AMD Radeon");
+
+        var nvidiaCodeRegex = new EReg("\\b[A-Z]{2,3}[0-9]{2-3}\\b", "");
+        gpu = nvidiaCodeRegex.replace(gpu, "");
 
         gpu = StringTools.replace(gpu, "Corporation", "");
         gpu = StringTools.replace(gpu, "Integrated Graphics Controller", "");

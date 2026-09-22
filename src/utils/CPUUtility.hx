@@ -131,6 +131,9 @@ class CPUUtility{
         var gen = new EReg("^[0-9]+(st|nd|rd|th)\\s+(Gen(eration)?\\s+)?", "i");
         model = gen.replace(model, "");
 
+        var amdCore = new EReg("\\s*\\d+-Core", "i");
+        model = amdCore.replace(model, "");
+
         var space = ~/\s+/g;
         model = space.replace(model, " ");
 
