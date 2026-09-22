@@ -126,11 +126,6 @@ class Haxefetch {
         return (value != null) ? value : fallback;
     }
 
-    public static function roundDecimal(val:Float, precision:Int):Float {
-        var factor = Math.pow(10, precision);
-        return Math.round(val * factor) / factor;
-    }
-
     public static function runCmd(cmd:String, args:Array<String>):String {
         try {
             var p = new Process(cmd, args);
