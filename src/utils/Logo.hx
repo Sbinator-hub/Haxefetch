@@ -9,13 +9,13 @@ import sys.io.File;
 class Logo {
     public static function fetchLogo(distroName:String, size:String = "normal", overrideLogo:String = "", customColor:String = "", customColor2:String = "", customColor3:String = ""):Array<String> {
         var raw:String = null;
-        /*var resolve = resolvePath(customLogo);
-
+        
+        var resolve = resolvePath(overrideLogo);
         if (resolve != "" && FileSystem.exists(resolve)) {
             try {
                 raw = File.getContent(resolve);
             } catch (e:Dynamic) {}
-        }*/
+        }
 
         if (raw == null) {
             var logo = (overrideLogo != "") ? overrideLogo : distroName;
@@ -186,7 +186,7 @@ class Logo {
         return macro $v{lines};
     }
 
-    /*private static function resolvePath(path:String):String {
+    private static function resolvePath(path:String):String {
         if (path == null || path == "") return "";
 
         var cleanPath = StringTools.trim(path);
@@ -201,5 +201,5 @@ class Logo {
             }
         }
         return path;
-    }*/
+    }
 }
