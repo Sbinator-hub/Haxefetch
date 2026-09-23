@@ -46,7 +46,7 @@ class GPUUtility {
                         if (part.length >= 3) {
                             var raw = StringTools.trim(part.slice(2).join(":"));
                             var actualGpu = fetchActualGPU(raw);
-                            if (gpuId.indexOf(actualGpu) == -1) {
+                            if (actualGpu != "") {
                                 gpuId.push(actualGpu);
                             }
                         }
@@ -56,7 +56,7 @@ class GPUUtility {
         }
 
         if (gpuId.length == 0) return "N/A";
-        return gpuId.join(", ");
+        return gpuId.join("\n");
     }   
 
     private static function fetchGPUName(vendorId:String, deviceId:String):String {
@@ -64,7 +64,7 @@ class GPUUtility {
         
         var pcis = [
             "/run/current-system/sw/share/hwdata/pci.ids",
-            "/etc/profiles/per-user" + Sys.getEnv("USER") + "/share/hwdata/pci.ids",
+            "/etc/profiles/per-user/" + Sys.getEnv("USER") + "/share/hwdata/pci.ids",
             "/usr/share/hwdata/pci.ids",
             ".usr/share/misc/pci.ids"
         ];
@@ -76,6 +76,8 @@ class GPUUtility {
                 break;
             }
         }
+
+        trace('Found ${pciFile}!');
 
         var device = "";
         if (FileSystem.exists(pciFile) && vendorId != "" && deviceId != "") device = parsePCI(pciFile, vendorId, deviceId);
