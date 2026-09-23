@@ -102,9 +102,23 @@ class SystemUtils {
 
         var osName = "";
 
-        if (FileSystem.exists("/etc/lsb-release")) {
+        // LSB release
+        var lsbReleases = [
+            "/etc/lsb-release",
+            "/etc/upstream-release/lsb-release"
+        ];
+
+        var lsbFiles = "";
+        for (lsbPath in lsbReleases) {
+            if (FileSystem.exists(lsbPath)) {
+                lsbFiles = lsbPath;
+                break;
+            }
+        }
+
+        if (lsbFiles != "") {
             try {
-                var lsbLine = File.getContent("/etc/lsb-release").split("\n");
+                var lsbLine = File.getContent(lsbFiles).split("\n");
                 for (lines in lsbLine) {
                     var cleanLsbLine = StringTools.trim(lines);
 
@@ -123,8 +137,9 @@ class SystemUtils {
                 }
             } catch (e:Dynamic) {}
         }
-
-        if (FileSystem.exists("/etc/os-release")) {
+ 
+        // Fallback to default good old OS release file
+        if (osName == "" && FileSystem.exists("/etc/os-release")) {
             try {
                 var lines = File.getContent("/etc/os-release").split("\n");
                 for (line in lines) {
