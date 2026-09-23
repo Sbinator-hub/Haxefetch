@@ -77,8 +77,6 @@ class GPUUtility {
             }
         }
 
-        trace('Found ${pciFile}!');
-
         var device = "";
         if (FileSystem.exists(pciFile) && vendorId != "" && deviceId != "") device = parsePCI(pciFile, vendorId, deviceId);
         if (device != "") return fetchActualGPU('${vendor}  ${device}');
