@@ -65,7 +65,7 @@ class Haxefetch {
 
         #if (haxe_ver >= "4.3.0")
         var modules:Map<String, String> = [
-            "hostname" => Configuration.showHostname ? Colors.colorize(user, logoColor) + "@" + Colors.colorize(hostname, Colors.RED) : null,
+            "hostname" => Configuration.showHostname ? Colors.colorize(user, logoColor) + "@" + Colors.colorize(hostname, logoColor) : null,
             "host"     => (Configuration.showHost && host != null) ? (Configuration.showHost ? Colors.colorize(Configuration.hostString, logoColor) + Configuration.separator + separator + host : null) : null,
             "os"       => Configuration.showDistro ? Colors.colorize(Configuration.distroString, logoColor) + Configuration.separator + separator + distro + (Configuration.architecture ? archSuffix : "") + (Configuration.init ? initSuffix : "") : null,
             "kernel"   => Configuration.showKernel ? Colors.colorize(Configuration.kernelString, logoColor) + Configuration.separator + separator + (Configuration.systemKernel ? Configuration.systemKernelString + separator + kernel : kernel) : null,
@@ -86,7 +86,7 @@ class Haxefetch {
         ];
         #else
         var modules = new Map<String, String>();
-        modules.set("hostname", Configuration.showHostname ? Colors.colorize(user, logoColor) + "@" + Colors.colorize(hostname, Colors.RED) : null);
+        modules.set("hostname", Configuration.showHostname ? Colors.colorize(user, logoColor) + "@" + Colors.colorize(hostname, logoColor) : null);
         modules.set("host", (Configuration.showHost && host != null) ? (Configuration.showHost ? Colors.colorize(Configuration.hostString, logoColor) + Configuration.separator + separator + host : null) : null);
         modules.set("os", Configuration.showDistro ? Colors.colorize(Configuration.distroString, logoColor) + Configuration.separator + separator + distro + (Configuration.architecture ? archSuffix : "") + (Configuration.init ? initSuffix : "") : null);
         modules.set("kernel", Configuration.showKernel ? Colors.colorize(Configuration.kernelString, logoColor) + Configuration.separator + separator + (Configuration.systemKernel ? Configuration.systemKernelString + separator + kernel : kernel) : null);

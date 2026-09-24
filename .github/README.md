@@ -59,6 +59,12 @@ Getting compiled binary from Git using `wget`
 wget https://raw.githubusercontent.com/Sbinator-hub/Haxefetch/main/binary/haxefetch && chmod +x haxefetch && sudo mv haxefetch /usr/bin/haxefetch
 ```
 
+Getting compiled binary from Git using `wget` (FreeBSD)
+```
+wget https://raw.githubusercontent.com/Sbinator-hub/Haxefetch/main/binary/haxefetch-bsd && chmod +x haxefetch-bsd && doas mv haxefetch-bsd /usr/bin/haxefetch
+```
+> - NOTE: FreeBSD does supports compiled binary that i am pushing from Ubuntu 22.04 for compability! You need to do this steps: 1. Enable Linux module `doas kldload linux && doas kldload linux64` -> 2. Install Linux base image `doas pkg linux_base-r19` -> 3. Enable Linux service `doas sysrc linux_enable="YES` -> 4. Start service `doas service linux start`
+
 </details>
 
 <details>
