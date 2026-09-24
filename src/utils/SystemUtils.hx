@@ -158,12 +158,26 @@ class SystemUtils {
         }
 
         if (osName != "") {
+
+            // Try to fetch Ubuntu variants/flavours
+            osName = getUbuntuVariants(osName);
+
             realDistro = osName;
             return realDistro;
         }
 
         realDistro = Sys.systemName();
         return realDistro;
+    }
+
+    private static function getUbuntuVariants(ubuntu:String):String {
+        if (ubuntu.toLowerCase().indexOf("ubuntu") == -1) return ubuntu;
+
+        if (FileSystem.exists("/var/lib/dpkg/info/xubuntu-desktop.list")) return StringTools.replace(ubuntu, "Ubuntu", "XUbuntu");
+        if (FileSystem.exists("/var/lib/dpkg/info/kubuntu-desktop.list")) return StringTools.replace(ubuntu, "Ubuntu", "Kubuntu");
+        if (FileSystem.exists("/var/lib/dpkg/info/lubuntu-desktop.list")) return StringTools.replace(ubuntu, "Ubuntu", "Lubuntu");
+
+        return ubuntu;
     }
 
     private static function fetchDistro():String {
