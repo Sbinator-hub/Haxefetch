@@ -171,11 +171,15 @@ class SystemUtils {
     }
 
     private static function getUbuntuVariants(ubuntu:String):String {
-        if (ubuntu.toLowerCase().indexOf("ubuntu") == -1) return ubuntu;
+        if (ubuntu.indexOf("ubuntu") != -1) {
+            var xdg = Sys.getEnv("XDG_CURRENT_DESKTOP");
+            var session = Sys.getEnv("DESKTOP_SESSION");
+            var environentStr = ((xdg != null ? xdg : "") + " " + (session != null ? session : "")).toLowerCase();
 
-        if (FileSystem.exists("/var/lib/dpkg/info/xubuntu-desktop.list")) return StringTools.replace(ubuntu, "Ubuntu", "XUbuntu");
-        if (FileSystem.exists("/var/lib/dpkg/info/kubuntu-desktop.list")) return StringTools.replace(ubuntu, "Ubuntu", "Kubuntu");
-        if (FileSystem.exists("/var/lib/dpkg/info/lubuntu-desktop.list")) return StringTools.replace(ubuntu, "Ubuntu", "Lubuntu");
+            if (environentStr.indexOf("xfce") != -1) ubuntu = "xubuntu";
+            if (environentStr.indexOf("kde") != -1) ubuntu = "kubuntu";
+            if (environentStr.indexOf("lxqt") != -1) ubuntu = "lubuntu";
+        }
 
         return ubuntu;
     }

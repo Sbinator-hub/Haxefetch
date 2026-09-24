@@ -69,7 +69,7 @@
 --resource src/resources/logos/xubuntu.txt@xubuntu
 --resource src/resources/logos/zorin.txt@zorin
 
---resource src/resources/mini_logos/alpine.txt@apline_small
+--resource src/resources/mini_logos/alpine.txt@alpine_small
 --resource src/resources/mini_logos/arch.txt@arch_small
 --resource src/resources/mini_logos/arco.txt@arco_small
 --resource src/resources/mini_logos/artix.txt@artix_small
