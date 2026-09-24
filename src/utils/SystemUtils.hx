@@ -171,7 +171,8 @@ class SystemUtils {
     }
 
     private static function getUbuntuVariants(ubuntu:String):String {
-        if (ubuntu.indexOf("ubuntu") != -1) {
+        var lower = ubuntu.toLowerCase();
+        if (lower.indexOf("ubuntu") != -1) {
             var xdg = Sys.getEnv("XDG_CURRENT_DESKTOP");
             var session = Sys.getEnv("DESKTOP_SESSION");
             var environentStr = ((xdg != null ? xdg : "") + " " + (session != null ? session : "")).toLowerCase();
