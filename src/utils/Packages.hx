@@ -326,6 +326,20 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
+            // FreeBSD (pkg) - FreeBSD devs
+            #if bsd
+            var pkgPath = root + "/var/db/pkg/local.sqlite";
+            if (FileSystem.exists(pkgPath)) {
+                try {
+                    var count = getSQLiteCount(pkgPath, "SELECT count(*) FROM packages;");
+                    if (count > 0) {
+                        var entry = Configuration.packageManager ? '${count} ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(pkg)"}' : '${count}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    }
+                }
+            }
+            #end
+
             // Snaps - Canocial devs
             var path = root + "/var/lib/snapd/snaps";
             if (FileSystem.exists(path)) {
