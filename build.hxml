@@ -65,6 +65,7 @@
 --resource src/resources/logos/ubuntu.txt@ubuntu
 --resource src/resources/logos/ultramarine.txt@ultramarine
 --resource src/resources/logos/void.txt@void
+--resource src/resources/logos/vylen.txt@vylen
 --resource src/resources/logos/xubuntu.txt@xubuntu
 --resource src/resources/logos/zorin.txt@zorin
 
@@ -95,3 +96,4 @@
 --resource src/resources/mini_logos/ubuntu.txt@ubuntu_small
 --resource src/resources/mini_logos/ultramarine.txt@ultramarine_small
 --resource src/resources/mini_logos/void.txt@void_small
+--resource src/resources/mini_logos/vylen.txt@vylen_small

@@ -304,6 +304,17 @@ class Packages {
                 } catch (e:Dynamic) {}
             }
 
+            // Vylen Linux (emerald) - CelestifyX
+            if (FileSystem.exists(root + "/var/lib/emerald/db")) {
+                try {
+                    var count = FileSystem.readDirectory(root + "/var/lib/emerald/db").length;
+                    if (count > 0) {
+                        var entry = Configuration.packageManager ? '$count ${Configuration.packageName != null && Configuration.packageName != "" ? Configuration.packageName : "(emerald)"}' : '${count}';
+                        if (!counts.contains(entry)) counts.push(entry);
+                    }
+                }
+            }
+
             // Glaucus Linux (rad) - Firas Khana
             if (FileSystem.exists(root + "/var/lib/rad/local")) {
                 try {

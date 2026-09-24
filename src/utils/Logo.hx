@@ -110,6 +110,7 @@ class Logo {
             case _ if (low.indexOf("ubuntu") != -1 || low.indexOf("ubuntu-cinnamon") != -1 || low.indexOf("ubuntu-mate") != -1 || low.indexOf("ubuntu-sway") != -1 || low.indexOf("uwuntu") != -1): return "ubuntu";
             case _ if (low.indexOf("ultramarine") != -1): return "ultramarine";
             case _ if (low.indexOf("void") != -1): return "void";
+            case _ if (low.indexOf("vylen") != -1): return "vylen";
             default: return null;
         }
     }
@@ -159,6 +160,7 @@ class Logo {
         if (s.indexOf("tonarchy") != -1) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE }; // Tony Banters my beloved guy
         if (s.indexOf("ultramarine") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
         if (s.indexOf("void") != -1) return { primary: Colors.COLOR_22, secondary: Colors.WHITE, third: Colors.COLOR_22 };
+        if (s.indexOf("vylen") != -1) return { primary: Colors.GREEN, secondary: Colors.GREEN, third: Colors.WHITE }; 
         if (s.indexOf("zorin") != -1) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
 
         return { primary: Colors.WHITE, secondary: Colors.WHITE, third: Colors.WHITE };
