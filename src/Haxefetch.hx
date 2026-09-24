@@ -96,7 +96,7 @@ class Haxefetch {
         modules.set("swap", Configuration.showSWAP ? Colors.colorize(Configuration.swapString, logoColor) + Configuration.separator + separator + swap : null);
         modules.set("cpu", Configuration.showCPU ? Colors.colorize(Configuration.cpuString, logoColor) + Configuration.separator + separator + cpu : null);
         modules.set("gpu", Configuration.showGPU ? Colors.colorize(Configuration.gpuString, logoColor) + Configuration.separator +separator + gpu : null);
-        modules.set("disk", Configuration.showHostname ? Colors.colorize(user, logoColor) + "@" + Colors.colorize(hostname, Colors.RED) : null);
+        modules.set("disk", Configuration.showDisk ? Colors.colorize(Configuration.diskString, logoColor) + Configuration.separator + separator + disk : null);
         modules.set("packages", Configuration.showPackages ? Colors.colorize(Configuration.packageString, logoColor) + Configuration.separator + separator + packageSuffix : null);
         modules.set("terminal", Configuration.showTerminal ? Colors.colorize(Configuration.terminalString, logoColor) + Configuration.separator + separator + terminal : null);
         modules.set("shell", Configuration.showShell ? Colors.colorize(Configuration.shellString, logoColor) + Configuration.separator + separator + shell : null);
