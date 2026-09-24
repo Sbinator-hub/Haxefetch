@@ -81,7 +81,7 @@ class GPUUtility {
         if (FileSystem.exists(pciFile) && vendorId != "" && deviceId != "") device = parsePCI(pciFile, vendorId, deviceId);
         if (device != "") return fetchActualGPU('${vendor}  ${device}');
 
-        return vendor != "" ? vendor + 'GPU (${deviceId})' : "N/A";
+        return vendor != "" ? vendor + ' GPU (${deviceId})' : "N/A";
     }
 
     private static function fetchActualGPU(gpu:String):String {

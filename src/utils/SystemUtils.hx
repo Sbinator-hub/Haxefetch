@@ -90,10 +90,6 @@ class SystemUtils {
             } catch (e:Dynamic) {}
         }
         #end
-        /*var output = Haxefetch.runCmd("cat", [path]);
-            if (output != null && output != "") {
-            return StringTools.trim(output);
-        }*/
         return "";
     }
 
@@ -170,7 +166,7 @@ class SystemUtils {
         return realDistro;
     }
 
-    public static function fetchDistro():String {
+    private static function fetchDistro():String {
         var actualName = getRawDistro();
 
         if (Configuration.distroNameString != null && Configuration.distroNameString != "") {
@@ -356,7 +352,7 @@ class SystemUtils {
                 var month = StringTools.lpad(Std.string(date.getMonth() + 1), "0", 2);
                 var year = date.getFullYear();
                 
-                return '$day.$month.$year.';
+                return '$day${Configuration.birthDotString}$month${Configuration.birthDotString}$year';
             }
         } catch (e:Dynamic) {}
         return "N/A";

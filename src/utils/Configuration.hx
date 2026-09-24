@@ -98,6 +98,7 @@ class Configuration {
 
     public static var showBirth:Bool = true;
     public static var birthString:String = "OS Birth";
+    public static var birthDotString:String = ".";
 
     public static var showBlock:Bool = true;
     public static var showBlock2:Bool = true;
@@ -277,6 +278,7 @@ class Configuration {
 
             interp.variables.set("show_birth", showBirth);
             interp.variables.set("birth", birthString);
+            interp.variables.set("birth_dot", birthDotString);
 
             interp.variables.set("show_color_block", showBlock);
             interp.variables.set("show_bright_color_block", showBlock2);
@@ -364,6 +366,7 @@ class Configuration {
 
             if (interp.variables.exists("show_birth")) showBirth = interp.variables.get("show_birth");
             if (interp.variables.exists("birth")) birthString = interp.variables.get("birth");
+            if (interp.variables.exists("birth_dot")) birthDotString = interp.variables.get("birth_dot");
 
             if (interp.variables.exists("show_color_block")) showBlock = interp.variables.get("show_color_block");
             if (interp.variables.exists("show_bright_color_block")) showBlock2 = interp.variables.get("show_bright_color_block");
@@ -474,6 +477,7 @@ class Configuration {
 
             case "show_birth": showBirth = parseBool(value);
             case "birth": birthString = parseString(value);
+            case "birth_dot": birthDotString = parseString(value);
 
             case "show_color_block": showBlock = parseBool(value);
             case "show_bright_color_block": showBlock2 = parseBool(value);
@@ -590,7 +594,8 @@ class Configuration {
                 "birthday = \'OS Birthday\';\n\n" +
 
                 "show_birth = true;\n" +
-                "birth = \'OS Birth\';\n\n" +
+                "birth = \'OS Birth\';\n" +
+                "birth_dot = \'.\';\n\n" +
 
                 "show_color_block = true;\n" +
                 "show_bright_color_block = true;";
@@ -673,7 +678,8 @@ class Configuration {
                 "birthday='OS Birthday'\n\n" +
 
                 "show_birth=true\n" +
-                "birth='OS Birth'\n\n" +
+                "birth='OS Birth'\n" +
+                "birth_dot='.'\n\n" +
 
                 "show_color_block=true\n" + 
                 "show_bright_color_block=true";
