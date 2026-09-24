@@ -56,7 +56,7 @@ class Commands {
         #if (windows || macos || bsd)
         Sys.println('Your platform ${SystemUtils.osPlatform()} does not supports Haxefetch!');
         #else
-        Sys.println('Detected ${SystemUtils.readDistroKey()}! Supported.');
+        Sys.println('Detected ${SystemUtils.getRawDistro()}! Supported.');
         #end
     }
 }
