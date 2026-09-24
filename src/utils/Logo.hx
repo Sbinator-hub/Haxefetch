@@ -106,7 +106,7 @@ class Logo {
             case _ if (low.indexOf("steamos") != -1): return "steam";
             case _ if (low.indexOf("zorin") != -1): return "zorin";
             case _ if (low.indexOf("lubuntu") != -1): return "lubuntu";
-            case _ if (low.indexOf("xubuntu") != -1): return "xubuntu";
+            case _ if (low.indexOf("xubuntu") != -1 || low.indexOf("xfce-ubuntu") != -1): return "xubuntu";
             case _ if (low.indexOf("ubuntu") != -1 || low.indexOf("ubuntu-cinnamon") != -1 || low.indexOf("ubuntu-mate") != -1 || low.indexOf("ubuntu-sway") != -1 || low.indexOf("uwuntu") != -1): return "ubuntu";
             case _ if (low.indexOf("ultramarine") != -1): return "ultramarine";
             case _ if (low.indexOf("void") != -1): return "void";
