@@ -7,7 +7,7 @@ class Haxefetch {
         Commands.parse(Sys.args());
         Configuration.loadConfig();
 
-        #if (windows || macos || bsd)
+        #if (windows || macos)
         Sys.println('Haxefetch on ${SystemUtils.osPlatform()} is not currently supported!');
         #else
         initFetch();
