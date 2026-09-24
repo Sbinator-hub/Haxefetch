@@ -327,7 +327,6 @@ class Packages {
             }
 
             // FreeBSD (pkg) - FreeBSD devs
-            #if bsd
             var pkgPath = root + "/var/db/pkg/local.sqlite";
             if (FileSystem.exists(pkgPath)) {
                 try {
@@ -338,7 +337,6 @@ class Packages {
                     }
                 }
             }
-            #end
 
             // Snaps - Canocial devs
             var path = root + "/var/lib/snapd/snaps";
