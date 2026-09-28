@@ -87,7 +87,7 @@ class Memory {
     }
 
     private static function formatMemory(usedKilo:Float, totalKilo:Float):String {
-        return '${formatData(usedKilo)} / ${formatData(totalKilo)}';
+        return '${formatData(usedKilo)}${Configuration.slashMemoryString}${formatData(totalKilo)}';
     }
 
     private static function extractDigits(raw:String):Float {

@@ -198,6 +198,13 @@ class SystemUtils {
     public static function readDistroKey():String return fetchDistro();
 
     public static function fetchInit():String {
+        if (FileSystem.exists("/run/openrc") || FileSystem.exists("/run/openrc/softlevel")) return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "OpenRC";
+        if (FileSystem.exists("/run/runit")) return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Runit";
+        if (FileSystem.exists("/run/dinit")) (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Dinit";
+        if (FileSystem.exists("/run/finit")) return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Finit";
+        if (FileSystem.exists("/run/s6")) (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "S6";
+        if (FileSystem.exists("/run/shepherd")) return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "GNU Shepherd";
+
         try {
             if (FileSystem.exists("/proc/1/comm")) {
                 var input = File.read("/proc/1/comm", false);
@@ -206,13 +213,13 @@ class SystemUtils {
 
                 switch (com) {
                     case "systemd": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "systemD"; 
-                    case "openrc-init": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "OpenRC";
+                    case "openrc": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "OpenRC";
                     case "runit": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Runit";
                     case "dinit": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Dinit";
                     case "finit": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Finit";
                     case "s6-svscan": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "S6";
                     case "shepherd": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "GNU Shepherd";
-                    case "init": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "SysVInit";
+                    case "init": return (Configuration.initString != null && Configuration.initString != "") ? Configuration.initString : "Init";
                     default: return com;
                 }
             }

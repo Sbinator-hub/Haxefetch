@@ -61,6 +61,8 @@ class Configuration {
     public static var swapString:String = "SWAP";
     public static var swapPercent:Bool = true;
 
+    public static var slashMemoryString:String;
+
     public static var showCPU:Bool = true;
     public static var cpuString:String = "CPU";
     public static var cpuFreq:Bool = true;
@@ -241,6 +243,8 @@ class Configuration {
             interp.variables.set("swap", swapString);
             interp.variables.set("swap_percentage", swapPercent);
 
+            interp.variables.set("memory_slash", slashMemoryString);
+
             interp.variables.set("show_cpu", showCPU);
             interp.variables.set("cpu", cpuString);
             interp.variables.set("cpu_frequency", cpuFreq);
@@ -324,6 +328,8 @@ class Configuration {
             if (interp.variables.exists("show_ram")) showRAM = interp.variables.get("show_ram");
             if (interp.variables.exists("ram")) ramString = interp.variables.get("ram");
             if (interp.variables.exists("ram_percentage")) ramPercent = interp.variables.get("ram_percentage");
+
+            if (interp.variables.exists("memory_slash")) slashMemoryString = interp.variables.get("memory_slash");
 
             if (interp.variables.exists("show_swap")) showSWAP = interp.variables.get("show_swap");
             if (interp.variables.exists("swap")) swapString = interp.variables.get("swap");
@@ -439,6 +445,8 @@ class Configuration {
             case "show_swap": showSWAP = parseBool(value);
             case "swap": swapString = parseString(value);
             case "swap_percentage": swapPercent = parseBool(value);
+
+            case "memory_slash": slashMemoryString = parseString(value);
 
             case "show_cpu": showCPU = parseBool(value);
             case "cpu": cpuString = parseString(value);
@@ -558,6 +566,8 @@ class Configuration {
                 "swap = \'SWAP\';\n" +
                 "swap_percentage = true;\n\n" +
 
+                "memory_slash = \' / \';\n\n" +
+
                 "show_cpu = true;\n" +
                 "cpu = \'CPU\';\n" +
                 "cpu_frequency = true;\n" +
@@ -644,6 +654,8 @@ class Configuration {
                 "show_swap=true\n" +
                 "swap='SWAP'\n"+
                 "swap_percentage=true\n\n" +
+
+                "memory_slash=' / '\n\n" +
 
                 "show_cpu=true\n" +
                 "cpu='CPU'\n" +
