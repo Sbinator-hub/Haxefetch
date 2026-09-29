@@ -14,7 +14,7 @@ class Haxefetch {
         #end
     }
 
-    static function initFetch():Void {
+    public static function initFetch():Void {
         var user = getEnvironment("USER", getEnvironment("USERNAME", "user"));
         var hostname = SystemUtils.fetchHostname();
         var host = SystemUtils.fetchHost();
@@ -105,6 +105,38 @@ class Haxefetch {
         modules.set("birth", Configuration.showBirth ? Colors.colorize(Configuration.birthString, logoColor) + Configuration.separator + separator + birth : null);
         modules.set("colors", Configuration.showBlock ? Colors.getColorBlocks() + (Configuration.showBlock2 ? separator + Colors.getBrightColorBlocks() : "") : null);
         #end
+
+        for (key in Configuration.modules) {
+            if (CustomModules.registry.exists(key)) {
+                var functionRender = CustomModules.registry.get(key);
+                var result = functionRender();
+                modules.set(key, result);
+            } else if (!modules.exists(key) || modules.get(key) == null) {
+                if (Configuration.customModule.exists(key)) {
+                    var raw = Configuration.customModule.get(key);
+                    var custom = "";
+                    if (StringTools.startsWith(raw, "command:")) {
+                        var command = raw.substr(8);
+                        custom = runCmd(command, []);
+                    } else if (StringTools.startsWith(raw, "text:")) {
+                        custom = raw.substr(5);
+                    } else {
+                        custom = raw;
+                    }
+
+                    custom = StringTools.trim(custom);
+                    if (StringTools.startsWith(custom, "\"") && StringTools.endsWith(custom, "\"")) custom = custom.substr(1, custom.length - 2);
+
+                    var display = StringTools.replace(key, "_", " ");
+                    display = display.split(" ").map(word -> {
+                        if (word.length == 0) return "";
+                        return word.charAt(0).toUpperCase() + word.substr(1);
+                    }).join(" ");
+
+                    modules.set(key, Colors.colorize(key, logoColor) + Configuration.separator + separator + custom);
+                }
+            }
+        }
 
         var infoLine:Array<String> = Configuration.modules.map(function(key) return modules.get(key)).filter(function(line) return line != null);
 

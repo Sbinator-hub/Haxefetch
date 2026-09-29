@@ -2,6 +2,7 @@ import utils.Colors;
 import utils.Commands;
 import utils.Configuration;
 import utils.CPUUtility;
+import utils.CustomModules;
 import utils.DiskUtility;
 import utils.GPUUtility;
 import utils.Logo;

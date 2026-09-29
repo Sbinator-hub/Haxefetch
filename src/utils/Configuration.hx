@@ -61,7 +61,7 @@ class Configuration {
     public static var swapString:String = "SWAP";
     public static var swapPercent:Bool = true;
 
-    public static var slashMemoryString:String;
+    public static var slashMemoryString:String = "/";
 
     public static var showCPU:Bool = true;
     public static var cpuString:String = "CPU";
@@ -104,6 +104,8 @@ class Configuration {
 
     public static var showBlock:Bool = true;
     public static var showBlock2:Bool = true;
+
+    public static var customModule:Map<String, String> = new Map();
 
     public static function loadConfig():Void {
         var main = Sys.getEnv("HOME");
@@ -200,6 +202,23 @@ class Configuration {
         try {            
             parser.line = 1;
 
+            interp.variables.set("Haxefetch", Haxefetch);
+            interp.variables.set("Configuration", Configuration);
+            interp.variables.set("CustomModules", CustomModules);
+            interp.variables.set("Colors", Colors);
+            interp.variables.set("command", function(cmd:String, ?args:Array<String>) {
+                //Sys.println("Sbinator: command() invoked with cmd = " + cmd);
+                try {
+                    if (args == null) args = [];
+                    var result = Haxefetch.runCmd(cmd, args);
+                    //Sys.println("Sbinator: runCmd result = " + result);
+                    return result;
+                } catch (e:Dynamic) {
+                    Sys.println("Sbinator: Haxefetch's runCmd callback crashed with: " + e);
+                    return "Error executing command";
+                }
+            });
+
             interp.variables.set("modules", modules);
             interp.variables.set("separator", separator);
 
@@ -207,7 +226,7 @@ class Configuration {
             interp.variables.set("logo_x", logoX);
             interp.variables.set("logo_y", logoY);
             interp.variables.set("logo_type", logoSize);
-            interp.variables.set("logo_color", modules);
+            interp.variables.set("logo_color", logoColor);
 
             interp.variables.set("show_hostname", showHostname);
 
@@ -376,7 +395,6 @@ class Configuration {
 
             if (interp.variables.exists("show_color_block")) showBlock = interp.variables.get("show_color_block");
             if (interp.variables.exists("show_bright_color_block")) showBlock2 = interp.variables.get("show_bright_color_block");
-
         } catch (e:hscript.Expr.Error) {
             var lineNumb = switch (e) {
                 case EInvalidChar(_), EUnexpected(_), EUnterminatedString, EUnterminatedComment:
@@ -489,9 +507,11 @@ class Configuration {
 
             case "show_color_block": showBlock = parseBool(value);
             case "show_bright_color_block": showBlock2 = parseBool(value);
+
             default:
-                Sys.println('${Colors.colorize("Error in configuration of Haxefetch!", Colors.RED)} ${Colors.colorize('[Line ${lineNumber}]:', Colors.YELLOW)} ${Colors.colorize('Unknown option key', Colors.RED)} -> ${Colors.colorize('"${key}"', Colors.YELLOW)} <-');
-                Sys.exit(1);
+                customModule.set(key, parseString(value));
+                /*Sys.println('${Colors.colorize("Error in configuration of Haxefetch!", Colors.RED)} ${Colors.colorize('[Line ${lineNumber}]:', Colors.YELLOW)} ${Colors.colorize('Unknown option key', Colors.RED)} -> ${Colors.colorize('"${key}"', Colors.YELLOW)} <-');
+                Sys.exit(1);*/
         }
     }
 
