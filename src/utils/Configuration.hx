@@ -23,7 +23,6 @@ class Configuration {
     public static var logo:String = "";
     public static var logoX:Int = 2;
     public static var logoY:Int = 1;
-    // public static var customLogo:String = "";
     public static var logoSize:String = "normal";
     public static var logoColor = "";
 
@@ -61,7 +60,7 @@ class Configuration {
     public static var swapString:String = "SWAP";
     public static var swapPercent:Bool = true;
 
-    public static var slashMemoryString:String = "/";
+    public static var slashMemoryString:String = " / ";
 
     public static var showCPU:Bool = true;
     public static var cpuString:String = "CPU";
@@ -119,10 +118,7 @@ class Configuration {
             loadHaxeConfig(hxFile);
         } else if (FileSystem.exists(confFile)) {
             loadConfConfig(confFile);
-        } else {
-            createConfiguration(configDirectory, confFile, false, false);
         }
-
     }
 
     public static function generateConfiguration():Void {
