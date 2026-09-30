@@ -14,7 +14,7 @@ class Haxefetch {
         #end
     }
 
-    public static function initFetch():Void {
+    static function initFetch():Void {
         var user = getEnvironment("USER", getEnvironment("USERNAME", "user"));
         var hostname = SystemUtils.fetchHostname();
         var host = SystemUtils.fetchHost();
@@ -114,10 +114,22 @@ class Haxefetch {
             } else if (!modules.exists(key) || modules.get(key) == null) {
                 if (Configuration.customModule.exists(key)) {
                     var raw = Configuration.customModule.get(key);
+                    var customLabel:String = null;
                     var custom = "";
+
+                    if (raw.indexOf("|") != -1) {
+                        var parts = raw.split("|");
+                        customLabel = StringTools.trim(parts[0]);
+                        raw = StringTools.trim(parts[1]);
+                    }
+
                     if (StringTools.startsWith(raw, "command:")) {
-                        var command = raw.substr(8);
-                        custom = runCmd(command, []);
+                        var command = StringTools.trim(raw.substr(8));
+                        var part = command.split(" ");
+                        var commandName = part.shift();
+                        var args = part;
+
+                        custom = runCmd(commandName, args);
                     } else if (StringTools.startsWith(raw, "text:")) {
                         custom = raw.substr(5);
                     } else {
@@ -127,13 +139,17 @@ class Haxefetch {
                     custom = StringTools.trim(custom);
                     if (StringTools.startsWith(custom, "\"") && StringTools.endsWith(custom, "\"")) custom = custom.substr(1, custom.length - 2);
 
-                    var display = StringTools.replace(key, "_", " ");
-                    display = display.split(" ").map(word -> {
+                    var display = "";
+                    if (customLabel != null && customLabel.length > 0) {
+                        display = customLabel;
+                    } else {
+                        display = StringTools.replace(key, "_", " ");
+                    } display = display.split(" ").map(word -> {
                         if (word.length == 0) return "";
                         return word.charAt(0).toUpperCase() + word.substr(1);
                     }).join(" ");
 
-                    modules.set(key, Colors.colorize(key, logoColor) + Configuration.separator + separator + custom);
+                    modules.set(key, Colors.colorize(display, logoColor) + Configuration.separator + separator + custom);
                 }
             }
         }
