@@ -77,7 +77,7 @@ class Configuration {
     public static var showPackages:Bool = true;
     public static var packageString:String = "Packages";
     public static var packageManager:Bool = true;
-    public static var packageSeparator:String = ",";
+    public static var packageSeparator:String = ", ";
     public static var packageName:String;
     public static var flatpakName:String;
     public static var snapName:String;
