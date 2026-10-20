@@ -3,7 +3,6 @@ package utils;
 import haxe.macro.Compiler;
 
 class Commands {
-    public static final HAXEFETCH_VERSION:String = "1.1.0";
     public static var commit:String = "";
 
     public static function parse(argument:Array<String>):Void {
@@ -15,7 +14,7 @@ class Commands {
                     Sys.exit(0);
                 
                 case "-v" | "--version":
-                    Sys.println('Haxefetch ${HAXEFETCH_VERSION} (Built on Haxe ${Compiler.getDefine("haxe")}) [Commit ${commit}]');
+                    Sys.println('Haxefetch ${Haxefetch.HAXEFETCH_VERSION} (Built on Haxe ${Compiler.getDefine("haxe")}) [Commit ${commit}]');
                     Sys.exit(0);
 
                 case "-c" | "--config":

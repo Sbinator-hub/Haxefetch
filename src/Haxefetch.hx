@@ -3,6 +3,8 @@ package;
 import sys.io.Process;
 
 class Haxefetch {
+    public static final HAXEFETCH_VERSION:String = "1.2.0";
+
     static function main():Void {
         Commands.parse(Sys.args());
         Configuration.loadConfig();

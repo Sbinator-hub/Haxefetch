@@ -47,10 +47,12 @@ class Configuration {
 
     public static var showDesktop:Bool = true;
     public static var desktopString:String = "DE";
+    public static var desktopVersion:Bool = true;
 
     public static var showSession:Bool = true;
     public static var sessionString:String = "WM";
     public static var protocol:Bool = true;
+    public static var sessionVersion:Bool = true;
 
     public static var showRAM:Bool = true;
     public static var ramString:String = "RAM";
@@ -249,6 +251,7 @@ class Configuration {
             interp.variables.set("show_window_manager", showSession);
             interp.variables.set("session", sessionString);
             interp.variables.set("display_protocol", protocol);
+            interp.variables.set("session_version", sessionVersion); 
 
             interp.variables.set("show_ram", showRAM);
             interp.variables.set("ram", ramString);
@@ -339,6 +342,7 @@ class Configuration {
             if (interp.variables.exists("show_window_manager")) showSession = interp.variables.get("show_window_manager");
             if (interp.variables.exists("session")) sessionString = interp.variables.get("session");
             if (interp.variables.exists("display_protocol")) protocol = interp.variables.get("display_protocol");
+            if (interp.variables.exists("session_version")) sessionVersion = interp.variables.get("session_version");
 
             if (interp.variables.exists("show_ram")) showRAM = interp.variables.get("show_ram");
             if (interp.variables.exists("ram")) ramString = interp.variables.get("ram");
@@ -447,10 +451,12 @@ class Configuration {
 
             case "show_desktop_environment": showDesktop = parseBool(value);
             case "desktop": desktopString = parseString(value);
+            case "desktop_version": desktopVersion = parseBool(value);
 
             case "show_window_manager": showSession = parseBool(value);
             case "session": sessionString = parseString(value);
             case "display_protocol": protocol = parseBool(value);
+            case "session_version": sessionVersion = parseBool(value);
 
             case "show_ram": showRAM = parseBool(value);
             case "ram": ramString = parseString(value);
@@ -657,11 +663,13 @@ class Configuration {
                 "system_kernel='Linux'\n\n" +
 
                 "show_desktop_environment=true\n" +
-                "desktop='DE'\n\n" +
+                "desktop='DE'\n" +
+                "desktop_version=true\n\n" +
 
                 "show_window_manager=true\n" +
                 "session='WM'\n" +
-                "display_protocol=true\n\n" +
+                "display_protocol=true\n" +
+                "session_version=true\n\n" +
 
                 "show_ram=true\n" +
                 "ram='RAM'\n" +
