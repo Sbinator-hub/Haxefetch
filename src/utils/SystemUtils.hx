@@ -272,6 +272,14 @@ class SystemUtils {
     }
 
     public static function fetchShell():String {
+        var environment = Sys.getEnv("SHELL");
+        if (environment != null && environment != "") {
+            var part = environment.split("/");
+            var binary = part[part.length - 1];
+            if (StringTools.startsWith(binary, "-")) binary = binary.substr(1);
+            return formatShell(binary);
+        }
+        
         try {
             var stat = File.getContent("/proc/self/stat");
             var paren = stat.lastIndexOf(")");
@@ -297,12 +305,6 @@ class SystemUtils {
                 }
             }
         } catch (e:Dynamic) {}
-
-        var environment = Sys.getEnv("SHELL");
-        if (environment !=  null) {
-            var part = environment.split("/");
-            return formatShell(part[part.length - 1]);
-        }
 
         return "Unknown";
     }
