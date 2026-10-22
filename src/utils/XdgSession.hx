@@ -1,5 +1,7 @@
 package utils;
 
+using StringTools;
+
 class XdgSession {
     public static function fetchDestkop():Null<String> {
         var environmentKey = ["XDG_CURRENT_DESKTOP", "XDG_SESSION_DESKTOP", "DESKTOP_SESSION", "CURRENT_DESKTOP"];
@@ -19,19 +21,19 @@ class XdgSession {
             var token = StringTools.trim(parts).toUpperCase();
             if (token == "") continue;
 
-            if (token.indexOf("GNOME") != -1) return Configuration.desktopVersion ? formatVersion("GNOME", "gnome-shell", ["--version"]) : "GNOME";
-            if (token.indexOf("KDE") != -1 || token.indexOf("PLASMA") != -1) return Configuration.desktopVersion ? formatVersion("KDE Plasma", "plasmashell", ["--version"]) : "KDE Plasma";
-            if (token.indexOf("TDE") != -1 || token.indexOf("TRINITY") != -1) return Configuration.desktopVersion ? formatVersion("TDE", "tde-config", ["--version"]) : "TDE";
-            if (token.indexOf("CINNAMON") != -1) return Configuration.desktopVersion ? formatVersion("Cinnamon", "cinnamon", ["--version"]) : "Cinnamon";
-            if (token.indexOf("XFCE") != -1) return Configuration.desktopVersion ? formatVersion("XFCE", "xfce4-about", ["-V"]) : "XFCE";
-            if (token.indexOf("MATE") != -1) return Configuration.desktopVersion ? formatVersion("MATE", "mate-about", ["-v"]) : "MATE";
-            if (token.indexOf("BUDGIE") != -1) return Configuration.desktopVersion ? formatVersion("Budgie", "budgie-desktop", ["--version"]) : "Budgie";
-            if (token.indexOf("COSMIC") != -1) return Configuration.desktopVersion ? formatVersion("COSMIC", "cosmic-comp", ["--version"]) : "COSMIC";
-            if (token.indexOf("DEEPIN") != -1 || token.indexOf("DDE") != -1) return Configuration.desktopVersion ? formatVersion("Deepin", "dde-dock", ["--version"]) : "Deepin";
-            if (token.indexOf("LXDE") != -1) return Configuration.desktopVersion ? formatVersion("LXDE", "lxsession", ["--version"]) : "LXDE";
-            if (token.indexOf("LXQT") != -1) return Configuration.desktopVersion ? formatVersion("LXQt", "lxqt-session", ["-v"]) : "LXQt";
-            if (token.indexOf("NSCDE") != -1) return Configuration.desktopVersion ? formatVersion("NsCDE", "sh", ["-c", "nscde -V"]) : "NsCDE";
-            if (token.indexOf("CDE") != -1) return Configuration.desktopVersion ? formatVersion("CDE", "sh", ["-c", "dtversion"]) : "CDE";
+            if (token.contains("GNOME")) return Configuration.desktopVersion ? formatVersion("GNOME", "gnome-shell", ["--version"]) : "GNOME";
+            if (token.contains("KDE") || token.contains("PLASMA")) return Configuration.desktopVersion ? formatVersion("KDE Plasma", "plasmashell", ["--version"]) : "KDE Plasma";
+            if (token.contains("TDE") || token.contains("TRINITY")) return Configuration.desktopVersion ? formatVersion("TDE", "tde-config", ["--version"]) : "TDE";
+            if (token.contains("CINNAMON") ) return Configuration.desktopVersion ? formatVersion("Cinnamon", "cinnamon", ["--version"]) : "Cinnamon";
+            if (token.contains("XFCE") ) return Configuration.desktopVersion ? formatVersion("XFCE", "xfce4-about", ["-V"]) : "XFCE";
+            if (token.contains("MATE") ) return Configuration.desktopVersion ? formatVersion("MATE", "mate-about", ["-v"]) : "MATE";
+            if (token.contains("BUDGIE") ) return Configuration.desktopVersion ? formatVersion("Budgie", "budgie-desktop", ["--version"]) : "Budgie";
+            if (token.contains("COSMIC") ) return Configuration.desktopVersion ? formatVersion("COSMIC", "cosmic-comp", ["--version"]) : "COSMIC";
+            if (token.contains("DEEPIN")  || token.contains("DDE") ) return Configuration.desktopVersion ? formatVersion("Deepin", "dde-dock", ["--version"]) : "Deepin";
+            if (token.contains("LXDE") ) return Configuration.desktopVersion ? formatVersion("LXDE", "lxsession", ["--version"]) : "LXDE";
+            if (token.contains("LXQT") ) return Configuration.desktopVersion ? formatVersion("LXQt", "lxqt-session", ["-v"]) : "LXQt";
+            if (token.contains("NSCDE") ) return Configuration.desktopVersion ? formatVersion("NsCDE", "sh", ["-c", "nscde -V"]) : "NsCDE";
+            if (token.contains("CDE") ) return Configuration.desktopVersion ? formatVersion("CDE", "sh", ["-c", "dtversion"]) : "CDE";
         }
         return null;
     }
@@ -46,46 +48,46 @@ class XdgSession {
 
                 switch (upper) {
                     // Wayland
-                    case _ if (upper.indexOf("KWIN") != -1 || upper.indexOf("KDE") != -1 || upper.indexOf("PLASMA") != -1): return "KWin";
-                    case _ if (upper.indexOf("MUTTER") != -1 || upper.indexOf("GNOME") != -1 || upper.indexOf("BUDGIE") != -1): return "Mutter";
-                    case _ if (upper.indexOf("COSMIC-COMP") != -1 || upper.indexOf("COSMIC") != -1): return "Cosmic Comp";
-                    case _ if (upper.indexOf("SWAY") != -1): return Configuration.sessionVersion ? formatVersion("Sway", "sway", ["--version"]) : "Sway";
-                    case _ if (upper.indexOf("HYPRLAND") != -1): return Configuration.sessionVersion ? formatVersion("Hyprland", "Hyprland", ["--version"]) : "Hyprland";
-                    case _ if (upper.indexOf("NIRI") != -1): return Configuration.sessionVersion ? formatVersion("Niri", "niri", ["--version"]) : "Niri";
-                    case _ if (upper.indexOf("MANGO") != -1): return Configuration.sessionVersion ? formatVersion("Mango", "mango", ["-v"]) : "Mango";
-                    case _ if (upper.indexOf("DWL") != -1): return Configuration.sessionVersion ? formatVersion("DWL", "dwl", ["-v"]) : "DWL";
-                    case _ if (upper.indexOf("MIRACLE") != -1 || upper.indexOf("MIRACLE-WM") != -1): return "Miracle";
-                    case _ if (upper.indexOf("RIVER") != -1): return Configuration.sessionVersion ? formatVersion("River", "river", ["-version"]) : "River";
-                    case _ if (upper.indexOf("LABWC") != -1): return Configuration.sessionVersion ? formatVersion("LabWC", "labwc", ["--version"]) : "LabWC"; 
-                    case _ if (upper.indexOf("WAYFIRE") != -1): return Configuration.sessionVersion ? formatVersion("Wayfire", "wayfire", ["--version"]) : "Wayfire";
-                    case _ if (upper.indexOf("WESTON") != -1): return Configuration.sessionVersion ? formatVersion("Weston", "weston", ["--version"]) : "Weston"; 
-                    case _ if (upper.indexOf("XFWL") != -1): return "XFWL";
+                    case _ if (upper.contains("KWIN")  || upper.contains("KDE")  || upper.contains("PLASMA") ): return "KWin";
+                    case _ if (upper.contains("MUTTER")  || upper.contains("GNOME")  || upper.contains("BUDGIE") ): return "Mutter";
+                    case _ if (upper.contains("COSMIC-COMP")  || upper.contains("COSMIC") ): return "Cosmic Comp";
+                    case _ if (upper.contains("SWAY") ): return Configuration.sessionVersion ? formatVersion("Sway", "sway", ["--version"]) : "Sway";
+                    case _ if (upper.contains("HYPRLAND") ): return Configuration.sessionVersion ? formatVersion("Hyprland", "Hyprland", ["--version"]) : "Hyprland";
+                    case _ if (upper.contains("NIRI") ): return Configuration.sessionVersion ? formatVersion("Niri", "niri", ["--version"]) : "Niri";
+                    case _ if (upper.contains("MANGO") ): return Configuration.sessionVersion ? formatVersion("Mango", "mango", ["-v"]) : "Mango";
+                    case _ if (upper.contains("DWL") ): return Configuration.sessionVersion ? formatVersion("DWL", "dwl", ["-v"]) : "DWL";
+                    case _ if (upper.contains("MIRACLE")  || upper.contains("MIRACLE-WM") ): return "Miracle";
+                    case _ if (upper.contains("RIVER") ): return Configuration.sessionVersion ? formatVersion("River", "river", ["-version"]) : "River";
+                    case _ if (upper.contains("LABWC") ): return Configuration.sessionVersion ? formatVersion("LabWC", "labwc", ["--version"]) : "LabWC"; 
+                    case _ if (upper.contains("WAYFIRE") ): return Configuration.sessionVersion ? formatVersion("Wayfire", "wayfire", ["--version"]) : "Wayfire";
+                    case _ if (upper.contains("WESTON") ): return Configuration.sessionVersion ? formatVersion("Weston", "weston", ["--version"]) : "Weston"; 
+                    case _ if (upper.contains("XFWL") ): return "XFWL";
 
                     // X11/Xorg
-                    case _ if (upper.indexOf("XFCE") != -1): return "Xfwm4";
-                    case _ if (upper.indexOf("TWIN") != -1 || upper.indexOf("TDE") != -1 || upper.indexOf("TRINITY") != -1): return "TWin";
-                    case _ if (upper.indexOf("MUFFIN") != -1 || upper.indexOf("CINNAMON") != -1 || upper.indexOf("X-CINNAMON") != -1): return "Muffin";
-                    case _ if (upper.indexOf("MARCO") != -1 || upper.indexOf("MATE") != -1): return "Marco";
-                    case _ if (upper.indexOf("METACITY") != -1): return "Metacity";
-                    case _ if (upper.indexOf("OPENBOX") != -1 || upper.indexOf("LXQT") != -1 || upper.indexOf("LXDE") != -1): return Configuration.sessionVersion ? formatVersion("OpenBox", "openbox", ["--version"]) : "OpenBox";
-                    case _ if (upper.indexOf("BLACKBOX") != -1): return Configuration.sessionVersion ? formatVersion("BlackBox", "blackbox", ["-version"]) : "BlackBox";
-                    case _ if (upper.indexOf("FLUXBOX") != -1): return Configuration.sessionVersion ? formatVersion("FluxBox", "fluxbox", ["-version"]) : "FluxBox";
-                    case _ if (upper.indexOf("AWESOME") != -1): return Configuration.sessionVersion ? formatVersion("Awesome", "awesome", ["--version"]) : "Awesome";
-                    case _ if (upper.indexOf("BSPWM") != -1): return Configuration.sessionVersion ? formatVersion("Bspwm", "bspwm", ["--version"]) : "Bspwm";
-                    case _ if (upper.indexOf("DWM") != -1): return Configuration.sessionVersion ? formatVersion("DWM", "dwm", ["--version"]) : "DWM";
-                    case _ if (upper.indexOf("DTWM") != -1 || upper.indexOf("CDE") != -1): return "DTWM";
-                    case _ if (upper.indexOf("E13") != -1): return "E13";
-                    case _ if (upper.indexOf("ENLIGHTENMENT") != -1): return "Enligthtenment";
-                    case _ if (upper.indexOf("I3") != -1): return Configuration.sessionVersion ? formatVersion("i3", "i3", ["--version"]) : "i3";
-                    case _ if (upper.indexOf("ICEWM") != -1): return Configuration.sessionVersion ? formatVersion("IceWM", "icewm", ["--version"]) : "IceWM"; // R.I.P Marko
-                    case _ if (upper.indexOf("HERBSTLUFTWM") != -1): return Configuration.sessionVersion ? formatVersion("HerbstluftWM", "herbstluftwm", ["--version"]) : "HerbstluftWM"; 
-                    case _ if (upper.indexOf("NSCDE") != -1 || upper.indexOf("FVWM") != -1): return "FVWM";
-                    case _ if (upper.indexOf("OXWM") != -1): return Configuration.sessionVersion ? formatVersion("OXWM", "oxwm", ["--version"]) : "OXWM"; // Tony Banters my beloved guy
-                    case _ if (upper.indexOf("PEKWM") != -1): return Configuration.sessionVersion ? formatVersion("PekWM", "pekwm", ["--version"]) : "PekWM";
-                    case _ if (upper.indexOf("QTILE") != -1): return Configuration.sessionVersion ? formatVersion("QTile", "qtile", ["--version"]) : "QTile";
-                    case _ if (upper.indexOf("XMONAD") != -1): return Configuration.sessionVersion ? formatVersion("XMonad", "xmonad", ["--version"]) : "XMonad";
-                    case _ if (upper.indexOf("VXWM") != -1): return "VXWM";
-                    case _ if (upper.indexOf("WINDOWMAKER") != -1): return Configuration.sessionVersion ? formatVersion("WindowMaker", "wmaker", ["--version"]) : "WindowMaker";
+                    case _ if (upper.contains("XFCE") ): return "Xfwm4";
+                    case _ if (upper.contains("TWIN")  || upper.contains("TDE")  || upper.contains("TRINITY") ): return "TWin";
+                    case _ if (upper.contains("MUFFIN")  || upper.contains("CINNAMON")  || upper.contains("X-CINNAMON") ): return "Muffin";
+                    case _ if (upper.contains("MARCO")  || upper.contains("MATE") ): return "Marco";
+                    case _ if (upper.contains("METACITY") ): return "Metacity";
+                    case _ if (upper.contains("OPENBOX")  || upper.contains("LXQT")  || upper.contains("LXDE") ): return Configuration.sessionVersion ? formatVersion("OpenBox", "openbox", ["--version"]) : "OpenBox";
+                    case _ if (upper.contains("BLACKBOX") ): return Configuration.sessionVersion ? formatVersion("BlackBox", "blackbox", ["-version"]) : "BlackBox";
+                    case _ if (upper.contains("FLUXBOX") ): return Configuration.sessionVersion ? formatVersion("FluxBox", "fluxbox", ["-version"]) : "FluxBox";
+                    case _ if (upper.contains("AWESOME") ): return Configuration.sessionVersion ? formatVersion("Awesome", "awesome", ["--version"]) : "Awesome";
+                    case _ if (upper.contains("BSPWM") ): return Configuration.sessionVersion ? formatVersion("Bspwm", "bspwm", ["--version"]) : "Bspwm";
+                    case _ if (upper.contains("DWM") ): return Configuration.sessionVersion ? formatVersion("DWM", "dwm", ["--version"]) : "DWM";
+                    case _ if (upper.contains("DTWM")  || upper.contains("CDE") ): return "DTWM";
+                    case _ if (upper.contains("E13") ): return "E13";
+                    case _ if (upper.contains("ENLIGHTENMENT") ): return "Enligthtenment";
+                    case _ if (upper.contains("I3") ): return Configuration.sessionVersion ? formatVersion("i3", "i3", ["--version"]) : "i3";
+                    case _ if (upper.contains("ICEWM") ): return Configuration.sessionVersion ? formatVersion("IceWM", "icewm", ["--version"]) : "IceWM"; // R.I.P Marko
+                    case _ if (upper.contains("HERBSTLUFTWM") ): return Configuration.sessionVersion ? formatVersion("HerbstluftWM", "herbstluftwm", ["--version"]) : "HerbstluftWM"; 
+                    case _ if (upper.contains("NSCDE")  || upper.contains("FVWM") ): return "FVWM";
+                    case _ if (upper.contains("OXWM") ): return Configuration.sessionVersion ? formatVersion("OXWM", "oxwm", ["--version"]) : "OXWM"; // Tony Banters my beloved guy
+                    case _ if (upper.contains("PEKWM") ): return Configuration.sessionVersion ? formatVersion("PekWM", "pekwm", ["--version"]) : "PekWM";
+                    case _ if (upper.contains("QTILE") ): return Configuration.sessionVersion ? formatVersion("QTile", "qtile", ["--version"]) : "QTile";
+                    case _ if (upper.contains("XMONAD") ): return Configuration.sessionVersion ? formatVersion("XMonad", "xmonad", ["--version"]) : "XMonad";
+                    case _ if (upper.contains("VXWM") ): return "VXWM";
+                    case _ if (upper.contains("WINDOWMAKER") ): return Configuration.sessionVersion ? formatVersion("WindowMaker", "wmaker", ["--version"]) : "WindowMaker";
 
                     default: return null;
                 }

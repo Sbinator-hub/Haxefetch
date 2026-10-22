@@ -578,7 +578,8 @@ class Configuration {
 
                 "show_window_manager = true;\n" +
                 "session = \'WM\';\n" +
-                "display_protocol = true;\n\n" +
+                "display_protocol = true;\n" +
+                "session_version = true;\n\n" +
 
                 "show_ram = true;\n" +
                 "ram = \'RAM\';\n" +
