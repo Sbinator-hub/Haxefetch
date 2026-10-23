@@ -28,6 +28,7 @@
 --resource src/resources/logos/artix.txt@artix
 --resource src/resources/logos/bazzite.txt@bazzite
 --resource src/resources/logos/cachyos.txt@cachy
+--resource src/resources/logos/chimera.txt@chimera
 --resource src/resources/logos/debian.txt@debian
 --resource src/resources/logos/devuan.txt@devuan
 --resource src/resources/logos/endeavouros.txt@endeavour
@@ -74,6 +75,7 @@
 --resource src/resources/mini_logos/arco.txt@arco_small
 --resource src/resources/mini_logos/artix.txt@artix_small
 --resource src/resources/mini_logos/cachyos.txt@cachy_small
+--resource src/resources/mini_logos/chimera.txt@chimera_small
 --resource src/resources/mini_logos/debian.txt@debian_small
 --resource src/resources/mini_logos/devuan.txt@devuan_small
 --resource src/resources/mini_logos/endeavouros.txt@endeavour_small

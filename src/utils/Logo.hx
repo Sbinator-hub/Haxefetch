@@ -9,7 +9,7 @@ import sys.io.File;
 using StringTools;
 
 class Logo {
-    public static function fetchLogo(distroName:String, size:String = "normal", overrideLogo:String = "", customColor:String = "", customColor2:String = "", customColor3:String = ""):Array<String> {
+    public static function fetchLogo(distroName:String, size:String = "normal", overrideLogo:String = "", customColor:String = "", customColor2:String = "", customColor3:String = "", customColor4:String = ""):Array<String> {
         var raw:String = null;
         
         var resolve = resolvePath(overrideLogo);
@@ -38,12 +38,14 @@ class Logo {
             var custom = (customColor != null && customColor != "") ? customColor : color.primary; 
             var custom2 = (customColor2 != null && customColor2 != "") ? customColor2 : color.secondary;
             var custom3 = (customColor3 != null && customColor3 != "") ? customColor3 : color.third;
+            var custom4 = (customColor4 != null && customColor4 != "") ? customColor4 : color.fourth;
             var txt = StringTools.replace(raw, "\r\n", "\n");
 
             if (txt.indexOf("$1") != -1) {
                 txt = StringTools.replace(txt, "$1", custom);
                 txt = StringTools.replace(txt, "$2", custom2);
                 txt = StringTools.replace(txt, "$3", custom3);
+                txt = StringTools.replace(txt, "$4", custom4);
                 
                 var lines = txt.split("\n");
                 var colorredLine:Array<String> = [];
@@ -74,6 +76,7 @@ class Logo {
             case _ if (low.contains("artix") ): return "artix";
             case _ if (low.contains("bazzite") ): return "bazzite";
             case _ if (low.contains("cachyos") ): return "cachy";
+            case _ if (low.contains("chimera")): return "chimera"; 
             case _ if (low.contains("devuan") ): return "devuan";
             case _ if (low.contains("debian") ): return "debian";
             case _ if (low.contains("endeavouros") ): return "endeavour";
@@ -117,55 +120,56 @@ class Logo {
         }
     }
 
-    public static function fetchColor(low:String):{primary:String, secondary:String, third:String} {
+    public static function fetchColor(low:String):{primary:String, secondary:String, third:String, fourth:String} {
         var s = low != null ? low.toLowerCase() : "";
 
-        if (s.contains("aerynos") ) return { primary: Colors.fg(23), secondary: Colors.fg(136), third: Colors.fg(23) };
-        if (s.contains("alpine") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.BLUE };
-        if (s.contains("arch") ) return { primary: Colors.BRIGHT_CYAN, secondary: Colors.BLUE, third: Colors.WHITE };
-        if (s.contains("arco") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("artix") ) return { primary: Colors.CYAN, secondary: Colors.CYAN, third: Colors.CYAN };
-        if (s.contains("bazzite") ) return { primary: Colors.fg(26), secondary: Colors.fg(97), third: Colors.BLUE };
-        if (s.contains("cachyos") ) return { primary: Colors.CYAN, secondary: Colors.CYAN, third: Colors.CYAN };
-        if (s.contains("debian") ) return { primary: Colors.fg(196), secondary: Colors.fg(124), third: Colors.WHITE };
-        if (s.contains("devuan") ) return { primary: Colors.MAGENTA, secondary: Colors.MAGENTA, third: Colors.MAGENTA };
-        if (s.contains("endeavour") ) return { primary: Colors.fg(99), secondary: Colors.fg(211), third: Colors.fg(141) };
-        if (s.contains("exherbo") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.RED };
-        if (s.contains("fedora") ) return { primary: Colors.fg(33), secondary: Colors.WHITE, third: Colors.fg(39) };
-        if (s.contains("garuda") ) return { primary: Colors.RED, secondary: Colors.RED, third: Colors.RED };
-        if (s.contains("gentoo") ) return { primary: Colors.fg(141), secondary: Colors.fg(61), third: Colors.WHITE };
-        if (s.contains("glaucus") ) return { primary: Colors.MAGENTA, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("guix") ) return { primary: Colors.YELLOW, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("kaos") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("kubuntu") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("lubuntu") ) return { primary: Colors.fg(26), secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("xubuntu") ) return { primary: Colors.fg(20), secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("ubuntu") ) return { primary: Colors.fg(202), secondary: Colors.fg(202), third: Colors.WHITE };
-        if (s.contains("neon") ) return { primary: Colors.CYAN, secondary: Colors.CYAN, third: Colors.CYAN };
-        if (s.contains("manjaro") ) return { primary: Colors.GREEN, secondary: Colors.GREEN, third: Colors.GREEN };
-        if (s.contains("linuxmint")  || s.contains("mint") ) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.GREEN };
-        if (s.contains("nixos") ) return { primary: Colors.fg(26), secondary: Colors.COLOR_63, third: Colors.fg(25) };
-        if (s.contains("nobara") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("parabola") ) return { primary: Colors.MAGENTA, secondary: Colors.MAGENTA, third: Colors.MAGENTA };
-        if (s.contains("parch") ) return { primary: Colors.COLOR_55, secondary: Colors.COLOR_55, third: Colors.COLOR_55 };
-        if (s.contains("pika") ) return { primary: Colors.YELLOW, secondary: Colors.YELLOW, third: Colors.YELLOW };
-        if (s.contains("pisi") ) return { primary: Colors.YELLOW, secondary: Colors.YELLOW, third: Colors.YELLOW };
-        if (s.contains("pop") ) return { primary: Colors.BRIGHT_CYAN, secondary: Colors.WHITE, third: Colors.CYAN };
-        if (s.contains("prism") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("redcore") ) return { primary: Colors.RED, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("rhel") ) return { primary: Colors.RED, secondary: Colors.WHITE, third: Colors.WHITE};
-        if (s.contains("rocky") ) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("slackware") ) return { primary: Colors.fg(26), secondary: Colors.WHITE, third: Colors.fg(26) };
-        if (s.contains("suse") ) return { primary: Colors.fg(28), secondary: Colors.fg(28), third: Colors.WHITE };
-        if (s.contains("steamos") ) return { primary: Colors.fg(27), secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("solus") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("tonarchy") ) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE }; // Tony Banters my beloved guy
-        if (s.contains("ultramarine") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
-        if (s.contains("void") ) return { primary: Colors.COLOR_22, secondary: Colors.WHITE, third: Colors.COLOR_22 };
-        if (s.contains("vylen") ) return { primary: Colors.GREEN, secondary: Colors.GREEN, third: Colors.WHITE }; 
-        if (s.contains("zorin") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE };
+        if (s.contains("aerynos") ) return { primary: Colors.fg(23), secondary: Colors.fg(136), third: Colors.fg(23), fourth: Colors.WHITE };
+        if (s.contains("alpine") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.BLUE, fourth: Colors.WHITE };
+        if (s.contains("arch") ) return { primary: Colors.BRIGHT_CYAN, secondary: Colors.BLUE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("arco") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("artix") ) return { primary: Colors.CYAN, secondary: Colors.CYAN, third: Colors.CYAN, fourth: Colors.WHITE };
+        if (s.contains("bazzite") ) return { primary: Colors.fg(26), secondary: Colors.fg(97), third: Colors.BLUE, fourth: Colors.WHITE };
+        if (s.contains("cachyos") ) return { primary: Colors.CYAN, secondary: Colors.CYAN, third: Colors.CYAN, fourth: Colors.WHITE };
+        if (s.contains("chimera")) return { primary: Colors.fg(99), secondary: Colors.RED, third: Colors.fg(168), fourth: Colors.MAGENTA };
+        if (s.contains("debian") ) return { primary: Colors.fg(196), secondary: Colors.fg(124), third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("devuan") ) return { primary: Colors.MAGENTA, secondary: Colors.MAGENTA, third: Colors.MAGENTA, fourth: Colors.WHITE };
+        if (s.contains("endeavour") ) return { primary: Colors.fg(99), secondary: Colors.fg(211), third: Colors.fg(141), fourth: Colors.WHITE };
+        if (s.contains("exherbo") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.RED, fourth: Colors.WHITE };
+        if (s.contains("fedora") ) return { primary: Colors.fg(33), secondary: Colors.WHITE, third: Colors.fg(39), fourth: Colors.WHITE };
+        if (s.contains("garuda") ) return { primary: Colors.RED, secondary: Colors.RED, third: Colors.RED, fourth: Colors.WHITE };
+        if (s.contains("gentoo") ) return { primary: Colors.fg(141), secondary: Colors.fg(61), third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("glaucus") ) return { primary: Colors.MAGENTA, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("guix") ) return { primary: Colors.YELLOW, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("kaos") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("kubuntu") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("lubuntu") ) return { primary: Colors.fg(26), secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("xubuntu") ) return { primary: Colors.fg(20), secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("ubuntu") ) return { primary: Colors.fg(202), secondary: Colors.fg(202), third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("neon") ) return { primary: Colors.CYAN, secondary: Colors.CYAN, third: Colors.CYAN, fourth: Colors.WHITE };
+        if (s.contains("manjaro") ) return { primary: Colors.GREEN, secondary: Colors.GREEN, third: Colors.GREEN, fourth: Colors.WHITE };
+        if (s.contains("linuxmint")  || s.contains("mint") ) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.GREEN, fourth: Colors.WHITE };
+        if (s.contains("nixos") ) return { primary: Colors.fg(26), secondary: Colors.COLOR_63, third: Colors.fg(25), fourth: Colors.WHITE };
+        if (s.contains("nobara") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("parabola") ) return { primary: Colors.MAGENTA, secondary: Colors.MAGENTA, third: Colors.MAGENTA, fourth: Colors.WHITE };
+        if (s.contains("parch") ) return { primary: Colors.COLOR_55, secondary: Colors.COLOR_55, third: Colors.COLOR_55, fourth: Colors.WHITE };
+        if (s.contains("pika") ) return { primary: Colors.YELLOW, secondary: Colors.YELLOW, third: Colors.YELLOW, fourth: Colors.WHITE };
+        if (s.contains("pisi") ) return { primary: Colors.YELLOW, secondary: Colors.YELLOW, third: Colors.YELLOW, fourth: Colors.WHITE };
+        if (s.contains("pop") ) return { primary: Colors.BRIGHT_CYAN, secondary: Colors.WHITE, third: Colors.CYAN, fourth: Colors.WHITE };
+        if (s.contains("prism") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("redcore") ) return { primary: Colors.RED, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("rhel") ) return { primary: Colors.RED, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("rocky") ) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("slackware") ) return { primary: Colors.fg(26), secondary: Colors.WHITE, third: Colors.fg(26), fourth: Colors.WHITE };
+        if (s.contains("suse") ) return { primary: Colors.fg(28), secondary: Colors.fg(28), third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("steamos") ) return { primary: Colors.fg(27), secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("solus") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("tonarchy") ) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE }; // Tony Banters my beloved guy
+        if (s.contains("ultramarine") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
+        if (s.contains("void") ) return { primary: Colors.COLOR_22, secondary: Colors.WHITE, third: Colors.COLOR_22, fourth: Colors.WHITE };
+        if (s.contains("vylen") ) return { primary: Colors.GREEN, secondary: Colors.GREEN, third: Colors.WHITE, fourth: Colors.WHITE }; 
+        if (s.contains("zorin") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
 
-        return { primary: Colors.WHITE, secondary: Colors.WHITE, third: Colors.WHITE };
+        return { primary: Colors.WHITE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
     }
 
     private static function fetchTux():Array<String> {

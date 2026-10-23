@@ -339,16 +339,18 @@ class Packages {
             }
 
             // Snaps - Canocial devs
-            var path = root + "/var/lib/snapd/snaps";
-            if (FileSystem.exists(path)) {
-                try {
-                    var snaps = FileSystem.readDirectory(path).filter(e -> StringTools.endsWith(e, ".snap"));
-                    if (snaps.length > 0) {
-                        var count = snaps.length;
-                        var entry = Configuration.packageManager ? '$count ${Configuration.snapName != null && Configuration.snapName != "" ? Configuration.snapName : "(snaps)"}' : '${count}';
-                        if (!counts.contains(entry)) counts.push(entry);
-                    }
-                } catch (e:Dynamic) {}
+            if (Configuration.snapCounter) {
+                var path = root + "/var/lib/snapd/snaps";
+                if (FileSystem.exists(path)) {
+                    try {
+                        var snaps = FileSystem.readDirectory(path).filter(e -> StringTools.endsWith(e, ".snap"));
+                        if (snaps.length > 0) {
+                            var count = snaps.length;
+                            var entry = Configuration.packageManager ? '$count ${Configuration.snapName != null && Configuration.snapName != "" ? Configuration.snapName : "(snaps)"}' : '${count}';
+                            if (!counts.contains(entry)) counts.push(entry);
+                        }
+                    } catch (e:Dynamic) {}
+                }
             }
         }
 
@@ -365,9 +367,11 @@ class Packages {
             }
         }
 
-        if (flatpaks > 0) {
-            var entry = Configuration.packageManager ? '$flatpaks ${Configuration.flatpakName != null && Configuration.flatpakName != "" ? Configuration.flatpakName : "(flatpak)"}' : '${flatpaks}';
-            if (!counts.contains(entry)) counts.push(entry);
+        if (Configuration.flatpakCounter) {
+            if (flatpaks > 0) {
+                var entry = Configuration.packageManager ? '$flatpaks ${Configuration.flatpakName != null && Configuration.flatpakName != "" ? Configuration.flatpakName : "(flatpak)"}' : '${flatpaks}';
+                if (!counts.contains(entry)) counts.push(entry);
+            }
         }
         
         return counts.join(Configuration.packageSeparator != null ? Configuration.packageSeparator : "");
