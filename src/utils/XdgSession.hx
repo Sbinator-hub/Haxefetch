@@ -84,6 +84,7 @@ class XdgSession {
                     case _ if (upper.contains("NSCDE")  || upper.contains("FVWM") ): return "FVWM";
                     case _ if (upper.contains("OXWM") ): return Configuration.sessionVersion ? formatVersion("OXWM", "oxwm", ["--version"]) : "OXWM"; // Tony Banters my beloved guy
                     case _ if (upper.contains("PEKWM") ): return Configuration.sessionVersion ? formatVersion("PekWM", "pekwm", ["--version"]) : "PekWM";
+                    case _ if (upper.contains("SXWM") ): return Configuration.sessionVersion ? formatVersion("SXWM", "sxwm", ["--version"]) : "SXWM";
                     case _ if (upper.contains("QTILE") ): return Configuration.sessionVersion ? formatVersion("QTile", "qtile", ["--version"]) : "QTile";
                     case _ if (upper.contains("XMONAD") ): return Configuration.sessionVersion ? formatVersion("XMonad", "xmonad", ["--version"]) : "XMonad";
                     case _ if (upper.contains("VXWM") ): return "VXWM";
@@ -151,6 +152,7 @@ class XdgSession {
             "fvwm" => "FWVM",
             "oxwm" => "OXWM", // Tony Banters my beloved guy
             "pekwm" => "PekWM",
+            "sxwm" => "SXWM",
             "qtile" => "QTile",
             "xmonad" => "XMonad",
             "vxwm" => "VXWM",
