@@ -58,7 +58,8 @@ class XdgSession {
                     case _ if (upper.contains("DWL") ): return Configuration.sessionVersion ? formatVersion("DWL", "dwl", ["-v"]) : "DWL";
                     case _ if (upper.contains("MIRACLE")  || upper.contains("MIRACLE-WM") ): return "Miracle";
                     case _ if (upper.contains("RIVER") ): return Configuration.sessionVersion ? formatVersion("River", "river", ["-version"]) : "River";
-                    case _ if (upper.contains("LABWC") ): return Configuration.sessionVersion ? formatVersion("LabWC", "labwc", ["--version"]) : "LabWC"; 
+                    case _ if (upper.contains("LABWC") ): return Configuration.sessionVersion ? formatVersion("LabWC", "labwc", ["--version"]) : "LabWC";
+                    case _ if (upper.contains("VOLARE")): return Configuration.sessionVersion ? formatVersion("Volare", "volare", ["--version"]) : "Volare"; 
                     case _ if (upper.contains("WAYFIRE") ): return Configuration.sessionVersion ? formatVersion("Wayfire", "wayfire", ["--version"]) : "Wayfire";
                     case _ if (upper.contains("WESTON") ): return Configuration.sessionVersion ? formatVersion("Weston", "weston", ["--version"]) : "Weston"; 
                     case _ if (upper.contains("XFWL") ): return "XFWL";
@@ -127,6 +128,7 @@ class XdgSession {
             "miracle-wm" => "Miracle",
             "river" => "River",
             "labwc" => "LabWC",
+            "volare" => "Volare",
             "wayfire" => "Wayfire",
             "xfwl" => "XFWL",
 
