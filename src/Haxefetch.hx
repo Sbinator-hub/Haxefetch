@@ -46,7 +46,8 @@ class Haxefetch {
         var birth = SystemUtils.fetchInstalledDate();
         var separator:String = " ";
 
-        var target = (Configuration.logo != null && Configuration.logo != "") ? Configuration.logo : realDistro;
+        var activeLogo = (Commands.overrideLogo != null && Commands.overrideLogo != "") ? Commands.overrideLogo : Configuration.logo;
+        var target = (activeLogo != null && activeLogo != "") ? activeLogo : realDistro;
         var object = Logo.fetchColor(target);
         var mainColor = (object != null && object.primary != null) ? object.primary : Colors.RESET;
 
@@ -59,11 +60,11 @@ class Haxefetch {
 
         var parseColor = (customColor != "") ? Colors.getColors(customColor) : "";
         var parseColor1 = (customColor1 != "") ? Colors.getColors(customColor1): "";
-        var parseColor2 = (customColor1 != "") ? Colors.getColors(customColor2): "";
+        var parseColor2 = (customColor2 != "") ? Colors.getColors(customColor2) : "";
 
         var logoColor = (parseColor != "" && parseColor != null) ? parseColor : mainColor;
 
-        var logo = Logo.fetchLogo(realDistro, Configuration.logoSize, Configuration.logo, logoColor, parseColor1, parseColor2);
+        var logo = Logo.fetchLogo(realDistro, Configuration.logoSize, activeLogo, logoColor, parseColor1, parseColor2);
 
         #if (haxe_ver >= "4.3.0")
         var modules:Map<String, String> = [

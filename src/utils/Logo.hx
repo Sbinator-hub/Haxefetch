@@ -10,56 +10,64 @@ using StringTools;
 
 class Logo {
     public static function fetchLogo(distroName:String, size:String = "normal", overrideLogo:String = "", customColor:String = "", customColor2:String = "", customColor3:String = "", customColor4:String = ""):Array<String> {
+        var activeLogo = (overrideLogo != null && overrideLogo != "") ? overrideLogo : distroName;
+        var lowActive = activeLogo != null ? StringTools.trim(activeLogo.toLowerCase()) : "";
+
+        if (lowActive == "none" || lowActive == "off") {
+            return [];
+        }
+
         var raw:String = null;
-        
-        var resolve = resolvePath(overrideLogo);
-        if (resolve != "" && FileSystem.exists(resolve)) {
+        var resolvedPath = resolvePath(overrideLogo);
+
+        if (resolvedPath != "" && FileSystem.exists(resolvedPath) && !FileSystem.isDirectory(resolvedPath)) {
             try {
-                raw = File.getContent(resolve);
-            } catch (e:Dynamic) {}
+                raw = File.getContent(resolvedPath);
+            } catch (e:Dynamic) {
+                raw = null;
+            }
         }
 
         if (raw == null) {
-            var logo = (overrideLogo != "") ? overrideLogo : distroName;
-            var low = logo.toLowerCase();
-            var key = fetchDistro(low);
-
+            var key = fetchDistro(lowActive);
             if (key != null) {
-                var small = (size.toLowerCase() == "small");
+                var small = (size != null && size.toLowerCase() == "small");
                 var resourceKey = small ? '${key}_small' : key;
 
                 raw = Resource.getString(resourceKey);
-                if (raw == null && small) raw = Resource.getString(key);
+                if (raw == null && small) {
+                    raw = Resource.getString(key);
+                }
             }
         }
 
         if (raw != null) {
-            var color = fetchColor((overrideLogo != "") ? overrideLogo : distroName);
-            var custom = (customColor != null && customColor != "") ? customColor : color.primary; 
+            var color = fetchColor(lowActive);
+            var custom = (customColor != null && customColor != "") ? customColor : color.primary;
             var custom2 = (customColor2 != null && customColor2 != "") ? customColor2 : color.secondary;
             var custom3 = (customColor3 != null && customColor3 != "") ? customColor3 : color.third;
             var custom4 = (customColor4 != null && customColor4 != "") ? customColor4 : color.fourth;
-            var txt = StringTools.replace(raw, "\r\n", "\n");
 
+            var txt = StringTools.replace(raw, "\r\n", "\n");
             if (txt.indexOf("$1") != -1) {
                 txt = StringTools.replace(txt, "$1", custom);
                 txt = StringTools.replace(txt, "$2", custom2);
                 txt = StringTools.replace(txt, "$3", custom3);
                 txt = StringTools.replace(txt, "$4", custom4);
-                
-                var lines = txt.split("\n");
-                var colorredLine:Array<String> = [];
-
-                for (line in lines) {
-                    var format = line;
-                    if (format.indexOf("\033") == 1) {
-                        format = custom + format;
-                    }
-                    colorredLine.push(format + Colors.RESET);
-                }
-
-                return colorredLine;
             }
+
+            var lines = txt.split("\n");
+            var coloredLines:Array<String> = [];
+
+            for (line in lines) {
+                var formatted = line;
+                if (StringTools.startsWith(formatted, "\033")) {
+                    formatted = custom + formatted;
+                }
+                coloredLines.push(formatted + Colors.RESET);
+            }
+
+            return coloredLines;
         }
 
         return fetchTux();
@@ -70,13 +78,13 @@ class Logo {
             case _ if (low.contains("aerynos") ): return "aeryn";
             case _ if (low.contains("alpine") ): return "alpine";
             case _ if (low.contains("arco") ): return "arco";
-            case _ if (low.contains("tonarchy") ): return "tonarchy"; // Tony Banters my beloved guy
+            case _ if (low.contains("tonarchy") ): return "tonarchy";
             case _ if (low.contains("parch") ): return "parch";
             case _ if (low.contains("arch") ): return "arch";
             case _ if (low.contains("artix") ): return "artix";
             case _ if (low.contains("bazzite") ): return "bazzite";
             case _ if (low.contains("cachyos") ): return "cachy";
-            case _ if (low.contains("chimera")): return "chimera"; 
+            case _ if (low.contains("chimera")): return "chimera";
             case _ if (low.contains("devuan") ): return "devuan";
             case _ if (low.contains("debian") ): return "debian";
             case _ if (low.contains("endeavouros") ): return "endeavour";
@@ -107,7 +115,7 @@ class Logo {
             case _ if (low.contains("rocky") ): return "rocky";
             case _ if (low.contains("prismlinux") ): return "prism";
             case _ if (low.contains("slackware") ): return "slack";
-            case _ if (low.contains("solus") ): return "solus"; 
+            case _ if (low.contains("solus") ): return "solus";
             case _ if (low.contains("steamos") ): return "steam";
             case _ if (low.contains("zorin") ): return "zorin";
             case _ if (low.contains("lubuntu") ): return "lubuntu";
@@ -163,10 +171,10 @@ class Logo {
         if (s.contains("suse") ) return { primary: Colors.fg(28), secondary: Colors.fg(28), third: Colors.WHITE, fourth: Colors.WHITE };
         if (s.contains("steamos") ) return { primary: Colors.fg(27), secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
         if (s.contains("solus") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
-        if (s.contains("tonarchy") ) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE }; // Tony Banters my beloved guy
+        if (s.contains("tonarchy") ) return { primary: Colors.GREEN, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
         if (s.contains("ultramarine") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
         if (s.contains("void") ) return { primary: Colors.COLOR_22, secondary: Colors.WHITE, third: Colors.COLOR_22, fourth: Colors.WHITE };
-        if (s.contains("vylen") ) return { primary: Colors.GREEN, secondary: Colors.GREEN, third: Colors.WHITE, fourth: Colors.WHITE }; 
+        if (s.contains("vylen") ) return { primary: Colors.GREEN, secondary: Colors.GREEN, third: Colors.WHITE, fourth: Colors.WHITE };
         if (s.contains("zorin") ) return { primary: Colors.BLUE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
 
         return { primary: Colors.WHITE, secondary: Colors.WHITE, third: Colors.WHITE, fourth: Colors.WHITE };
@@ -186,7 +194,7 @@ class Logo {
 
     static macro function embedLogo(filePath:String):Expr {
         if (!FileSystem.exists(filePath)) return Context.parse("[]", Context.currentPos());
-        
+
         var content = File.getContent(filePath);
         var lines = content.split("\n");
 
@@ -197,16 +205,16 @@ class Logo {
         if (path == null || path == "") return "";
 
         var cleanPath = StringTools.trim(path);
-        if ((StringTools.startsWith(cleanPath, "'") && StringTools.endsWith(cleanPath, "'")) || (StringTools.startsWith(cleanPath, '"') &&  StringTools.endsWith(cleanPath, '"'))) {
-            cleanPath = cleanPath.substring(1, cleanPath.length -1);
+        if ((StringTools.startsWith(cleanPath, "'") && StringTools.endsWith(cleanPath, "'")) || (StringTools.startsWith(cleanPath, '"') && StringTools.endsWith(cleanPath, '"'))) {
+            cleanPath = cleanPath.substring(1, cleanPath.length - 1);
         }
 
         if (StringTools.startsWith(cleanPath, "~")) {
             var home = Sys.getEnv("HOME");
             if (home != null && home != "") {
-                return home + path.substr(1);
+                return home + cleanPath.substr(1);
             }
         }
-        return path;
+        return cleanPath;
     }
 }
